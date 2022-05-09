@@ -35,6 +35,9 @@ Görev yönetimi Trello üzerinden yürütülmektedir.\
   ![Backlog 3](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/cigdemnurozbay-projectmanagement/Project%20Management/ProductBacklog3.png)
   ![Backlog 4](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/cigdemnurozbay-projectmanagement/Project%20Management/ProductBacklog4.png)
 
+Ürün Backlog'ları için toplam 141 puan belirlendi. İlk sprintte bunların toplam 28 puanı tamamlandı.\
+Mevcut Burndown Chart için: [Sprint1 Burnown Chart](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/Project%20Management/Team01_BurndownChartSp1.xlsx)
+
 ---
 
 # Sprint 1
