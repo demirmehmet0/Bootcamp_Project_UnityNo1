@@ -29,6 +29,9 @@ Müzik ve sesler oynatıp dünya haritası üstünden nereye ait olduklarını b
 
 # Product Backlog
 Görev yönetimi Trello üzerinden yürütülmektedir.\
+[Trello katılım linki](https://trello.com/invite/b/RPMgE7Mm/1f29d3ec6b6802a52aa31b651cce30ff/soundsofearth)
+
+
   ![Backlog 1](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/cigdemnurozbay-projectmanagement/Project%20Management/ProductBacklog1.png)
   ![Backlog 2](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/cigdemnurozbay-projectmanagement/Project%20Management/ProductBacklog2.png)
   
