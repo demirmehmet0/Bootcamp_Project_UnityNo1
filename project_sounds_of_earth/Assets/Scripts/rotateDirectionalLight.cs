@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class rotateDirectionalLight : MonoBehaviour
 {
-    private float rotationMultiplier = 0.15f;
+    private float rotationMultiplier = 20f;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +14,6 @@ public class rotateDirectionalLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.right * rotationMultiplier);
+        transform.Rotate(Vector3.right * rotationMultiplier * Time.deltaTime);
     }
 }
