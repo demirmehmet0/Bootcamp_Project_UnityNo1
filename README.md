@@ -15,7 +15,10 @@ Yağmur Kaya: Artist + Developer\
 
 # Product Name 
 Sounds of Earth? (Not Final)
-
+- **Ürün Durumu**: Ekran görüntüleri:
+  ![Screenshot 1](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/cigdemnurozbay-projectmanagement/productss1.jpeg)
+  ![Screenshot 2](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/cigdemnurozbay-projectmanagement/productss2.jpeg)
+  
 # Far vision
 Müzik ve sesler oynatıp dünya haritası üstünden nereye ait olduklarını bilmeniz gereken bir trivia oyunu
 
