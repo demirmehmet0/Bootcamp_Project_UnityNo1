@@ -6,13 +6,18 @@ using UnityEngine;
 public class selectCountries : MonoBehaviour
 {
     countryFinder _countryfinder;
-    bool _listShown = false;
     bool inSelectionPhase = true;
     string selectedCountryName = null;
     string country1name = null;
     string country2name = null;
     string country3name = null;
     private string tempCountry;
+    int radiusOfEarth = 20;
+    Vector3 countryVector1 = new Vector3(0, 0, 0);
+    Vector3 countryVector2 = new Vector3(0, 0, 0);
+    Vector3 countryVector3 = new Vector3(0, 0, 0);
+    Vector3 countryVector4 = new Vector3(0, 0, 0);
+    Vector3 middleVector = new Vector3(0, 0, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -26,23 +31,38 @@ public class selectCountries : MonoBehaviour
         if (inSelectionPhase)
         {
             changeSelectedCountryName();
-            delistSelectedCountry();
             selectRemainingCountries();
+            enableMeshForSelected();
+            findMiddleVector();
             inSelectionPhase = false;
+            //showCountryList();
         }
        
+    }
+
+    void enableMeshForSelected()
+    {
+        transform.Find((string)selectedCountryName).GetComponent<MeshRenderer>().enabled = true;
+        transform.Find((string)country1name).GetComponent<MeshRenderer>().enabled = true;
+        transform.Find((string)country2name).GetComponent<MeshRenderer>().enabled = true;
+        transform.Find((string)country3name).GetComponent<MeshRenderer>().enabled = true;
+    }
+
+    void findMiddleVector()
+    {
+        countryVector1 = transform.Find((string)selectedCountryName).GetComponent<Transform>().position;
+        countryVector2 = transform.Find((string)country1name).GetComponent<Transform>().position;
+        countryVector3 = transform.Find((string)country2name).GetComponent<Transform>().position;
+        countryVector4 = transform.Find((string)country3name).GetComponent<Transform>().position;
+        middleVector = (countryVector1 + countryVector2 + countryVector3 + countryVector4).normalized * radiusOfEarth;
+        // Debug.Log(middleVector);
+
     }
 
     void changeSelectedCountryName()
     {
         selectedCountryName = "Algeria"; // Normalde bu metod içinde baþka bir scriptten gelecek seçilmiþ ülke verisine eþlenecek;
-    }
-
-
-    void delistSelectedCountry()
-    {
         _countryfinder.countryList.Remove(selectedCountryName);
-        showCountryList();
     }
 
 
@@ -53,7 +73,7 @@ public class selectCountries : MonoBehaviour
         country2name = (string)_countryfinder.countryList[2];
         country3name = (string)_countryfinder.countryList[3];
 
-        //Debug.Log("Country1: " + country1name + "Country2: " + country2name + "Country3 : " + country3name);
+        // Debug.Log("Country1: " + country1name + " Country2: " + country2name + " Country3 : " + country3name);
     }
 
     public void ShuffleCountryList()
@@ -70,14 +90,9 @@ public class selectCountries : MonoBehaviour
     //tamamen debug amaçlarýyla yaptýðým bir fonksiyon. Diðer scriptten aldýðým veriyi doðru aldým mý kontrol etmek için yazdýrýyorum.
     void showCountryList()
     {
-        if (!_listShown)
-        {
             foreach (string value in _countryfinder.countryList)
             {
                 print(value);
             }
-
-            _listShown = true;
-        }
     }
 }
