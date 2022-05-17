@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class countryFinder : MonoBehaviour
 {
-    public ArrayList countryList = new ArrayList();    
+    public ArrayList countryList = new ArrayList();
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -27,10 +28,10 @@ public class countryFinder : MonoBehaviour
         }
         else
         {
-            Debug.Log(collision.gameObject.name);
+            //Debug.Log(collision.gameObject.name);
             countryList.Add(collision.gameObject.name);
         }
-       
+
     }
     //{
     // Debug.Log(collision.gameObject.name);
