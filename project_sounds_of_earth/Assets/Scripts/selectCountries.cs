@@ -17,7 +17,7 @@ public class selectCountries : MonoBehaviour
     Vector3 countryVector2 = new Vector3(0, 0, 0);
     Vector3 countryVector3 = new Vector3(0, 0, 0);
     Vector3 countryVector4 = new Vector3(0, 0, 0);
-    Vector3 middleVector = new Vector3(0, 0, 0);
+    public Vector3 middleVector = new Vector3(0, 0, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +56,6 @@ public class selectCountries : MonoBehaviour
         countryVector4 = transform.Find((string)country3name).GetComponent<Transform>().position;
         middleVector = (countryVector1 + countryVector2 + countryVector3 + countryVector4).normalized * radiusOfEarth;
         // Debug.Log(middleVector);
-
     }
 
     void changeSelectedCountryName()
