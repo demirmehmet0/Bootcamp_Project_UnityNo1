@@ -10,8 +10,14 @@ public class CameraMovement : MonoBehaviour
     Vector3 endPosRotation = new Vector3(0, 0, 0);
     Vector3 focalPoint = new Vector3(0, 0, 0);
     Vector3 earthOrigin = new Vector3(0, 0, 0);
+
+    //oyunun baþlangýç ekranýndaki pozisyonlar için
+    Vector3 startScreenInitialPos = new Vector3(80, 12, 0);
+
+
     float cameraDistanceMultiplier = 3;
-     selectCountries _selectCountries;
+    selectCountries _selectCountries;
+    gameManager gameManager;
 
     public float rotSpeed = 3;
     private float minimum = 0.1f;
@@ -31,21 +37,40 @@ public class CameraMovement : MonoBehaviour
     void Start()
     {
         _selectCountries = GameObject.Find("CountryMarkers").GetComponent<selectCountries>();
+        gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+
+
+    private void FixedUpdate()
     {
-        
+        if (!gameManager._isGameActive)
+        {
+            startScreenGetToInitialPose();
+
+        }
+
+        if (gameManager._isGameActive)
+        {
+            // changeCameraPositionforTheNextQuestions();//þu an Lateupdate'de ama normalde soru geçme kondisyon karþýlanýnca aktive olacak
+            SetRandomValuesforIdleCameraMovement();
+            idleCameraMovement(randAmpX, randAmpY, randAmpZ, randPhasorX, randPhasorY, randPhasorZ);
+
+        }
+       
+       
     }
 
-    private void LateUpdate()
+    void startScreenGetToInitialPose()
     {
+        if (transform.position != startScreenInitialPos)
+        {
+            float lerpInterpolationRatio = (float)elapsedFrames / interPolationFramesCount;
+            transform.position = Vector3.Lerp(transform.position, startScreenInitialPos, Mathf.SmoothStep(0.0f, 1.0f, lerpInterpolationRatio));
+            elapsedFrames = (elapsedFrames + 1) % (interPolationFramesCount + 1);
+        }
 
-
-        // changeCameraPositionforTheNextQuestions();//þu an Lateupdate'de ama normalde soru geçme kondisyon karþýlanýnca aktive olacak
-        SetRandomValuesforIdleCameraMovement();
-        idleCameraMovement(randAmpX, randAmpY, randAmpZ, randPhasorX, randPhasorY, randPhasorZ);
     }
 
     void changeCameraPositionforTheNextQuestions()
@@ -93,6 +118,8 @@ public class CameraMovement : MonoBehaviour
             randPhasorY = GetRandomPhasor();
             randPhasorZ = GetRandomPhasor();
             randomIdleNumbersSet = true;
+            //randomAmp'leri 125 ile çarpýnca çok güzel bi dönüþ animasyonu oluþuyor.
+            Debug.Log("X amp:" + randAmpX + " Y amp: " + randAmpY + " Z amp: " + randAmpZ);
         }
 
     }

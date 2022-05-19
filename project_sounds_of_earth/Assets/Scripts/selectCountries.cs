@@ -6,6 +6,7 @@ using UnityEngine;
 public class selectCountries : MonoBehaviour
 {
     countryFinder _countryfinder;
+    gameManager gameManager;
     bool inSelectionPhase = true;
     string selectedCountryName = null;
     string country1name = null;
@@ -23,12 +24,14 @@ public class selectCountries : MonoBehaviour
     void Start()
     {
         _countryfinder = GameObject.FindGameObjectWithTag("countryFinder").GetComponent<countryFinder>();
+        gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (inSelectionPhase)
+
+        if (gameManager._isGameActive && inSelectionPhase)
         {
             changeSelectedCountryName();
             selectRemainingCountries();
