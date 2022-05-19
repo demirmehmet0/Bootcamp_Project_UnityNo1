@@ -49,6 +49,10 @@ public class selectCountries : MonoBehaviour
         transform.Find((string)country1name).GetComponent<MeshRenderer>().enabled = true;
         transform.Find((string)country2name).GetComponent<MeshRenderer>().enabled = true;
         transform.Find((string)country3name).GetComponent<MeshRenderer>().enabled = true;
+        transform.Find((string)selectedCountryName).GetComponent<countryMarkerBehaviour>().enabled = true;
+        transform.Find((string)country1name).GetComponent<countryMarkerBehaviour>().enabled = true;
+        transform.Find((string)country2name).GetComponent<countryMarkerBehaviour>().enabled = true;
+        transform.Find((string)country3name).GetComponent<countryMarkerBehaviour>().enabled = true;
     }
 
     void findMiddleVector()
