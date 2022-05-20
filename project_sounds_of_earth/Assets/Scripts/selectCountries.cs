@@ -32,7 +32,7 @@ public class selectCountries : MonoBehaviour
     void Update()
     {
 
-        if (!gameManager._isGameActive && inSelectionPhase)
+        if (gameManager._isGameActive && inSelectionPhase)
         {
             changeSelectedCountryName();
             if(_countryfinder.countryList.Count >= 1)
@@ -45,7 +45,7 @@ public class selectCountries : MonoBehaviour
             
             
         }
-        showCountryList();
+       // showCountryList();
     }
 
     void enableMeshForSelected()
@@ -77,11 +77,11 @@ public class selectCountries : MonoBehaviour
             countryVector1 = transform.Find((string)selectedCountryName).GetComponent<Transform>().position;
             if(Random.Range(1,3) % 2 == 0)
             {
-                _countryfinder.transform.position = countryVector1 + new Vector3(Random.Range(1, 3), Random.Range(2, 10), Random.Range(1, 3));
+                _countryfinder.transform.position = countryVector1 + new Vector3(Random.Range(2, 5), Random.Range(2, 10), Random.Range(2, 5));
                
             }else
             {
-                _countryfinder.transform.position = countryVector1 + new Vector3(Random.Range(-3, -1), Random.Range(-10, -2), Random.Range(-3, -1));
+                _countryfinder.transform.position = countryVector1 + new Vector3(Random.Range(-5, -2), Random.Range(-10, -2), Random.Range(-5, -2));
             }
             finderLocSet = true;
            // Debug.Log("CountryFinderLOc: " + _countryfinder.transform.position);
@@ -101,10 +101,11 @@ public class selectCountries : MonoBehaviour
             country2name = (string)_countryfinder.countryList[2];
             country3name = (string)_countryfinder.countryList[3];
             //Debug.Log("Country1: " + country1name + " Country2: " + country2name + " Country3 : " + country3name);
-        }
-      
 
-        
+            //[BURASI GELÝÞTÝRÝLÝP EDGE CASE'LEER DÜÞÜNÜLMELÝ. EÐER ÇEVREDEKÝ HÝÇBÝR ÜLKE HÝÇBÝ DÝL ÝLE ENDEKSLENMEDÝYSE 4 ÞIK DEÐÝL DAHA AZ ÇIKARTABÝLÝR.
+            //KESÝNLÝKLE BUG ÇIKARTABÝLECEK BÝR UNSUR OLARAK DÜÞÜNÜLMELÝ.
+        }
+
     }
 
     public void ShuffleCountryList()
