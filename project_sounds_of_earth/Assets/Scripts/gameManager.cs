@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class gameManager : MonoBehaviour
 {
-    public bool _isGameActive = false;
+    public bool _isGameActive = true;
     public float playerScore = 0;
     float questionTimer = 10;
 
     private void Start()
     {
-        if (_isGameActive)
-         transform.Find("EarthModelv1").GetComponent<SpinFree>().enabled = false;
+      
  
     }
 

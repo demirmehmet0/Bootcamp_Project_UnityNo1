@@ -7,15 +7,13 @@ public class CameraMovement : MonoBehaviour
     private int interPolationFramesCount = 120;
     int elapsedFrames = 0;
     Vector3 endPosition = new Vector3(0, 0, 0);
-    Vector3 endPosRotation = new Vector3(0, 0, 0);
     Vector3 focalPoint = new Vector3(0, 0, 0);
-    Vector3 earthOrigin = new Vector3(0, 0, 0);
 
     //oyunun baþlangýç ekranýndaki pozisyonlar için
     Vector3 startScreenInitialPos = new Vector3(80, 12, 0);
 
 
-    float cameraDistanceMultiplier = 3.9f;
+    float cameraDistanceMultiplier = 4;
     selectCountries _selectCountries;
     gameManager gameManager;
 
@@ -45,21 +43,20 @@ public class CameraMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (gameManager._isGameActive)
+        if (!gameManager._isGameActive)
         {
             startScreenGetToInitialPose();
 
         }
 
-        if (!gameManager._isGameActive)
+        if (gameManager._isGameActive)
         {
             changeCameraPositionforTheNextQuestions();//þu an Lateupdate'de ama normalde soru geçme kondisyon karþýlanýnca aktive olacak
            // SetRandomValuesforIdleCameraMovement();
             //idleCameraMovement(randAmpX, randAmpY, randAmpZ, randPhasorX, randPhasorY, randPhasorZ);
 
         }
-       
-       
+
     }
 
     void startScreenGetToInitialPose()
@@ -78,6 +75,8 @@ public class CameraMovement : MonoBehaviour
         
         if (transform.position != endPosition)
         {
+            calculateCameraDistanceMultiplier();
+            //Debug.Log("Camera Distance Multiplier: " + cameraDistanceMultiplier);
             focalPoint = _selectCountries.middleVector;
             endPosition = focalPoint * cameraDistanceMultiplier;//camera disctance multiplier "countryFinder" collider'ýnýn büyüklüðüne göre kondisyon alacak. 
             transform.LookAt(focalPoint);
@@ -132,5 +131,20 @@ public class CameraMovement : MonoBehaviour
     float GetRandomPhasor()
     {
         return Random.Range(0, 6.28f);
+    }
+
+    void calculateCameraDistanceMultiplier()
+    {
+        if (_selectCountries.magnitudeOfcombinationVector > 78)
+        {
+            cameraDistanceMultiplier = 2;
+        } else if (_selectCountries.magnitudeOfcombinationVector <=78 && _selectCountries.magnitudeOfcombinationVector >= 68)
+        { //78'le 68 arasýný 2 ve 4 arasý bir sayýya eþleyen denklem
+            cameraDistanceMultiplier = 15.5f * (68/_selectCountries.magnitudeOfcombinationVector) - 11.5f ; 
+        } 
+        else
+        {
+            cameraDistanceMultiplier = 4;
+        }
     }
 }

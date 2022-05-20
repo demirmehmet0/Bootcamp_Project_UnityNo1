@@ -12,6 +12,7 @@ public class selectCountries : MonoBehaviour
     string country1name = null;
     string country2name = null;
     string country3name = null;
+    public float magnitudeOfcombinationVector = 0;
     private string tempCountry;
     int radiusOfEarth = 20;
     Vector3 countryVector1 = new Vector3(0, 0, 0);
@@ -31,16 +32,14 @@ public class selectCountries : MonoBehaviour
     void Update()
     {
 
-        if (!gameManager._isGameActive && inSelectionPhase)
+        if (gameManager._isGameActive && inSelectionPhase)
         {
            
             changeSelectedCountryName();
-            showCountryList();
+            //showCountryList();
             if (_countryfinder.countryList.Count <= 4)
-            {
-               // _countryfinder.countryList.Clear();
                 SetCountryFinderLocation();
-            }
+            
                
             if (_countryfinder.countryList.Count > 4)
             {
@@ -52,7 +51,7 @@ public class selectCountries : MonoBehaviour
             
             
         }
-        showCountryList();
+       // showCountryList();
     }
 
     void enableMeshForSelected()
@@ -72,13 +71,16 @@ public class selectCountries : MonoBehaviour
         countryVector2 = transform.Find((string)country1name).GetComponent<Transform>().position;
         countryVector3 = transform.Find((string)country2name).GetComponent<Transform>().position;
         countryVector4 = transform.Find((string)country3name).GetComponent<Transform>().position;
+        magnitudeOfcombinationVector = (countryVector1 + countryVector2 + countryVector3 + countryVector4).magnitude; //for camera distance calculation
+        // Debug.Log("magnitude of combination vector: " + magnitudeOfcombinationVector);
         middleVector = (countryVector1 + countryVector2 + countryVector3 + countryVector4).normalized * radiusOfEarth;
+        
         // Debug.Log(middleVector);
     }
 
     void changeSelectedCountryName()
     {  
-            selectedCountryName = "Turkey"; // Normalde bu metod içinde baþka bir scriptten gelecek seçilmiþ ülke verisine eþlenecek;
+            selectedCountryName = "Germany"; // Normalde bu metod içinde baþka bir scriptten gelecek seçilmiþ ülke verisine eþlenecek;
             countryVector1 = transform.Find((string)selectedCountryName).GetComponent<Transform>().position;   
     }
 
@@ -107,9 +109,6 @@ public class selectCountries : MonoBehaviour
             country2name = (string)_countryfinder.countryList[2];
             country3name = (string)_countryfinder.countryList[3];
             //Debug.Log("Country1: " + country1name + " Country2: " + country2name + " Country3 : " + country3name);
-
-            //[BURASI GELÝÞTÝRÝLÝP EDGE CASE'LEER DÜÞÜNÜLMELÝ. EÐER ÇEVREDEKÝ HÝÇBÝR ÜLKE HÝÇBÝ DÝL ÝLE ENDEKSLENMEDÝYSE 4 ÞIK DEÐÝL DAHA AZ ÇIKARTABÝLÝR.
-            //KESÝNLÝKLE BUG ÇIKARTABÝLECEK BÝR UNSUR OLARAK DÜÞÜNÜLMELÝ.
 
     }
 
