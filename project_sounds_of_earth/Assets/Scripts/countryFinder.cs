@@ -18,6 +18,11 @@ public class countryFinder : MonoBehaviour
         
     }
 
+    void ListCleaner()
+    {
+        countryList.Clear();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
        
@@ -28,14 +33,12 @@ public class countryFinder : MonoBehaviour
         }
         else
         {
-            //Debug.Log(collision.gameObject.name);
+           // Debug.Log(collision.gameObject.name);
             countryList.Add(collision.gameObject.name);
         }
 
     }
-    //{
-    // Debug.Log(collision.gameObject.name);
-    // }
+ 
 
 
 }

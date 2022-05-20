@@ -45,17 +45,17 @@ public class CameraMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!gameManager._isGameActive)
+        if (gameManager._isGameActive)
         {
             startScreenGetToInitialPose();
 
         }
 
-        if (gameManager._isGameActive)
+        if (!gameManager._isGameActive)
         {
-            // changeCameraPositionforTheNextQuestions();//þu an Lateupdate'de ama normalde soru geçme kondisyon karþýlanýnca aktive olacak
-            SetRandomValuesforIdleCameraMovement();
-            idleCameraMovement(randAmpX, randAmpY, randAmpZ, randPhasorX, randPhasorY, randPhasorZ);
+            changeCameraPositionforTheNextQuestions();//þu an Lateupdate'de ama normalde soru geçme kondisyon karþýlanýnca aktive olacak
+           // SetRandomValuesforIdleCameraMovement();
+            //idleCameraMovement(randAmpX, randAmpY, randAmpZ, randPhasorX, randPhasorY, randPhasorZ);
 
         }
        
