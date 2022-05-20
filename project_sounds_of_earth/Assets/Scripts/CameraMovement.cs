@@ -15,7 +15,7 @@ public class CameraMovement : MonoBehaviour
     Vector3 startScreenInitialPos = new Vector3(80, 12, 0);
 
 
-    float cameraDistanceMultiplier = 3;
+    float cameraDistanceMultiplier = 3.9f;
     selectCountries _selectCountries;
     gameManager gameManager;
 
@@ -45,13 +45,13 @@ public class CameraMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!gameManager._isGameActive)
+        if (gameManager._isGameActive)
         {
             startScreenGetToInitialPose();
 
         }
 
-        if (gameManager._isGameActive)
+        if (!gameManager._isGameActive)
         {
             changeCameraPositionforTheNextQuestions();//þu an Lateupdate'de ama normalde soru geçme kondisyon karþýlanýnca aktive olacak
            // SetRandomValuesforIdleCameraMovement();

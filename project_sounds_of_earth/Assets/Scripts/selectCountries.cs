@@ -8,7 +8,6 @@ public class selectCountries : MonoBehaviour
     countryFinder _countryfinder;
     gameManager gameManager;
     bool inSelectionPhase = true;
-    bool finderLocSet = false;
     string selectedCountryName = null;
     string country1name = null;
     string country2name = null;
@@ -32,10 +31,18 @@ public class selectCountries : MonoBehaviour
     void Update()
     {
 
-        if (gameManager._isGameActive && inSelectionPhase)
+        if (!gameManager._isGameActive && inSelectionPhase)
         {
+           
             changeSelectedCountryName();
-            if(_countryfinder.countryList.Count >= 1)
+            showCountryList();
+            if (_countryfinder.countryList.Count <= 4)
+            {
+               // _countryfinder.countryList.Clear();
+                SetCountryFinderLocation();
+            }
+               
+            if (_countryfinder.countryList.Count > 4)
             {
                 selectRemainingCountries();
                 enableMeshForSelected();
@@ -45,7 +52,7 @@ public class selectCountries : MonoBehaviour
             
             
         }
-       // showCountryList();
+        showCountryList();
     }
 
     void enableMeshForSelected()
@@ -70,31 +77,30 @@ public class selectCountries : MonoBehaviour
     }
 
     void changeSelectedCountryName()
+    {  
+            selectedCountryName = "Turkey"; // Normalde bu metod içinde baþka bir scriptten gelecek seçilmiþ ülke verisine eþlenecek;
+            countryVector1 = transform.Find((string)selectedCountryName).GetComponent<Transform>().position;   
+    }
+
+    void SetCountryFinderLocation()
     {
-        if (!finderLocSet)
+        if (Random.Range(1, 3) % 2 == 0)
         {
-            selectedCountryName = "Germany"; // Normalde bu metod içinde baþka bir scriptten gelecek seçilmiþ ülke verisine eþlenecek;
-            countryVector1 = transform.Find((string)selectedCountryName).GetComponent<Transform>().position;
-            if(Random.Range(1,3) % 2 == 0)
-            {
-                _countryfinder.transform.position = countryVector1 + new Vector3(Random.Range(2, 5), Random.Range(2, 10), Random.Range(2, 5));
-               
-            }else
-            {
-                _countryfinder.transform.position = countryVector1 + new Vector3(Random.Range(-5, -2), Random.Range(-10, -2), Random.Range(-5, -2));
-            }
-            finderLocSet = true;
-           // Debug.Log("CountryFinderLOc: " + _countryfinder.transform.position);
+            _countryfinder.transform.position = countryVector1 + new Vector3(Random.Range(2, 5), Random.Range(2, 10), Random.Range(2, 5));
+
         }
+        else
+        {
+            _countryfinder.transform.position = countryVector1 + new Vector3(Random.Range(-5, -2), Random.Range(-10, -2), Random.Range(-5, -2));
+        }
+        // Debug.Log("CountryFinderLOc: " + _countryfinder.transform.position);
         
-       // selectRemainingCountries();
     }
 
    
     void selectRemainingCountries()
     {
-        if(_countryfinder.countryList.Count >= 1)
-        {
+       
             _countryfinder.countryList.Remove(selectedCountryName);
             ShuffleCountryList();
             country1name = (string)_countryfinder.countryList[1];
@@ -104,7 +110,6 @@ public class selectCountries : MonoBehaviour
 
             //[BURASI GELÝÞTÝRÝLÝP EDGE CASE'LEER DÜÞÜNÜLMELÝ. EÐER ÇEVREDEKÝ HÝÇBÝR ÜLKE HÝÇBÝ DÝL ÝLE ENDEKSLENMEDÝYSE 4 ÞIK DEÐÝL DAHA AZ ÇIKARTABÝLÝR.
             //KESÝNLÝKLE BUG ÇIKARTABÝLECEK BÝR UNSUR OLARAK DÜÞÜNÜLMELÝ.
-        }
 
     }
 
