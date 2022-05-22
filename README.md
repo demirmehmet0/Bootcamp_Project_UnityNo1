@@ -90,6 +90,12 @@ Hüseyin Tayyip Altay
 # Sprint 2
 
 
+
+Prototipleme aşamasından video: https://www.youtube.com/watch?v=_9DQOPN_9Ms
+
+
+
+
 ---
 
 # Sprint 3

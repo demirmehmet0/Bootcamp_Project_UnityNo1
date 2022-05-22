@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    private int interPolationFramesCount = 120;
+    private int interPolationFramesCount = 5000;
     int elapsedFrames = 0;
     Vector3 endPosition = new Vector3(0, 0, 0);
     Vector3 focalPoint = new Vector3(0, 0, 0);
@@ -23,7 +23,7 @@ public class CameraMovement : MonoBehaviour
     private float maximum = 0.5f;
     private float yPos;
     private float bounceSpeed = 3;
-    bool randomIdleNumbersSet = false;
+    public bool randomIdleNumbersSet = false;
 
     float randAmpX = 1;
     float randAmpY = 1;
@@ -53,8 +53,8 @@ public class CameraMovement : MonoBehaviour
         if (gameManager._isGameActive)
         {
             changeCameraPositionforTheNextQuestions();//þu an Lateupdate'de ama normalde soru geçme kondisyon karþýlanýnca aktive olacak
-           // SetRandomValuesforIdleCameraMovement();
-            //idleCameraMovement(randAmpX, randAmpY, randAmpZ, randPhasorX, randPhasorY, randPhasorZ);
+            SetRandomValuesforIdleCameraMovement();
+            idleCameraMovement(randAmpX, randAmpY, randAmpZ, randPhasorX, randPhasorY, randPhasorZ);
 
         }
 
@@ -75,13 +75,14 @@ public class CameraMovement : MonoBehaviour
 
     void changeCameraPositionforTheNextQuestions()
     {
-        
+       // transform.LookAt(focalPoint);
+        calculateCameraDistanceMultiplier();
+        focalPoint = _selectCountries.middleVector;
+        endPosition = focalPoint * cameraDistanceMultiplier;
+        //Debug.Log("Camera Distance Multiplier: " + cameraDistanceMultiplier);
+
         if (transform.position != endPosition)
         {
-            calculateCameraDistanceMultiplier();
-            //Debug.Log("Camera Distance Multiplier: " + cameraDistanceMultiplier);
-            focalPoint = _selectCountries.middleVector;
-            endPosition = focalPoint * cameraDistanceMultiplier;//camera disctance multiplier "countryFinder" collider'ýnýn büyüklüðüne göre kondisyon alacak. 
             transform.LookAt(focalPoint);
             float lerpInterpolationRatio = (float)elapsedFrames / interPolationFramesCount;
             transform.position = Vector3.Lerp(transform.position, endPosition, Mathf.SmoothStep(0.0f, 1.0f, lerpInterpolationRatio));

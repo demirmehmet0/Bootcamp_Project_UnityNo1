@@ -9,12 +9,15 @@ public class uiHandler : MonoBehaviour
 {
     gameManager gameManager;
     selectCountries _selectCountries;
+    CameraMovement cameraMovement;
+   
     public GameObject StartScreen;
     public GameObject playModeUi;
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
         _selectCountries = GameObject.Find("CountryMarkers").GetComponent<selectCountries>();
+        cameraMovement = GameObject.Find("Main Camera").GetComponent<CameraMovement>();
     }
 
     // Update is called once per frame
@@ -49,6 +52,7 @@ public class uiHandler : MonoBehaviour
     {
         _selectCountries.disableMeshAndScriptForSelected();
         _selectCountries.inSelectionPhase = true;
+        cameraMovement.randomIdleNumbersSet = false;
     }
 
     public void ExitGame()
