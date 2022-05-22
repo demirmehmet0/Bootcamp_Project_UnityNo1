@@ -7,7 +7,7 @@ public class selectCountries : MonoBehaviour
 {
     countryFinder _countryfinder;
     gameManager gameManager;
-    bool inSelectionPhase = true;
+    public bool inSelectionPhase = true;
     string selectedCountryName = null;
     string country1name = null;
     string country2name = null;
@@ -44,7 +44,7 @@ public class selectCountries : MonoBehaviour
             if (_countryfinder.countryList.Count > 4)
             {
                 selectRemainingCountries();
-                enableMeshForSelected();
+                enableMeshAndScriptForSelected();
                 findMiddleVector();
                 inSelectionPhase = false;
             }
@@ -54,7 +54,7 @@ public class selectCountries : MonoBehaviour
        // showCountryList();
     }
 
-    void enableMeshForSelected()
+    void enableMeshAndScriptForSelected()
     {
         transform.Find((string)selectedCountryName).GetComponent<MeshRenderer>().enabled = true;
         transform.Find((string)country1name).GetComponent<MeshRenderer>().enabled = true;
@@ -108,7 +108,8 @@ public class selectCountries : MonoBehaviour
             country1name = (string)_countryfinder.countryList[1];
             country2name = (string)_countryfinder.countryList[2];
             country3name = (string)_countryfinder.countryList[3];
-            //Debug.Log("Country1: " + country1name + " Country2: " + country2name + " Country3 : " + country3name);
+
+        //Debug.Log("Country1: " + country1name + " Country2: " + country2name + " Country3 : " + country3name);
 
     }
 

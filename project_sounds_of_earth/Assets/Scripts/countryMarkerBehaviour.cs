@@ -97,7 +97,7 @@ public class countryMarkerBehaviour : MonoBehaviour
 
         localScaleUpperbound = endingScale.x -0.01f;
 
-        Debug.Log("Magnitude of comb vector: "+ _selectCountries.magnitudeOfcombinationVector+ "ending scale: " + endingScale + " localScaleBOund: " + localScaleUpperbound) ;
+        //Debug.Log("Magnitude of comb vector: "+ _selectCountries.magnitudeOfcombinationVector+ "ending scale: " + endingScale + " localScaleBOund: " + localScaleUpperbound) ;
 
         _newScaleSizeCalculated = true;
     }
