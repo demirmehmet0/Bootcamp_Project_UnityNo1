@@ -7,16 +7,43 @@ using System.IO;
 
 public class uiHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    gameManager gameManager;
+    public GameObject StartScreen;
+    public GameObject playModeUi;
     void Start()
     {
-        
+        gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (gameManager._isGameActive)
+        {
+
+        }
         
+    }
+
+
+    public void StartTheGame()
+    {
+        gameManager._isGameActive = true;
+        StartScreen.SetActive(false);
+        playModeUi.SetActive(true);
+    }
+
+    public void ExitPlayMode()
+    {
+        gameManager._isGameActive = false;
+        StartScreen.SetActive(true);
+        playModeUi.SetActive(false);
+    }
+
+    void NextQuestion()
+    {
+
     }
 
     public void ExitGame()

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class gameManager : MonoBehaviour
 {
-    public bool _isGameActive = true;
+    public bool _isGameActive = false;
+    public bool _isGameReadyToStart = true; 
     public float playerScore = 0;
     float questionTimer = 10;
 
     private void Start()
     {
-      
- 
+       
     }
 
 
