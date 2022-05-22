@@ -8,10 +8,10 @@ public class CameraMovement : MonoBehaviour
     int elapsedFrames = 0;
     Vector3 endPosition = new Vector3(0, 0, 0);
     Vector3 focalPoint = new Vector3(0, 0, 0);
-    Vector3 earthOrigin = new Vector3(0, 0, 0);
+    Vector3 earthFocalPoint = new Vector3(0, 6, 0);
 
     //oyunun baþlangýç ekranýndaki pozisyonlar için
-    Vector3 startScreenInitialPos = new Vector3(80, 14, 0);
+    Vector3 startScreenInitialPos = new Vector3(80, 6, 0);
 
 
     float cameraDistanceMultiplier = 4;
@@ -67,10 +67,11 @@ public class CameraMovement : MonoBehaviour
             float lerpInterpolationRatio = (float)elapsedFrames / interPolationFramesCount;
             transform.position = Vector3.Lerp(transform.position, startScreenInitialPos, Mathf.SmoothStep(0.0f, 1.0f, lerpInterpolationRatio));
             elapsedFrames = (elapsedFrames + 1) % (interPolationFramesCount + 1);
-            transform.LookAt(earthOrigin);
+            transform.LookAt(earthFocalPoint);
         }
 
     }
+
 
     void changeCameraPositionforTheNextQuestions()
     {

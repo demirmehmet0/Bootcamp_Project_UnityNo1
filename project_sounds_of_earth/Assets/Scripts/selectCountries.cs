@@ -54,6 +54,7 @@ public class selectCountries : MonoBehaviour
        // showCountryList();
     }
 
+    //bu iki fonksiyon birleþtirilip bir for döngüsü ve selected country arrayi ile 2-3 satýra kadar indirilebilir ama þimdilik böyle býraktým. 
     void enableMeshAndScriptForSelected()
     {
         transform.Find((string)selectedCountryName).GetComponent<MeshRenderer>().enabled = true;
@@ -64,6 +65,18 @@ public class selectCountries : MonoBehaviour
         transform.Find((string)country1name).GetComponent<countryMarkerBehaviour>().enabled = true;
         transform.Find((string)country2name).GetComponent<countryMarkerBehaviour>().enabled = true;
         transform.Find((string)country3name).GetComponent<countryMarkerBehaviour>().enabled = true;
+    }
+
+    public void disableMeshAndScriptForSelected()
+    {
+        transform.Find((string)selectedCountryName).GetComponent<MeshRenderer>().enabled = false;
+        transform.Find((string)country1name).GetComponent<MeshRenderer>().enabled = false;
+        transform.Find((string)country2name).GetComponent<MeshRenderer>().enabled = false;
+        transform.Find((string)country3name).GetComponent<MeshRenderer>().enabled = false;
+        transform.Find((string)selectedCountryName).GetComponent<countryMarkerBehaviour>().enabled = false;
+        transform.Find((string)country1name).GetComponent<countryMarkerBehaviour>().enabled = false;
+        transform.Find((string)country2name).GetComponent<countryMarkerBehaviour>().enabled = false;
+        transform.Find((string)country3name).GetComponent<countryMarkerBehaviour>().enabled = false;
     }
 
     void findMiddleVector()

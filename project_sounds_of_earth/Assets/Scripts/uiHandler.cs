@@ -7,13 +7,14 @@ using System.IO;
 
 public class uiHandler : MonoBehaviour
 {
-
     gameManager gameManager;
+    selectCountries _selectCountries;
     public GameObject StartScreen;
     public GameObject playModeUi;
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
+        _selectCountries = GameObject.Find("CountryMarkers").GetComponent<selectCountries>();
     }
 
     // Update is called once per frame
@@ -30,20 +31,24 @@ public class uiHandler : MonoBehaviour
     public void StartTheGame()
     {
         gameManager._isGameActive = true;
+        _selectCountries.inSelectionPhase = true;
         StartScreen.SetActive(false);
         playModeUi.SetActive(true);
     }
 
     public void ExitPlayMode()
     {
+        _selectCountries.disableMeshAndScriptForSelected();
         gameManager._isGameActive = false;
         StartScreen.SetActive(true);
         playModeUi.SetActive(false);
+        
     }
 
-    void NextQuestion()
+    public void NextQuestion()
     {
-
+        _selectCountries.disableMeshAndScriptForSelected();
+        _selectCountries.inSelectionPhase = true;
     }
 
     public void ExitGame()
