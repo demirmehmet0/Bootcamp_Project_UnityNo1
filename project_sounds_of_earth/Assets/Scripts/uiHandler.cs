@@ -51,8 +51,9 @@ public class uiHandler : MonoBehaviour
     public void NextQuestion()
     {
         _selectCountries.disableMeshAndScriptForSelected();
-        _selectCountries.inSelectionPhase = true;
         cameraMovement.randomIdleNumbersSet = false;
+        _selectCountries.inSelectionPhase = true;
+        
     }
 
     public void ExitGame()

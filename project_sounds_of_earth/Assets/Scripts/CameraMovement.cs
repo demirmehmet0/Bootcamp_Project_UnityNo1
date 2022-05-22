@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    private int interPolationFramesCount = 5000;
-    int elapsedFrames = 0;
     Vector3 endPosition = new Vector3(0, 0, 0);
     Vector3 focalPoint = new Vector3(0, 0, 0);
     Vector3 earthFocalPoint = new Vector3(0, 6, 0);
@@ -13,16 +11,12 @@ public class CameraMovement : MonoBehaviour
     //oyunun baþlangýç ekranýndaki pozisyonlar için
     Vector3 startScreenInitialPos = new Vector3(80, 6, 0);
 
-
+    int cameraLerpDeltaTimeMultiplier = 10000000;
     float cameraDistanceMultiplier = 4;
     selectCountries _selectCountries;
     gameManager gameManager;
 
-    public float rotSpeed = 3;
-    private float minimum = 0.1f;
-    private float maximum = 0.5f;
-    private float yPos;
-    private float bounceSpeed = 3;
+
     public bool randomIdleNumbersSet = false;
 
     float randAmpX = 1;
@@ -52,9 +46,10 @@ public class CameraMovement : MonoBehaviour
 
         if (gameManager._isGameActive)
         {
+           
             changeCameraPositionforTheNextQuestions();//þu an Lateupdate'de ama normalde soru geçme kondisyon karþýlanýnca aktive olacak
-            SetRandomValuesforIdleCameraMovement();
-            idleCameraMovement(randAmpX, randAmpY, randAmpZ, randPhasorX, randPhasorY, randPhasorZ);
+           // SetRandomValuesforIdleCameraMovement();
+           // idleCameraMovement(randAmpX, randAmpY, randAmpZ, randPhasorX, randPhasorY, randPhasorZ);
 
         }
 
@@ -64,32 +59,34 @@ public class CameraMovement : MonoBehaviour
     {
         if (transform.position != startScreenInitialPos)
         {
-            float lerpInterpolationRatio = (float)elapsedFrames / interPolationFramesCount;
-            transform.position = Vector3.Lerp(transform.position, startScreenInitialPos, Mathf.SmoothStep(0.0f, 1.0f, lerpInterpolationRatio));
-            elapsedFrames = (elapsedFrames + 1) % (interPolationFramesCount + 1);
+            transform.position = Vector3.Lerp(transform.position, startScreenInitialPos, Time.deltaTime);
             transform.LookAt(earthFocalPoint);
+           // SmoothLookAt(earthFocalPoint);
         }
 
     }
+
 
 
     void changeCameraPositionforTheNextQuestions()
     {
-       // transform.LookAt(focalPoint);
+
         calculateCameraDistanceMultiplier();
         focalPoint = _selectCountries.middleVector;
         endPosition = focalPoint * cameraDistanceMultiplier;
+        SmoothLookAt(-1 * focalPoint);
         //Debug.Log("Camera Distance Multiplier: " + cameraDistanceMultiplier);
 
         if (transform.position != endPosition)
         {
-            transform.LookAt(focalPoint);
-            float lerpInterpolationRatio = (float)elapsedFrames / interPolationFramesCount;
-            transform.position = Vector3.Lerp(transform.position, endPosition, Mathf.SmoothStep(0.0f, 1.0f, lerpInterpolationRatio));
-            elapsedFrames = (elapsedFrames + 1) % (interPolationFramesCount + 1);
+           
+            //transform.LookAt(focalPoint);
+            transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime );
         }
-
+        // transform.LookAt(focalPoint);   
+      
     }
+
 
 
     void idleCameraMovement(float ampX, float ampY, float ampZ, float phasorX, float phasorY, float phasorZ)
@@ -150,5 +147,11 @@ public class CameraMovement : MonoBehaviour
         {
             cameraDistanceMultiplier = 4;
         }
+        
+    }
+
+    void SmoothLookAt(Vector3 newDirection)
+    {
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(newDirection),  Time.deltaTime );
     }
 }
