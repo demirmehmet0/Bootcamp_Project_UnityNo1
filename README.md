@@ -90,19 +90,62 @@ Hüseyin Tayyip Altay
 
 # Sprint 2
 
-- **Sprint Notları**: 
+- **Sprint Notları**: Önceki sprintte araştırılan müzik telifleri sorununa çözüm getirlememesi sebebiyle konsept değişikliğine gidildi. Oyun dünya müzikleri yerine farklı dillerde okutulan metinlerin hangi ülkeye ait olduğunun bulunacağı bir formaata göre hazırlanıyor. Bunun için prototip için hazılanan 40 farklı cümle, hazırladığımız API ile Google text to speechten çekilerek random şekilde kullanıcıya sunulacak.  Oyunda kullanılacak dünya modelinin tasarımı belirlenen teslim gününe yetişmeyeceği için hazır asset kullanılmasına karar verildi. Seçilen assetin dünya dilleri havuzuna ve oyuna entegrasyonu tamamlandı. 
+
+Yapılan bu konsept ve görsel değişikliği sprint backloglarını ve PBI'ları değiştirdi. Burndown Chart README'de yukarıdaki şekilde güncellendi.
+User Storyler Trelloya yüklendi;
+
+ ![User Story 1](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/userstories1.png)
+ ![User Story 2](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/userstories2.png)
+ ![User Story 3](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/userstories3.png)
+ 
+ Product Owner hazırladığı GDD dokümanını paylaştı;
+ 
+ [Sounds_Of_Earth_GDD](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/GDD%20-%20Sounds%20Of%20Earth.docx?raw=true)
+
+Oyun ilk teste hazır hale getirildi. Bir sonraki sprintte testler ve iyileştirmelere odaklanılacak.
 
 - **Sprint 2 Backlog**: 
 
+ ![Sprint Backlog 1](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/Sprint2Backlog1.png)
+ ![Sprint Backlog 2](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/Sprint2Backlog2.png)
+ ![Sprint Backlog 3](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/Sprint2Backlog3.png)
+ ![Sprint Backlog 4](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/Sprint2Backlog4.png)
+ ![Sprint Backlog 5](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/Sprint2Backlog5.png)
+
 - **Daily Scrum**: 
+Daily Scrum toplantıları yüz yüze Zoom toplantıları ve Telegram yazışmaları şeklinde yapıldı. Daily Scrum toplantı dökümü word olarak paylaşılmaktadır:
+[Sprint 2 Daily Scrum Dökümü](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/DailyScrumMeetingNotesSprint2.docx?raw=true)
 
 - **Ürün Durumu**: Ekran görüntüleri:
+  ![Screenshot 1](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/productss_API.png)
+  ![Screenshot 2](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/productss_UI.jpeg)
 
-Prototipleme aşamasından video: https://www.youtube.com/watch?v=_9DQOPN_9Ms
+Prototipleme aşamasından video:
+
+https://www.youtube.com/watch?v=_9DQOPN_9Ms
+
+https://www.youtube.com/watch?v=CsG5A0Ysyow 
 
 - **Sprint Review**: 
+Test aşamasına başlanacak. Bu sırada görsel iyileştirmeler için tasarımlar, ses efekti ve arka plan müzikleri için araştırmalar devam edecek.
+
+Sprint Review katılımcıları:
+Özgen Köklü,
+Çiğdem Nur Özbay,
+Abdulkadir Can Kinsiz,
+Hüseyin Tayyip Altay,
+Yağmur Kaya
 
 - **Sprint Retrospective**:
+Test sürecinin hızlı bir şekilde tamamlanması ve oyuna bazı ek özellikler entegre edilmesi planlanıyor.
+
+[Sprint Retrospective](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/RetrospektifMeetingNotesSprint2.docx?raw=true)
+
+Sprint Retrospektif katılımcıları:
+Özgen Köklü,
+Çiğdem Nur Özbay,
+Yağmur Kaya
 
 ---
 
