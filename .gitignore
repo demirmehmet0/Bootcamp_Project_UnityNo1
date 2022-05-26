@@ -63,3 +63,5 @@ webgl_sharing
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Ignore macOS's useless system files
+.DS_Store
