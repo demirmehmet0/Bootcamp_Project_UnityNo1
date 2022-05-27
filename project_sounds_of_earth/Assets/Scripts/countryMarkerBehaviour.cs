@@ -9,6 +9,7 @@ public class countryMarkerBehaviour : MonoBehaviour
     private float localScaleUpperbound = 1.49f;
     private float localScaleLowerbound = 1.01f;
     int elapsedFrames = 0;
+    float tempMiddleVectorMagnitude = 0;
     bool _timeToIncreaseSize = true;
     bool _newScaleSizeCalculated = false;
 
@@ -23,9 +24,13 @@ public class countryMarkerBehaviour : MonoBehaviour
  
     void Update()
     {
-        if(!_newScaleSizeCalculated)
-        calculatedEndScaleAndUpperBound();
+        if (!_newScaleSizeCalculated)
+        {
+            tempMiddleVectorMagnitude = _selectCountries.magnitudeOfcombinationVector;
+            calculatedEndScaleAndUpperBound();
+        }
 
+        DetectChangeinQuestionPosition();
         changeSize();
     }
 
@@ -70,23 +75,23 @@ public class countryMarkerBehaviour : MonoBehaviour
 
     void calculatedEndScaleAndUpperBound()
     {
-        if (_selectCountries.magnitudeOfcombinationVector > 78)
+        if (tempMiddleVectorMagnitude > 78)
         {
             endingScale = startingScale * 1.4f;
         }
-        else if (_selectCountries.magnitudeOfcombinationVector <= 78 && _selectCountries.magnitudeOfcombinationVector > 76)
+        else if (tempMiddleVectorMagnitude <= 78 && tempMiddleVectorMagnitude > 76)
         {
             endingScale = startingScale * 1.6f;
         }
-        else if (_selectCountries.magnitudeOfcombinationVector <= 76 && _selectCountries.magnitudeOfcombinationVector > 74)
+        else if (tempMiddleVectorMagnitude <= 76 && tempMiddleVectorMagnitude > 74)
         {
             endingScale = startingScale * 1.8f;
         }
-        else if (_selectCountries.magnitudeOfcombinationVector <= 74 && _selectCountries.magnitudeOfcombinationVector > 72)
+        else if (tempMiddleVectorMagnitude <= 74 && tempMiddleVectorMagnitude > 72)
         {
             endingScale = startingScale * 2.0f;
         }
-        else if (_selectCountries.magnitudeOfcombinationVector <= 72 && _selectCountries.magnitudeOfcombinationVector > 70)
+        else if (tempMiddleVectorMagnitude <= 72 && tempMiddleVectorMagnitude > 70)
         {
             endingScale = startingScale * 2.2f;
         }
@@ -101,4 +106,15 @@ public class countryMarkerBehaviour : MonoBehaviour
 
         _newScaleSizeCalculated = true;
     }
+
+    void DetectChangeinQuestionPosition()
+    {
+        if(_selectCountries.magnitudeOfcombinationVector != tempMiddleVectorMagnitude)
+        {
+            _newScaleSizeCalculated = false;
+           
+        }      
+                                         
+    }
+    
 }
