@@ -17,6 +17,7 @@ public class CameraMovement : MonoBehaviour
     gameManager gameManager;
 
 
+    public bool setToQuestionPosition = false; 
     public bool randomIdleNumbersSet = false;
 
     float randAmpX = 1;
@@ -44,14 +45,20 @@ public class CameraMovement : MonoBehaviour
 
         }
 
-        if (gameManager._isGameActive)
+        if (gameManager._isGameActive && !setToQuestionPosition)
         {
            
             changeCameraPositionforTheNextQuestions();//þu an Lateupdate'de ama normalde soru geçme kondisyon karþýlanýnca aktive olacak
-           // SetRandomValuesforIdleCameraMovement();
-           // idleCameraMovement(randAmpX, randAmpY, randAmpZ, randPhasorX, randPhasorY, randPhasorZ);
+            
+           // 
+
+        }else if (gameManager._isGameActive && setToQuestionPosition)
+        {
+            SetRandomValuesforIdleCameraMovement();
+            idleCameraMovement(randAmpX, randAmpY, randAmpZ, randPhasorX, randPhasorY, randPhasorZ);
 
         }
+
 
     }
 
@@ -77,11 +84,17 @@ public class CameraMovement : MonoBehaviour
         SmoothLookAt(-1 * focalPoint);
         //Debug.Log("Camera Distance Multiplier: " + cameraDistanceMultiplier);
 
-        if (transform.position != endPosition)
+        if (transform.position != endPosition && !setToQuestionPosition)
         {
            
             //transform.LookAt(focalPoint);
-            transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime );
+            transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime);
+            Debug.Log(setToQuestionPosition);
+        }
+        if (Vector3.Distance(transform.position, endPosition) < 0.25f)
+        {
+            setToQuestionPosition = true;
+            Debug.Log(setToQuestionPosition);
         }
         // transform.LookAt(focalPoint);   
       
@@ -91,19 +104,19 @@ public class CameraMovement : MonoBehaviour
 
     void idleCameraMovement(float ampX, float ampY, float ampZ, float phasorX, float phasorY, float phasorZ)
     {
-     
+        focalPoint = _selectCountries.middleVector;
+       // endPosition = focalPoint * cameraDistanceMultiplier;
+        transform.LookAt(focalPoint);
 
         float sinValueX= ampX* Mathf.Sin(Time.time + phasorX);
 
         float sinValueY= ampY* Mathf.Sin(Time.time + phasorY);
 
-        float sinValueZ= ampZ* Mathf.Sin(Time.time + phasorZ); 
+        float sinValueZ= ampZ* Mathf.Sin(Time.time + phasorZ);
 
-        
-        focalPoint = _selectCountries.middleVector;
-        endPosition = focalPoint * cameraDistanceMultiplier;
-        transform.LookAt(focalPoint);
-        transform.position = new Vector3(endPosition.x + sinValueX, endPosition.y + sinValueY, endPosition.z + sinValueZ);
+
+        Vector3 followPosition = new Vector3(endPosition.x + sinValueX, endPosition.y + sinValueY, endPosition.z + sinValueZ);
+        transform.position = Vector3.MoveTowards(transform.position, followPosition, Time.deltaTime);
 
     }
 

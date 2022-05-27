@@ -52,8 +52,10 @@ public class uiHandler : MonoBehaviour
     {
         _selectCountries.disableMeshAndScriptForSelected();
         cameraMovement.randomIdleNumbersSet = false;
+        cameraMovement.setToQuestionPosition = false;
         _selectCountries.inSelectionPhase = true;
-        
+      
+
     }
 
     public void ExitGame()

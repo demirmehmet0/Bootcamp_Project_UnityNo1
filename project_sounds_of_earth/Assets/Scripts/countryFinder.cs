@@ -41,7 +41,7 @@ public class countryFinder : MonoBehaviour
         }
         else
         {
-            Debug.Log(collision.gameObject.name);
+           // Debug.Log(collision.gameObject.name);
             countryList.Add(collision.gameObject.name);
         }
     }
