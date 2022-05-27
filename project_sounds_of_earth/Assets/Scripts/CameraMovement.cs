@@ -13,6 +13,7 @@ public class CameraMovement : MonoBehaviour
 
     int cameraLerpDeltaTimeMultiplier = 10000000;
     float cameraDistanceMultiplier = 4;
+    float cameraSpeed = 1;
     selectCountries _selectCountries;
     gameManager gameManager;
 
@@ -66,7 +67,7 @@ public class CameraMovement : MonoBehaviour
     {
         if (transform.position != startScreenInitialPos)
         {
-            transform.position = Vector3.Lerp(transform.position, startScreenInitialPos, Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, startScreenInitialPos, cameraSpeed * Time.deltaTime);
             transform.LookAt(earthFocalPoint);
            // SmoothLookAt(earthFocalPoint);
         }
@@ -88,7 +89,7 @@ public class CameraMovement : MonoBehaviour
         {
            
             //transform.LookAt(focalPoint);
-            transform.position = Vector3.Lerp(transform.position, endPosition, Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, endPosition, cameraSpeed * Time.deltaTime);
             Debug.Log(setToQuestionPosition);
         }
         if (Vector3.Distance(transform.position, endPosition) < 0.25f)
@@ -114,9 +115,10 @@ public class CameraMovement : MonoBehaviour
 
         float sinValueZ= ampZ* Mathf.Sin(Time.time + phasorZ);
 
-
+        Vector3 velocity = Vector3.zero; 
+        //movetowards yerine smooth damp ekleyeceðim.
         Vector3 followPosition = new Vector3(endPosition.x + sinValueX, endPosition.y + sinValueY, endPosition.z + sinValueZ);
-        transform.position = Vector3.MoveTowards(transform.position, followPosition, Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, followPosition ,cameraSpeed*Time.deltaTime);
 
     }
 
@@ -165,6 +167,6 @@ public class CameraMovement : MonoBehaviour
 
     void SmoothLookAt(Vector3 newDirection)
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(newDirection),  Time.deltaTime );
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(newDirection), cameraSpeed * Time.deltaTime );
     }
 }
