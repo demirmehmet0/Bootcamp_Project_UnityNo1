@@ -11,9 +11,9 @@ public class CameraMovement : MonoBehaviour
     //oyunun baþlangýç ekranýndaki pozisyonlar için
     Vector3 startScreenInitialPos = new Vector3(80, 6, 0);
 
-    int cameraLerpDeltaTimeMultiplier = 10000000;
     float cameraDistanceMultiplier = 4;
     float cameraSpeed = 1;
+    float CameraShakeSpeed = 1000;
     selectCountries _selectCountries;
     gameManager gameManager;
 
@@ -51,13 +51,13 @@ public class CameraMovement : MonoBehaviour
            
             changeCameraPositionforTheNextQuestions();//þu an Lateupdate'de ama normalde soru geçme kondisyon karþýlanýnca aktive olacak
             
-           // 
+           
 
         }else if (gameManager._isGameActive && setToQuestionPosition)
         {
             SetRandomValuesforIdleCameraMovement();
             idleCameraMovement(randAmpX, randAmpY, randAmpZ, randPhasorX, randPhasorY, randPhasorZ);
-
+            
         }
 
 
@@ -118,7 +118,7 @@ public class CameraMovement : MonoBehaviour
         Vector3 velocity = Vector3.zero; 
         //movetowards yerine smooth damp ekleyeceðim.
         Vector3 followPosition = new Vector3(endPosition.x + sinValueX, endPosition.y + sinValueY, endPosition.z + sinValueZ);
-        transform.position = Vector3.Lerp(transform.position, followPosition ,cameraSpeed*Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, followPosition ,(cameraSpeed*Time.deltaTime));
 
     }
 
@@ -149,6 +149,8 @@ public class CameraMovement : MonoBehaviour
         return Random.Range(0, 6.28f);
     }
 
+
+    //16.9 ekranlar için uygun. 20.9 ekranlar için farklý bir versiyon yazýlacak. 
     void calculateCameraDistanceMultiplier()
     {
         if (_selectCountries.magnitudeOfcombinationVector > 78)
@@ -163,6 +165,19 @@ public class CameraMovement : MonoBehaviour
             cameraDistanceMultiplier = 4;
         }
         
+    }
+
+    void rightAnswerCameraMovement()
+    { //idleCamera'yý repurpose ederek bunu yapmak mümkün. randomize efekt almak için 150'lerin bazýlarý - yapýlabilir, 2.1, 4.2, 0 phasorleri yer deðiþtirilebilir.
+      //doðru þýk seçildikten sonraya entegre edilecek.
+        idleCameraMovement(150, 150, 150, 2.1f, 4.2f, 0);
+    }
+
+    void wrongAnswerCameraMovement()
+    { //yanlýþ cevap yaptýktan sorna bu tarz bi titreþim verilebilir.
+        float AngleAmount = (Mathf.Cos(Time.time * CameraShakeSpeed) * 180) / Mathf.PI * 0.5f;
+        AngleAmount = Mathf.Clamp(AngleAmount, -15, 15);
+        transform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z + AngleAmount), 1f);     
     }
 
     void SmoothLookAt(Vector3 newDirection)
