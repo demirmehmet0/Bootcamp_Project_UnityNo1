@@ -13,10 +13,16 @@ public class uiHandler : MonoBehaviour
     CameraMovement cameraMovement;
 
     public AudioSource questionSound;
-    public GameObject StartScreen;
-    public GameObject playModeUi;
+    public GameObject Main;
+    public GameObject Game;
+    public GameObject Options;
+    List<GameObject> menus = new List<GameObject>();
+    
     void Start()
     {
+        menus.Add(Main);
+        menus.Add(Game);
+        menus.Add(Options);
         gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
         _selectCountries = GameObject.Find("CountryMarkers").GetComponent<selectCountries>();
         cameraMovement = GameObject.Find("Main Camera").GetComponent<CameraMovement>();
@@ -38,16 +44,16 @@ public class uiHandler : MonoBehaviour
         //gameManager._isGameActive = true;
         //_selectCountries.inSelectionPhase = true;
         gameManager.startGame = true;
-        StartScreen.SetActive(false);
-        playModeUi.SetActive(true);
+        Main.SetActive(false);
+        Game.SetActive(true);
     }
 
     public void ExitPlayMode()
     {
         _selectCountries.disableMeshAndScriptForSelected();
         gameManager._isGameActive = false;
-        StartScreen.SetActive(true);
-        playModeUi.SetActive(false);
+        Main.SetActive(true);
+        Game.SetActive(false);
 
     }
 
@@ -60,7 +66,22 @@ public class uiHandler : MonoBehaviour
             gameManager.nextQuestionButton.gameObject.SetActive(true);
         }
     }
+    public void Option()
+    {
+        Main.SetActive(false);
+        Game.SetActive(false);
+        Options.SetActive(true);
+    }
+    public void Back(string page)
+    {
+        foreach (GameObject obj in menus)
+            obj.SetActive(false);
+        foreach (GameObject obj in menus)
+        {
+            if (obj.name == page) obj.SetActive(true);
 
+        }
+    }
     public void NextQuestion()
     {
         /*_selectCountries.disableMeshAndScriptForSelected();
