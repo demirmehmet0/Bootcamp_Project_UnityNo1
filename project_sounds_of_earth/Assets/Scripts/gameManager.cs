@@ -31,6 +31,15 @@ public class gameManager : MonoBehaviour
 
     string[] CountriesWLanguages =
    {
+        "??;Afghanistan\nPashto",
+        "sv-SE;Åland Islands\nSwedish",
+        "??;Albania\nAlbanian",
+        "ar-XA;Algeria\nArabic",
+        "??;American Samoa\nSamoan",
+        "ca-ES;Andorra\nCatalan",
+        "pt-PT;Angola\nPortuguese",
+        "en-GB;Anguilla\nEnglish",
+        "ru-RU;Antarctica\nRussian",
         "af-ZA;South Africa",
         "ar-XA;United Arab Emirates",
         "bg-BG;Bulgaria",
@@ -72,7 +81,7 @@ public class gameManager : MonoBehaviour
         "pt-BR;Brazil",
         "pt-PT;Portugal",
         "ro-RO;Romania",
-        "ru-RU;Russia",
+        "ru-RU;Russia\nRussian",
         "sk-SK;Slovakia",
         "sr-RS;Cyrillic",
         "sv-SE;Sweden",
