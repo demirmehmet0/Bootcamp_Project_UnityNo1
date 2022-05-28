@@ -86,7 +86,7 @@ public class TextAnim : MonoBehaviour
                 _Text.fontSize -= AnimVal * Time.deltaTime;//değil ise azaltma yapılıyor
             }
         }
-        goto Start;
+        goto Start;//sürekli tekrar etmesi için başa döndürme komutu
     }
     //FUNCTIONS
 
