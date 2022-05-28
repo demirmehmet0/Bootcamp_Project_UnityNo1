@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 public class TextAnim : MonoBehaviour
 {
+    //VARIABLES
     private TMP_Text _Text;
     //<param name="_Text">
     //Bu scriptin atandığı text objesini tutmak için oluşturulan değişken
@@ -30,7 +31,7 @@ public class TextAnim : MonoBehaviour
     //text yazısının büyüyüp küçülme animasyonu için hız değerini tutan değişken
     //default olarak 0dır yani animasyon yoktur ve sıfırdan büyük değerler alır
     //</param>
-
+    //VARIABLES
 
     //MAIN FUNCTIONS
     private void Awake()//Script yüklendiği an çalışacak olan default fonksiyon
@@ -38,13 +39,12 @@ public class TextAnim : MonoBehaviour
         _Text = GetComponent<TMP_Text>();//Scriptin atandığı objeden text objesinin _Text değişkenine atanması
         if (_Text.text == "Oyun Bekleniyor")//_Text "oyun bekleniyor" ise
         { isLoadingAnim = true; StartCoroutine("Loading3DotAnim"); }//isLoadingAnim true yapılır ve Loading3DotAnim fonksiyonu coroutine olarak başlatılır
-        else { TextGrowAnim(); }//Yazıyı büyültüp küçülten animasyonunun fonksiyon çağrımı 
     }
 
     void Update()//her bir frame için çalışacak olan default fonksiyon
     {
-
-
+        if (!isLoadingAnim)//tanımlanmış olan text değişkeni loading değil ise 
+            TextGrowAnim();//Yazıyı büyültüp küçülten animasyonunun fonksiyon çağrımı  
     }
     //MAIN FUNCTIONS
 
@@ -69,25 +69,19 @@ public class TextAnim : MonoBehaviour
     //COROUTINE FUNCTIONS
 
     //FUNCTIONS
-    private void TextGrowAnim()//Yazıyı büyültüp küçülten fonksiyon
+    private void TextGrowAnim()//Yazıyı büyültüp küçülten fonksiyon(her framede bir çalıştırdığımız için time.deltatime ile bu yüzden updatede çağrılması gerek)
     {
-    Start:
-        if (!isLoadingAnim)//tanımlanmış olan text değişkeni loading değil ise
+        if (_Text.fontSize >= 32 && isUpOrDown) { isUpOrDown = false; }//font boyutu 32den büyük ve büyütme değişkeni true ise false yapıyor ve küçültme işlemine geçiyor
+        else if (_Text.fontSize <= 28 && !isUpOrDown) { isUpOrDown = true; }//değilse ve font boyutu 28den küçükse ve büyütme değişkeni false ise true yapıyor ve büyütme işlemine geçiyor
+
+        if (isUpOrDown)//büyütme true ise
         {
-            if (_Text.fontSize >= 32 && isUpOrDown) { isUpOrDown = false; }//font boyutu 32den büyük ve büyütme değişkeni true ise false yapıyor ve küçültme işlemine geçiyor
-            else if (_Text.fontSize <= 28 && !isUpOrDown) { isUpOrDown = true; }//değilse ve font boyutu 28den küçükse ve büyütme değişkeni false ise true yapıyor ve büyütme işlemine geçiyor
-
-            if (isUpOrDown)//büyütme true ise
-            {
-                _Text.fontSize += AnimVal * Time.deltaTime;//font boyutuna ekleme yapılıyor
-            }
-            else
-            {
-                _Text.fontSize -= AnimVal * Time.deltaTime;//değil ise azaltma yapılıyor
-            }
+            _Text.fontSize += AnimVal * Time.deltaTime;//font boyutuna ekleme yapılıyor
         }
-        goto Start;//sürekli tekrar etmesi için başa döndürme komutu
+        else
+        {
+            _Text.fontSize -= AnimVal * Time.deltaTime;//değil ise azaltma yapılıyor
+        }
     }
-    //FUNCTIONS
-
+    //FUNCTIONS 
 }
