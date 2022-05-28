@@ -141,7 +141,7 @@ public class gameManager : MonoBehaviour
         }
         else
         {   
-            Debug.Log("No connection error!");
+            Debug.Log("Internet connection: No error!");
         }
     }
 
