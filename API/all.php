@@ -15,7 +15,7 @@ else{
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
-          echo $row["EntryID"]. ";" . $row["text"]. ";" . $row["country"]. ";" . $row["textonly"]."<br>";
+          echo urldecode($row["EntryID"]). ";" . urldecode($row["text"]). ";" . urldecode($row["country"]). ";" . urldecode($row["textonly"]).";".urldecode($row["textlatin"]).";".urldecode($row["translated"])."<br>";
         }
       } else {
         echo "0 results";
