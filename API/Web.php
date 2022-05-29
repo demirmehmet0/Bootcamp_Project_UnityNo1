@@ -7,7 +7,7 @@ class Web extends CI_Controller
     {
         $this->load->view('index.php');
     }
-    public function api($data, $file = "-1", $id = "-1",$translatedtext="")
+    public function api($data, $file = "-1", $id = "-1", $translatedtext = "")
     {
         $servername = "server";
         $username = "user";
@@ -19,7 +19,7 @@ class Web extends CI_Controller
             if ($result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
-                    echo $row["EntryID"]. ";" . $row["text"]. ";" . $row["country"]. ";" . $row["textonly"].";".$row["textlatin"].";".$row["translated"]."<br>";
+                    echo $row["EntryID"] . ";" . $row["text"] . ";" . $row["country"] . ";" . $row["textonly"] . ";" . $row["textlatin"] . ";" . $row["translated"] . "<br>";
                 }
             } else {
                 echo "0 results";
@@ -31,7 +31,7 @@ class Web extends CI_Controller
             $this->load->view('all.php');
         } else if ($data == "save") {
             $conn = new mysqli($servername, $username, $password, "userdb");
-            $sql = "UPDATE Entries set text='" . urldecode($file) . "', translated='".$translatedtext."' WHERE EntryID='" . $id . "'";
+            $sql = "UPDATE Entries set text='" . urldecode($file) . "', translated='" . $translatedtext . "' WHERE EntryID='" . $id . "'";
             $result = $conn->query($sql);
             $conn->close();
         }
