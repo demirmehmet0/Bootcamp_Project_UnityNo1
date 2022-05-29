@@ -23,13 +23,14 @@ public class gameManager : MonoBehaviour
 
     //BUTTONS -ANSWERS etc
     public TMP_Text questionText;
-    public Button[] buttonAnswers;
+   // public Button[] buttonAnswers;
     public string rightAnswer = "";
     string[] questionResult;
     bool gettingQuestionFromAPI = false;
     bool askPhase = true;
+    public bool gotAnswerFromApi = false;
 
-    string[] CountriesWLanguages =
+    public string[] CountriesWLanguages =
    {
                 //Google text to speech desteklemeyen ama bulunan ülkeler
         "??;Afghanistan\nPashto",
@@ -144,7 +145,7 @@ public class gameManager : MonoBehaviour
           questionTimerRemainder -= Time.deltaTime;
         }
 
-        if (_isGameActive && cameraMovement.setToQuestionPosition && askPhase)//isStarted eklenmeli?
+        if (_isGameActive  && askPhase)//isStarted eklenmeli? //cameraMovement.setToQuestionPosition bu and operatordan çýkartýldý.
         {
             if (!gettingQuestionFromAPI) StartCoroutine(CoroutineUpdate());
         }
@@ -197,15 +198,20 @@ public class gameManager : MonoBehaviour
     {
        // questionText.text = "Bu dil hangi ülkenin?";
         Debug.ClearDeveloperConsole();
-        Button[] _Answers = buttonAnswers;
-        int randomButtonIndex = UnityEngine.Random.Range(0, 4);
-        Button selectedButton = buttonAnswers[randomButtonIndex];//Doðru cevap  
-        _Answers[randomButtonIndex] = null;
+       // Button[] _Answers = buttonAnswers;
+       // int randomButtonIndex = UnityEngine.Random.Range(0, 4);
+       // Button selectedButton = buttonAnswers[randomButtonIndex];//Doðru cevap  
+       //_Answers[randomButtonIndex] = null;
         string res = Array.Find(CountriesWLanguages, ele => ele.Contains(questionResult[2]));
-        selectedButton.GetComponentInChildren<TMP_Text>().text = res.Split(';')[1];
         rightAnswer = res.Split(';')[1];
+        Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
+        gotAnswerFromApi = true;
+
+        /*
         List<string> _CountriesWLanguages = new List<string>();
         _CountriesWLanguages.Add(res.Split(';')[1]);
+
+
         for (int i = 0; i < 4; i++)
         {
             if (_Answers[i] != null)
@@ -222,8 +228,10 @@ public class gameManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
+        
         buttonAnswers[randomButtonIndex] = selectedButton;
+        */
+
         askPhase = false; gettingQuestionFromAPI = false;
     }
 

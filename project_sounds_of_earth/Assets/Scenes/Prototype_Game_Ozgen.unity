@@ -1011,12 +1011,9 @@ MonoBehaviour:
   inAnswerPhase: 0
   playerScore: 0
   questionText: {fileID: 0}
-  buttonAnswers:
-  - {fileID: 1256686743}
-  - {fileID: 1224412559}
-  - {fileID: 1111355957}
-  - {fileID: 247849799}
+  buttonAnswers: []
   rightAnswer: 
+  gotAnswerFromApi: 0
 --- !u!4 &524351194
 Transform:
   m_ObjectHideFlags: 0
@@ -3293,6 +3290,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1896087411, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}
+      propertyPath: buttonAnswers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1896087411, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}
+      propertyPath: buttonAnswers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1256686743}
+    - target: {fileID: 1896087411, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}
+      propertyPath: buttonAnswers.Array.data[1]
+      value: 
+      objectReference: {fileID: 1224412559}
+    - target: {fileID: 1896087411, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}
+      propertyPath: buttonAnswers.Array.data[2]
+      value: 
+      objectReference: {fileID: 1111355957}
+    - target: {fileID: 1896087411, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}
+      propertyPath: buttonAnswers.Array.data[3]
+      value: 
+      objectReference: {fileID: 247849799}
     - target: {fileID: 1768857674149554090, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}
       propertyPath: m_RootOrder
       value: 5
