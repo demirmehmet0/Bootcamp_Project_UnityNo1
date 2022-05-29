@@ -1,37 +1,24 @@
 <?php
-if (isset($_POST["metin"])) {
+if (isset($_POST["metin"])) 
+{
     $servername = "server";
     $username = "user";
     $password = "pass";
-    $code = explode(";", $_POST["country"])[0];
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, "userdb");
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    } else {
-        $sql = "INSERT INTO Entries (text, country,textonly,textlatin)
-        VALUES ('" . $_POST["metin"] . "', '" . $code . "','" . $_POST["metin"] . "', '" . $_POST["latin"] . "')";
-        if ($conn->query($sql) === TRUE) {
-        } else {
-        }
-
+    $code = explode(";", $_POST["country"])[0]; 
+    $conn = new mysqli($servername, $username, $password, "userdb"); 
+    if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); } 
+    else 
+    {
+        $sql = "INSERT INTO Entries (text, country,textonly,textlatin) VALUES ('" . $_POST["metin"] . "', '" . $code . "','" . $_POST["metin"] . "', '" . $_POST["latin"] . "')";
+            if ($conn->query($sql) === TRUE) { } else { } 
         $conn->close();
     }
 }
 ?>
 <!DOCTYPE html>
-<html>
-
+<html> 
 <head>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-    </style>
+    <style>  table, th, td {  border: 1px solid black; } </style>
     <link href="https://www.iban.com/country-codes" rel="canonical">
     <link rel="alternate" href="https://www.iban.com/country-codes" hreflang="x-default">
     <link rel="alternate" href="https://www.iban.com/country-codes" hreflang="en">
@@ -40,13 +27,9 @@ if (isset($_POST["metin"])) {
     <link rel="alternate" href="https://es.iban.com/country-codes" hreflang="es">
     <link rel="alternate" href="https://pt.iban.com/country-codes" hreflang="pt">
     <link rel="alternate" href="https://nl.iban.com/country-codes" hreflang="nl">
-    <link rel="alternate" href="https://it.iban.com/country-codes" hreflang="it">
-
-
-
+    <link rel="alternate" href="https://it.iban.com/country-codes" hreflang="it"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g==" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css?v=2">
-
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css?v=2"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
