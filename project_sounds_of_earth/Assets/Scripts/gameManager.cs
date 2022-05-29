@@ -88,7 +88,7 @@ public class gameManager : MonoBehaviour
         "el-GR;Greece\nGreek",
         "hu-HU;Hungary\nHungarian",
         "is-IS;Iceland\nIcelandic",
-        "hi-IN;India\nHindi",
+       // "hi-IN;India\nHindi",
         "id-ID;Indonesia\nIndonesian",
         "it-IT;Italy\nItalian",
         "ja-JP;Japan\nJapanese",
