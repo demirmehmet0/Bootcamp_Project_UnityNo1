@@ -9,13 +9,17 @@ using System;
 public class gameManager : MonoBehaviour
 {
     //FIELDS - OZGEN 
+
     public bool _isGameActive = false;
     public bool inAnswerPhase = false; 
     public float playerScore = 0;
     float questionTimerRemainder = 10;
     int RightAnswerChain = 0;
     float scoreMultiplier = 1;
-    CameraMovement cameraMovement; 
+    CameraMovement cameraMovement;
+    public TMP_Text countdownText;
+    public AudioClip audioclipDeneme;
+    //private AudioSource gameAudioSource;
 
     //API FUELDS 
     const string Host = "https://soundsofearth.space/";
@@ -72,7 +76,7 @@ public class gameManager : MonoBehaviour
         "??;Uzbekistan\nUzbek",
         //API'de bulunan Dil kodlarý
         "ca-ES;Andorra\nCatalan",
-        "en-AU;Australia\nEnglish",
+        "en-AU;Australia\nAustralian English",
         "bn-IN;Bangladesh\nBengali",
         "pt-BR;Brazil\nBrazilian Portuguese",
         "bg-BG;Bulgaria\nBulgarian",
@@ -114,11 +118,16 @@ public class gameManager : MonoBehaviour
         "en-US;United States of America\nAmerican English",
         "vi-VN;Vietnam\nViatnamese",
     };
-
+    private void Awake()
+    {
+        //gameAudioSource = GetComponent<AudioSource>();
+    }
     private void Start()
     {
         cameraMovement = GameObject.Find("Main Camera").GetComponent<CameraMovement>();
         CheckNetworkReachablility();
+        // gameAudioSource.PlayOneShot(audioclipDeneme, 5f);
+       // GetComponent<AudioSource>().PlayOneShot(audioclipDeneme, 5f);
     }
 
 
@@ -131,8 +140,12 @@ public class gameManager : MonoBehaviour
 
         if (_isGameActive  && askPhase)//isStarted eklenmeli? //cameraMovement.setToQuestionPosition bu and operatordan çýkartýldý.
         {
+            
             if (!gettingQuestionFromAPI) StartCoroutine(CoroutineUpdate());
         }
+
+        CountdownBeforeQuestion();
+        playAudioClip();
 
 
     }
@@ -173,6 +186,16 @@ public class gameManager : MonoBehaviour
         {   
            // Debug.Log("Internet connection: No error!");
         }
+    }
+
+    void CountdownBeforeQuestion()
+    {
+        countdownText.text = "Get Ready!";
+        if (cameraMovement.setToQuestionPosition)
+        {
+            countdownText.text = "3 2 1 !";
+        }
+           
     }
 
 
@@ -218,6 +241,15 @@ public class gameManager : MonoBehaviour
 
         askPhase = false; gettingQuestionFromAPI = false;
     }
+    void playAudioClip()
+    {
+        if (GetComponent<AudioSource>().clip != null && !GetComponent<AudioSource>().isPlaying)
+        {
+            GetComponent<AudioSource>().Play();
+            
+            Debug.Log("played");
+        }
+    }
 
     IEnumerator DownloadAndPlay(string url)
     {
@@ -228,6 +260,7 @@ public class gameManager : MonoBehaviour
         AudioSource audio = GetComponent<AudioSource>();
         audio.clip = www.GetAudioClip(false, false);
         audio.Play();
+       
     }
 
     IEnumerator CoroutineUpdate()
