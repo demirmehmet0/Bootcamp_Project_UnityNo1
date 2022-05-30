@@ -32,7 +32,7 @@ public class gameManager : MonoBehaviour
 
     public string[] CountriesWLanguages =
    {
-                //Google text to speech desteklemeyen ama bulunan ülkeler
+        //Google text to speech desteklemeyen ama oyunda bulunan ülkeler
         "??;Afghanistan\nPashto",
         "??;Albania\nAlbanian",
         "??;Armenia\nArmenian",
@@ -70,10 +70,7 @@ public class gameManager : MonoBehaviour
         "??;Swaziland\nSwazi",
         "??;Tajikistan\nTajik",
         "??;Uzbekistan\nUzbek",
-
-
-
-        //apide zaten bulunanlar
+        //API'de bulunan Dil kodlarý
         "ca-ES;Andorra\nCatalan",
         "en-AU;Australia\nEnglish",
         "bn-IN;Bangladesh\nBengali",
@@ -89,7 +86,7 @@ public class gameManager : MonoBehaviour
         "el-GR;Greece\nGreek",
         "hu-HU;Hungary\nHungarian",
         "is-IS;Iceland\nIcelandic",
-       // "hi-IN;India\nHindi",
+        "hi-IN;India\nHindi",
         "id-ID;Indonesia\nIndonesian",
         "it-IT;Italy\nItalian",
         "ja-JP;Japan\nJapanese",
@@ -116,19 +113,6 @@ public class gameManager : MonoBehaviour
         "en-GB;United Kingdom\nBritish English",
         "en-US;United States of America\nAmerican English",
         "vi-VN;Vietnam\nViatnamese",
-
-        //bu da çýkartýlacak
-        "en-IN;India\nIndian English",
-        /*listeden çýkartýlmalýlar
-        "cmn-TW;China",
-        "yue-HK;China",
-        "kn-IN;India",
-        "ml-IN;India",
-        "ta-IN;India",
-        "pa-IN;India",
-        "te-IN;India",
-         "gu-IN;India",
-        "nl-BE;Belgium",*/
     };
 
     private void Start()
@@ -187,7 +171,7 @@ public class gameManager : MonoBehaviour
         }
         else
         {   
-            Debug.Log("Internet connection: No error!");
+           // Debug.Log("Internet connection: No error!");
         }
     }
 

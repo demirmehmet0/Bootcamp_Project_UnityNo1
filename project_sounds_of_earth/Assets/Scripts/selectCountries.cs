@@ -130,9 +130,9 @@ public class selectCountries : MonoBehaviour
        
             _countryfinder.countryList.Remove(selectedCountryName);
             ShuffleCountryList();
-            wrongAnswerCountries[0]= (string)_countryfinder.countryList[1];
-            wrongAnswerCountries[1]= (string)_countryfinder.countryList[2];
-            wrongAnswerCountries[2]= (string)_countryfinder.countryList[3];
+            wrongAnswerCountries[0]= (string)_countryfinder.countryList[0];
+            wrongAnswerCountries[1]= (string)_countryfinder.countryList[1];
+            wrongAnswerCountries[2]= (string)_countryfinder.countryList[2];
 
         //Debug.Log("Country1: " + country1name + " Country2: " + country2name + " Country3 : " + country3name);
 
@@ -140,25 +140,26 @@ public class selectCountries : MonoBehaviour
 
     void setRemainingCountriesToButtons()
     {
-        Button[] _Answers = buttonAnswers;
-        int randomButtonIndex = UnityEngine.Random.Range(0, 4);
-        Button selectedButton = buttonAnswers[randomButtonIndex];
-        _Answers[randomButtonIndex] = null;
-        selectedButton.GetComponentInChildren<TMP_Text>().text = gameManager.rightAnswer;
+        int randomButtonIndexForRightAnswer = UnityEngine.Random.Range(0, 4);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < buttonAnswers.Length; i++)
+            buttonAnswers[i].GetComponentInChildren<TMP_Text>().text = "";
+
+        Debug.Log(wrongAnswerCountries[0]  + " " + wrongAnswerCountries[1] + " " + wrongAnswerCountries[2]);
+        for (int i = 0; i < wrongAnswerCountries.Length; i++)
         {
-            if (_Answers[i] != null){
+            if (i != randomButtonIndexForRightAnswer && buttonAnswers[i].GetComponentInChildren<TMP_Text>().text == "")
+            {
                 string buttonFalseAnswer = Array.Find(gameManager.CountriesWLanguages, find => find.Contains(wrongAnswerCountries[i]));
                 buttonAnswers[i].GetComponentInChildren<TMP_Text>().text = buttonFalseAnswer.Split(';')[1];
-            }else{
-                string buttonFalseAnswer = Array.Find(gameManager.CountriesWLanguages, eleme => eleme.Contains(wrongAnswerCountries[i]));
-                buttonAnswers[i+1].GetComponentInChildren<TMP_Text>().text = buttonFalseAnswer.Split(';')[1];
-            }
-            if (buttonAnswers[3] != null) break;
-        }
 
-        buttonAnswers[randomButtonIndex] = selectedButton;
+            } else {
+                string buttonFalseAnswer = Array.Find(gameManager.CountriesWLanguages, eleme => eleme.Contains(wrongAnswerCountries[i]));
+                buttonAnswers[i + 1].GetComponentInChildren<TMP_Text>().text = buttonFalseAnswer.Split(';')[1];
+            }
+           
+        }
+        buttonAnswers[randomButtonIndexForRightAnswer].GetComponentInChildren<TMP_Text>().text = gameManager.rightAnswer;
     }
 
     public void ShuffleCountryList()
