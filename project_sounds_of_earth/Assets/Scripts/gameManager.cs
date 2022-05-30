@@ -15,11 +15,12 @@ public class gameManager : MonoBehaviour
     public float playerScore = 0;
     float questionTimerRemainder = 10;
     int RightAnswerChain = 0;
+    int QuestionAudioPlayCounter = 0;
     float scoreMultiplier = 1;
     CameraMovement cameraMovement;
     public TMP_Text countdownText;
     public AudioClip audioclipDeneme;
-    //private AudioSource gameAudioSource;
+    private AudioSource gameAudioSource;
 
     //API FUELDS 
     const string Host = "https://soundsofearth.space/";
@@ -120,7 +121,8 @@ public class gameManager : MonoBehaviour
     };
     private void Awake()
     {
-        //gameAudioSource = GetComponent<AudioSource>();
+        gameAudioSource = GetComponent<AudioSource>();
+        
     }
     private void Start()
     {
@@ -243,10 +245,19 @@ public class gameManager : MonoBehaviour
     }
     void playAudioClip()
     {
-        if (GetComponent<AudioSource>().clip != null && !GetComponent<AudioSource>().isPlaying)
+        if (GetComponent<AudioSource>().clip != null && !GetComponent<AudioSource>().isPlaying && QuestionAudioPlayCounter<6)
         {
-            GetComponent<AudioSource>().Play();
             
+            if(QuestionAudioPlayCounter %2 == 0)
+            {
+                gameAudioSource.pitch = 1;
+                GetComponent<AudioSource>().Play(50000);   
+            } else
+            {
+                gameAudioSource.pitch = 0.8f;
+                GetComponent<AudioSource>().Play(50000);
+            }
+            QuestionAudioPlayCounter++;
             Debug.Log("played");
         }
     }
@@ -259,7 +270,7 @@ public class gameManager : MonoBehaviour
         while (!www.isDone) { if (!string.IsNullOrEmpty(www.error)) { Debug.Log("DownloadPlayError"); break; } }
         AudioSource audio = GetComponent<AudioSource>();
         audio.clip = www.GetAudioClip(false, false);
-        audio.Play();
+      //  audio.Play();
        
     }
 
