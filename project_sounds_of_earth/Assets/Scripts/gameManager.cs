@@ -30,7 +30,7 @@ public class gameManager : MonoBehaviour
     public TMP_Text questionText;
    // public Button[] buttonAnswers;
     public string rightAnswer = "";
-    string[] questionResult;
+    public string[] questionResult;
     bool gettingQuestionFromAPI = false;
     bool askPhase = true;
     public bool gotAnswerFromApi = false;
@@ -146,7 +146,7 @@ public class gameManager : MonoBehaviour
             if (!gettingQuestionFromAPI) StartCoroutine(CoroutineUpdate());
         }
 
-        CountdownBeforeQuestion();
+        //CountdownBeforeQuestion();
         playAudioClip();
 
 
@@ -190,6 +190,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
+    //QUestion text scriptine çekilecek
     void CountdownBeforeQuestion()
     {
         countdownText.text = "Get Ready!";
@@ -245,7 +246,7 @@ public class gameManager : MonoBehaviour
     }
     void playAudioClip()
     {
-        if (GetComponent<AudioSource>().clip != null && !GetComponent<AudioSource>().isPlaying && QuestionAudioPlayCounter<6)
+        if (GetComponent<AudioSource>().clip != null && !GetComponent<AudioSource>().isPlaying && QuestionAudioPlayCounter<4)
         {
             
             if(QuestionAudioPlayCounter %2 == 0)
