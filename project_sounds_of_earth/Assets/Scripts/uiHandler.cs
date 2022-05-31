@@ -11,7 +11,7 @@ public class uiHandler : MonoBehaviour
     gameManager gameManager;
     selectCountries _selectCountries;
     CameraMovement cameraMovement;
-   
+
     public GameObject StartScreen;
     public GameObject playModeUi;
     void Start()
@@ -50,6 +50,16 @@ public class uiHandler : MonoBehaviour
             gameManager.calculateScoreMultiplier();
  
         }
+
+        //burada yanlýþ cevap, doðru cevap animasyonlarý devreye girecek. Askphase açýldýktan sonra biraz couroutine ile süre tanýnabilir çünkü oyun donma yapýyor.
+        //Bu da mp3 indirme süreci ile ilgili olsa gere. Genel oalrak düzeltilecek. 
+        gameManager.askPhase = true;
+        gameManager.questionTimerRemainder = 10;
+        _selectCountries.disableMeshAndScriptForSelected();
+        _selectCountries.inSelectionPhase = true;
+        _selectCountries.buttonAnswersReset();
+        cameraMovement.setToQuestionPosition = false;
+        gameManager.QuestionAudioPlayCounter = 0;
     }
 
     

@@ -13,14 +13,15 @@ public class gameManager : MonoBehaviour
     public bool _isGameActive = false;
     public bool inAnswerPhase = false; 
     public float playerScore = 0;
-    float questionTimerRemainder = 10;
+    public float questionTimerRemainder = 10;
     int RightAnswerChain = 0;
-    int QuestionAudioPlayCounter = 0;
+    public int QuestionAudioPlayCounter = 0;
     float scoreMultiplier = 1;
     CameraMovement cameraMovement;
     public TMP_Text countdownText;
     [SerializeField] TMP_Text ingameScoreDisplayText;
     [SerializeField] TMP_Text ingameMultiplierText;
+    [SerializeField] TMP_Text ingameTimerDisplay;
     public AudioClip audioclipDeneme;
     private AudioSource gameAudioSource;
 
@@ -34,7 +35,7 @@ public class gameManager : MonoBehaviour
     public string rightAnswer = "";
     public string[] questionResult;
     bool gettingQuestionFromAPI = false;
-    bool askPhase = true;
+    public bool askPhase = true;
     public bool gotAnswerFromApi = false;
 
     public string[] CountriesWLanguages =
@@ -139,7 +140,7 @@ public class gameManager : MonoBehaviour
     {
        if(_isGameActive && inAnswerPhase)
         {
-          questionTimerRemainder -= Time.deltaTime;
+           
         }
 
         if (_isGameActive  && askPhase)//isStarted eklenmeli? //cameraMovement.setToQuestionPosition bu and operatordan çýkartýldý.
@@ -150,7 +151,14 @@ public class gameManager : MonoBehaviour
 
         //CountdownBeforeQuestion();
         playAudioClip();
+        timerCalculationsAndDisplay();
 
+    }
+
+    void timerCalculationsAndDisplay()
+    {
+        questionTimerRemainder -= Time.deltaTime;
+        ingameTimerDisplay.text = "Time: " + questionTimerRemainder;
 
     }
 
@@ -194,7 +202,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    //QUestion text scriptine çekilecek
+    //QUestion text scriptine çekilecek. zamanlamasý ayarlanacak. 
     void CountdownBeforeQuestion()
     {
         countdownText.text = "Get Ready!";

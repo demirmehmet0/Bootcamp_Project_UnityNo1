@@ -142,8 +142,7 @@ public class selectCountries : MonoBehaviour
     {
         int randomButtonIndexForRightAnswer = UnityEngine.Random.Range(0, 4);
 
-        for (int i = 0; i < buttonAnswers.Length; i++)
-            buttonAnswers[i].GetComponentInChildren<TMP_Text>().text = "";
+        buttonAnswersReset();
 
         Debug.Log(wrongAnswerCountries[0]  + " " + wrongAnswerCountries[1] + " " + wrongAnswerCountries[2]);
         for (int i = 0; i < wrongAnswerCountries.Length; i++)
@@ -161,6 +160,13 @@ public class selectCountries : MonoBehaviour
         }
         buttonAnswers[randomButtonIndexForRightAnswer].GetComponentInChildren<TMP_Text>().text = gameManager.rightAnswer;
     }
+
+    public void buttonAnswersReset()
+    {
+        for (int i = 0; i < buttonAnswers.Length; i++)
+            buttonAnswers[i].GetComponentInChildren<TMP_Text>().text = "";
+    }
+     
 
     public void ShuffleCountryList()
     {
