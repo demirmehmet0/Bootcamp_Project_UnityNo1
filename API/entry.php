@@ -1,9 +1,11 @@
 <?php
-if (isset($_POST["metin"])) {
+if (isset($_POST["metin"])) { 
     $servername = "server";
     $username = "user";
     $password = "pass";
-    $code = explode(";", $_POST["country"])[0];
+    $code = explode(";", $_POST["country"])[0]; 
+    $_POST["latin"]=str_replace("'","",$_POST["latin"]);
+    $_POST["metin"]=str_replace("'","",$_POST["metin"]); 
     // Create connection
     $conn = new mysqli($servername, $username, $password, "userdb");
 
@@ -11,8 +13,9 @@ if (isset($_POST["metin"])) {
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     } else {
+        //kesme işareti ile çift tırnak değişcek
         $sql = "INSERT INTO Entries (text, country,textonly,textlatin)
-        VALUES ('" . $_POST["metin"] . "', '" . $code . "','" . $_POST["metin"] . "', '" . $_POST["latin"] . "')";
+        VALUES ('" . $_POST["metin"] . "', '" . $code . "','" . $_POST["metin"] . "', '" . $_POST["latin"] . "')"; 
         if ($conn->query($sql) === TRUE) {
         } else {
         }
@@ -55,48 +58,48 @@ if (isset($_POST["metin"])) {
     <script>
         $(function() {
             var availableTags = [
-                "af-ZA;South Africa",
-                "ar-XA;United Arab Emirates",
-                "bg-BG;Bulgaria",
-                "bn-IN;India",
-                "ca-ES;Spain",
-                "cmn-CN;China",
-                "cs-CZ;Czech Republic",
-                "da-DK;Denmark",
-                "de-DE;Germany",
-                "el-GR;Greece",
-                "en-AU;Australia",
-                "en-GB;UK",
-                "en-US;US",
-                "es-ES;Spain",
-                "es-US;Spain",
-                "fi-FI;Finland",
-                "fil-PH;Philippines",
-                "fr-CA;Canada",
-                "fr-FR;France",
-                "hi-IN;India",
-                "hu-HU;Hungary",
-                "id-ID;Indonesia",
-                "is-IS;Iceland",
-                "it-IT;Italy",
-                "ja-JP;Japan",
-                "ko-KR;South Korea",
-                "lv-LV;Latvia",
-                "ms-MY;Malaysia",
-                "nb-NO;Norway",
-                "nl-NL;Netherlands",
-                "pl-PL;Poland",
-                "pt-BR;Brazil",
-                "pt-PT;Portugal",
-                "ro-RO;Romania",
-                "ru-RU;Russia",
-                "sk-SK;Slovakia",
-                "sr-RS;Cyrillic",
-                "sv-SE;Sweden",
-                "th-TH;Thailand",
-                "tr-TR;Turkey",
-                "uk-UA;Ukraine",
-                "vi-VN;Vietnam"
+                "ca-ES;Andorra-Catalan",
+                "en-AU;Australia-English",
+                "bn-IN;Bangladesh-Bengali",
+                "pt-BR;Brazil-Brazilian Portuguese",
+                "bg-BG;Bulgaria-Bulgarian",
+                "fr-CA;Canada-Canadian French",
+                "cmn-CN;China-Mandarin Chinese",
+                "cs-CZ;Czechia-Czech",
+                "da-DK;Denmark-Danish",
+                "fi-FI;Finland-Finnish",
+                "fr-FR;France-French",
+                "de-DE;Germany-German",
+                "el-GR;Greece-Greek",
+                "hu-HU;Hungary-Hungarian",
+                "is-IS;Iceland-Icelandic",
+                "hi-IN;India-Hindi",
+                "id-ID;Indonesia-Indonesian",
+                "it-IT;Italy-Italian",
+                "ja-JP;Japan-Japanese",
+                "ko-KR;South Korea-Korean",
+                "lv-LV;Latvia-Latvian",
+                "ms-MY;Malaysia-Malay",
+                "es-US;Mexico-Mexican Spanish",
+                "nl-NL;Netherlands-Dutch",
+                "nb-NO;Norway-Norwegian",
+                "fil-PH;Philippines-Filipino",
+                "pl-PL;Poland-Polish",
+                "pt-PT;Portugal-Portuguese",
+                "ro-RO;Romania-Romanian",
+                "ru-RU;Russian Federation-Russian",
+                "ar-XA;Saudi Arabia-Arabic",
+                "sr-RS;Serbia-Serbian",
+                "sk-SK;Slovakia-Slovak",
+                "af-ZA;South Africa-Afrikaans",
+                "es-ES;Spain-Spanish",
+                "sv-SE;Sweden-Swedish",
+                "th-TH;Thailand-Thai",
+                "tr-TR;Turkey-Turkish",
+                "uk-UA;Ukraine-Ukrainian",
+                "en-GB;United Kingdom-British English",
+                "en-US;United States of America-American English",
+                "vi-VN;Vietnam-Viatnamese"
             ];
             $("#country").autocomplete({
                 source: availableTags
@@ -107,21 +110,21 @@ if (isset($_POST["metin"])) {
 <h1 style="text-align:center">Dünya Sesi Yükle</h1>
 <div class="d-flex justify-content-md-center">
     <form action="entry" method="POST">
-    
-    <table style="width:100%">
-  <tr>
-    <td><label>Metin:</label></th>
-    <td><input type="text" id="metin" name="metin"></th> 
-  </tr>
-  <tr>
-    <td><label>Latin Metin:</label></td>
-    <td> <input id="latin" name="latin"></td> 
-  </tr>
-  <tr>
-    <td> <label>Dil Kodu:</label></td>
-    <td><input id="country" name="country"></td> 
-  </tr>
-</table> 
+
+        <table style="width:100%">
+            <tr>
+                <td><label>Metin:</label></th>
+                <td><input type="text" id="metin" name="metin"></th>
+            </tr>
+            <tr>
+                <td><label>Latin Metin:</label></td>
+                <td> <input id="latin" name="latin"></td>
+            </tr>
+            <tr>
+                <td> <label>Dil Kodu:</label></td>
+                <td><input id="country" name="country"></td>
+            </tr>
+        </table>
         <h5 style="text-align:center"><input type="submit" value="Kaydet"></h5>
     </form>
     <br><br>

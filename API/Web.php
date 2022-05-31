@@ -19,7 +19,7 @@ class Web extends CI_Controller
             if ($result->num_rows > 0) {
                 // output data of each row
                 while ($row = $result->fetch_assoc()) {
-                    echo $row["EntryID"]. ";" . $row["text"]. ";" . $row["country"]. ";" . $row["textonly"].";".$row["textlatin"].";".$row["translated"].";".explode("-",$row["country"])[0]."<br>";
+                    echo $row["EntryID"]. ";" . $row["text"]. ";" . $row["country"]. ";" . $row["textonly"].";".$row["textlatin"].";".urldecode($row["translated"]).";".explode("-",$row["country"])[0]."<br>";
                 }
             } else {
                 echo "0 results";
