@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
+using TMPro;
 using System.IO;
 
 public class uiHandler : MonoBehaviour
@@ -30,7 +31,28 @@ public class uiHandler : MonoBehaviour
         
     }
 
+    public void AnswerButton_Click(Button button)
+    {
+        if (button.GetComponentInChildren<TMP_Text>().text == gameManager.rightAnswer)
+        { 
+            Debug.Log("Doðru cevap");
+            gameManager.increasePlayerScore(5, 1); //kalan zaman filan eklenecek.
+            gameManager.increaseOrResetChain(true);
+            gameManager.calculateScoreMultiplier();
+            // gameManager.nextQuestionButton.gameObject.SetActive(true);
 
+        }
+        else
+        {
+            Debug.Log("Yanlýþ Cevap!");
+            gameManager.increasePlayerScore(0, 1);
+            gameManager.increaseOrResetChain(false);
+            gameManager.calculateScoreMultiplier();
+ 
+        }
+    }
+
+    
     public void StartTheGame()
     {
         gameManager._isGameActive = true;
@@ -45,6 +67,7 @@ public class uiHandler : MonoBehaviour
         gameManager._isGameActive = false;
         StartScreen.SetActive(true);
         playModeUi.SetActive(false);
+        gameManager.ResetAlltoInitialCondition();
         
     }
 

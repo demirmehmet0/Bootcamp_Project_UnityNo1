@@ -152,25 +152,25 @@ public class gameManager : MonoBehaviour
 
     }
 
-    void increaseOrResetChain()
+    public void increaseOrResetChain(bool answer)
     {
-        // if correct answer
-        RightAnswerChain++;
-        // if wrong answer or if no answer
-        RightAnswerChain = 0;
+        if (answer)
+            RightAnswerChain++;
+        else
+            RightAnswerChain = 0;
     }
 
-    void increasePlayerScore(float remainingSeconds, float scoreMultiplier)
+    public void increasePlayerScore(float remainingSeconds, float scoreMultiplier)
     {
         playerScore += remainingSeconds * scoreMultiplier;
     }
 
-    void calculateScoreMultiplier(int chain)
+    public void calculateScoreMultiplier()
     {
-        scoreMultiplier = Mathf.Pow(1.5f, chain);
+        scoreMultiplier = Mathf.Pow(1.5f, RightAnswerChain);
     }
 
-    void ResetAlltoInitialCondition()
+    public void ResetAlltoInitialCondition()
     {
        RightAnswerChain = 0;
        scoreMultiplier = 1;

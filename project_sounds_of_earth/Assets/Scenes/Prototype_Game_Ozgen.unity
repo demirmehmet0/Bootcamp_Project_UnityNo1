@@ -906,7 +906,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 247849800}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1469317157}
+        m_TargetAssemblyTypeName: uiHandler, Assembly-CSharp
+        m_MethodName: AnswerButton_Click
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 247849799}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &247849800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1400,7 +1412,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &524351195
 AudioSource:
@@ -1653,7 +1665,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &741651813
 GameObject:
@@ -2139,7 +2151,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1111355958}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1469317157}
+        m_TargetAssemblyTypeName: uiHandler, Assembly-CSharp
+        m_MethodName: AnswerButton_Click
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1111355957}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1111355958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2500,7 +2524,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1224412560}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1469317157}
+        m_TargetAssemblyTypeName: uiHandler, Assembly-CSharp
+        m_MethodName: AnswerButton_Click
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1224412559}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1224412560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2747,7 +2783,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1256686744}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1469317157}
+        m_TargetAssemblyTypeName: uiHandler, Assembly-CSharp
+        m_MethodName: AnswerButton_Click
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1256686743}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1256686744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3004,7 +3052,7 @@ Transform:
   m_Children:
   - {fileID: 1958919259}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &1307289218
 MonoBehaviour:
@@ -3158,7 +3206,7 @@ RectTransform:
   - {fileID: 573614371}
   - {fileID: 1148106858}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
