@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class questionTextManager : MonoBehaviour
 {
     gameManager gameManager;
 
-    [SerializeField] TMP_Text questionOGText;
+    [SerializeField] Text questionOGText;
     [SerializeField] TMP_Text questionLatinText;
     [SerializeField] TMP_Text questionEnglishMeaning;
     [SerializeField] TMP_Text countdownText;
@@ -40,9 +41,17 @@ public class questionTextManager : MonoBehaviour
         {
             questionOGText.text = "OG text: " + gameManager.questionResult[3];
             questionLatinText.text = "Latin text: " + gameManager.questionResult[4];
-            questionEnglishMeaning.text = "Eng meaning: " + gameManager.questionResult[5];
+
+            if(gameManager.questionResult[5] == "NULL")
+            {
+                questionEnglishMeaning.text = "Eng meaning: " + gameManager.questionResult[4];
+            }
+            else{
+                questionEnglishMeaning.text = "Eng meaning: " + gameManager.questionResult[5];
+            }
+
         }
-        
+             
     }
 
 }
