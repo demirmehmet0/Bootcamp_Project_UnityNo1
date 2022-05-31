@@ -19,6 +19,8 @@ public class gameManager : MonoBehaviour
     float scoreMultiplier = 1;
     CameraMovement cameraMovement;
     public TMP_Text countdownText;
+    [SerializeField] TMP_Text ingameScoreDisplayText;
+    [SerializeField] TMP_Text ingameMultiplierText;
     public AudioClip audioclipDeneme;
     private AudioSource gameAudioSource;
 
@@ -160,14 +162,16 @@ public class gameManager : MonoBehaviour
             RightAnswerChain = 0;
     }
 
-    public void increasePlayerScore(float remainingSeconds, float scoreMultiplier)
+    public void increasePlayerScore(float remainingSeconds)
     {
         playerScore += remainingSeconds * scoreMultiplier;
+        ingameScoreDisplayText.text = "Score: " + playerScore;
     }
 
     public void calculateScoreMultiplier()
     {
         scoreMultiplier = Mathf.Pow(1.5f, RightAnswerChain);
+        ingameMultiplierText.text = "Chain: " + RightAnswerChain + " - Multiplier: " + scoreMultiplier + "x";
     }
 
     public void ResetAlltoInitialCondition()

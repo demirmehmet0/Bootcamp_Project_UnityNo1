@@ -36,7 +36,7 @@ public class uiHandler : MonoBehaviour
         if (button.GetComponentInChildren<TMP_Text>().text == gameManager.rightAnswer)
         { 
             Debug.Log("Doðru cevap");
-            gameManager.increasePlayerScore(5, 1); //kalan zaman filan eklenecek.
+            gameManager.increasePlayerScore(10); //kalan zaman filan eklenecek.
             gameManager.increaseOrResetChain(true);
             gameManager.calculateScoreMultiplier();
             // gameManager.nextQuestionButton.gameObject.SetActive(true);
@@ -45,7 +45,7 @@ public class uiHandler : MonoBehaviour
         else
         {
             Debug.Log("Yanlýþ Cevap!");
-            gameManager.increasePlayerScore(0, 1);
+            gameManager.increasePlayerScore(0);
             gameManager.increaseOrResetChain(false);
             gameManager.calculateScoreMultiplier();
  
