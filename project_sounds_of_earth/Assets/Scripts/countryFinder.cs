@@ -28,7 +28,7 @@ public class countryFinder : MonoBehaviour
         }
     }
 
-    void ListCleaner()
+    public void ListCleaner()
     {
         countryList.Clear();
     }

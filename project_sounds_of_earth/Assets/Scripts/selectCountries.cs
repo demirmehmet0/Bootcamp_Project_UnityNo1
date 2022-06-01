@@ -42,7 +42,7 @@ public class selectCountries : MonoBehaviour
            
             changeSelectedCountryName();
             //showCountryList();
-            if (_countryfinder.countryList.Count <= 4)
+            
                 SetCountryFinderLocation();
             
                
@@ -111,22 +111,25 @@ public class selectCountries : MonoBehaviour
 
    
 
-    void SetCountryFinderLocation()
+    public void SetCountryFinderLocation()
     {
-        if (UnityEngine.Random.Range(1, 3) % 2 == 0)
-        {
-            _countryfinder.transform.position = countryVector1 + new Vector3(UnityEngine.Random.Range(2, 5), UnityEngine.Random.Range(2, 10), UnityEngine.Random.Range(2, 5));
 
-        }
-        else
+        if(_countryfinder.countryList.Count <= 4)
         {
-            _countryfinder.transform.position = countryVector1 + new Vector3(UnityEngine.Random.Range(-5, -2), UnityEngine.Random.Range(-10, -2), UnityEngine.Random.Range(-5, -2));
+            if (UnityEngine.Random.Range(1, 3) % 2 == 0)
+            {
+                _countryfinder.transform.position = countryVector1 + new Vector3(UnityEngine.Random.Range(2, 5), UnityEngine.Random.Range(2, 10), UnityEngine.Random.Range(2, 5));
+
+            }
+            else
+            {
+                _countryfinder.transform.position = countryVector1 + new Vector3(UnityEngine.Random.Range(-5, -2), UnityEngine.Random.Range(-10, -2), UnityEngine.Random.Range(-5, -2));
+            }
+            // Debug.Log("CountryFinderLOc: " + _countryfinder.transform.position);
         }
-        // Debug.Log("CountryFinderLOc: " + _countryfinder.transform.position);
-        
     }
 
-    void selectRemainingCountries()
+    public void selectRemainingCountries()
     {
        
             _countryfinder.countryList.Remove(selectedCountryName);
@@ -187,5 +190,10 @@ public class selectCountries : MonoBehaviour
             {
                 print(value);
             }
+    }
+
+    public void emptyCountryList()
+    {
+        _countryfinder.ListCleaner();
     }
 }

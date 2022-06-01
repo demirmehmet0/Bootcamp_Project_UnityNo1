@@ -4336,5 +4336,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: EarthModelv1
       objectReference: {fileID: 0}
+    - target: {fileID: 6381676424834987938, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6381676424834987938, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6381676424834987938, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}

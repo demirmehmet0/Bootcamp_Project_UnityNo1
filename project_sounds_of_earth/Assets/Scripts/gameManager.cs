@@ -15,9 +15,14 @@ public class gameManager : MonoBehaviour
     public float playerScore = 0;
     public float questionTimerRemainder = 10;
     int RightAnswerChain = 0;
+    int questionCounter = 1;
     public int QuestionAudioPlayCounter = 0;
     float scoreMultiplier = 1;
     CameraMovement cameraMovement;
+    selectCountries _selectCountries;
+
+
+
     public TMP_Text countdownText;
     [SerializeField] TMP_Text ingameScoreDisplayText;
     [SerializeField] TMP_Text ingameMultiplierText;
@@ -130,6 +135,7 @@ public class gameManager : MonoBehaviour
     private void Start()
     {
         cameraMovement = GameObject.Find("Main Camera").GetComponent<CameraMovement>();
+        _selectCountries = GameObject.Find("CountryMarkers").GetComponent<selectCountries>();
         CheckNetworkReachablility();
         // gameAudioSource.PlayOneShot(audioclipDeneme, 5f);
        // GetComponent<AudioSource>().PlayOneShot(audioclipDeneme, 5f);
@@ -200,6 +206,28 @@ public class gameManager : MonoBehaviour
         {   
            // Debug.Log("Internet connection: No error!");
         }
+    }
+
+    public void goToNextQuestion()
+    {
+        questionCounter++;
+        if(questionCounter <= 10)
+        {
+            QuestionAudioPlayCounter = 4;
+            gotAnswerFromApi = false;
+            askPhase = true;
+            _selectCountries.disableMeshAndScriptForSelected();
+            _selectCountries.changeSelectedCountryName();
+            _selectCountries.SetCountryFinderLocation();
+            _selectCountries.inSelectionPhase = true;
+
+
+            questionTimerRemainder = 10;
+            _selectCountries.buttonAnswersReset();
+            cameraMovement.setToQuestionPosition = false;
+
+        }
+      
     }
 
     //QUestion text scriptine çekilecek. zamanlamasý ayarlanacak. 

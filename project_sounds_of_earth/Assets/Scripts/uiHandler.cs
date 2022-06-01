@@ -11,6 +11,7 @@ public class uiHandler : MonoBehaviour
     gameManager gameManager;
     selectCountries _selectCountries;
     CameraMovement cameraMovement;
+    countryFinder countryFinder;
 
     public GameObject StartScreen;
     public GameObject playModeUi;
@@ -19,6 +20,7 @@ public class uiHandler : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
         _selectCountries = GameObject.Find("CountryMarkers").GetComponent<selectCountries>();
         cameraMovement = GameObject.Find("Main Camera").GetComponent<CameraMovement>();
+        
     }
 
     // Update is called once per frame
@@ -53,15 +55,8 @@ public class uiHandler : MonoBehaviour
 
         //burada yanlýþ cevap, doðru cevap animasyonlarý devreye girecek. Askphase açýldýktan sonra biraz couroutine ile süre tanýnabilir çünkü oyun donma yapýyor.
         //Bu da mp3 indirme süreci ile ilgili olsa gere. Genel oalrak düzeltilecek. 
-        gameManager.QuestionAudioPlayCounter = 4;
-        gameManager.gotAnswerFromApi = false;
-        gameManager.askPhase = true;
-        _selectCountries.changeSelectedCountryName();
-        gameManager.questionTimerRemainder = 10;
-        _selectCountries.buttonAnswersReset();
-        _selectCountries.disableMeshAndScriptForSelected();
-        _selectCountries.inSelectionPhase = true;
-        cameraMovement.setToQuestionPosition = false;
+        gameManager.goToNextQuestion();
+      
         
     }
 
