@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.IO;
 
 public class gameManager : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class gameManager : MonoBehaviour
     int questionCounter = 1;
     public int QuestionAudioPlayCounter = 0;
     float scoreMultiplier = 1;
+    float MaxPlayerScore;
+
     CameraMovement cameraMovement;
     selectCountries _selectCountries;
 
@@ -138,7 +141,8 @@ public class gameManager : MonoBehaviour
     private void Awake()
     {
         gameAudioSource = GetComponent<AudioSource>();
-        
+        loadPlayerSettingsAndData();
+        Debug.Log(MaxPlayerScore);
     }
     private void Start()
     {
@@ -265,6 +269,7 @@ public class gameManager : MonoBehaviour
         _isGameActive = false;
         inAnswerPhase = false;
         ScoreScreenScoreText.text = "Your Score: " + playerScore;
+        checkHighestScore();
 
     }
 
@@ -280,6 +285,44 @@ public class gameManager : MonoBehaviour
            
     }
 
+    private void checkHighestScore()
+    {
+        if (playerScore > MaxPlayerScore)
+        {
+            MaxPlayerScore = playerScore;
+
+            SaveGameRank(MaxPlayerScore);
+        }
+    }
+
+    void SaveGameRank(float bestScore)
+    {
+        SaveData data = new SaveData();
+
+        data.HighiestScore = bestScore;
+
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+    }
+
+    void loadPlayerSettingsAndData()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            MaxPlayerScore = data.HighiestScore;
+        }
+
+    }
+
+    [System.Serializable]
+    class SaveData
+    {
+        public float HighiestScore;
+    }
 
     //KADIR KOD
 
