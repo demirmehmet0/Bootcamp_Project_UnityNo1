@@ -151,4 +151,6 @@ Yağmur Kaya
 
 # Sprint 3
 
+Tam çalışan oynanış döngüsü videosu: https://youtu.be/6wDIgKPTGTM
+
 ---

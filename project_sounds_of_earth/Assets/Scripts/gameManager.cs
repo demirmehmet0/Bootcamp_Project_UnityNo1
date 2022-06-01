@@ -14,7 +14,7 @@ public class gameManager : MonoBehaviour
     public bool _isGameActive = false;
     public bool inAnswerPhase = false; 
     public float playerScore = 0;
-    public float questionTimerRemainder = 10;
+    public float questionTimerRemainder = 20;
     int RightAnswerChain = 0;
     int questionCounter = 1;
     public int QuestionAudioPlayCounter = 0;
@@ -32,6 +32,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TMP_Text ingameMultiplierText;
     [SerializeField] TMP_Text ingameTimerDisplay;
     [SerializeField] TMP_Text ScoreScreenScoreText;
+    [SerializeField] TMP_Text StartScreenHighestScore;
     public AudioClip audioclipDeneme;
     private AudioSource gameAudioSource;
 
@@ -141,8 +142,8 @@ public class gameManager : MonoBehaviour
     private void Awake()
     {
         gameAudioSource = GetComponent<AudioSource>();
-        loadPlayerSettingsAndData();
-        Debug.Log(MaxPlayerScore);
+        loadPlayerSettingsAndData();  
+        StartScreenHighestScore.text = "Highest Score: " + MaxPlayerScore;
     }
     private void Start()
     {
@@ -211,6 +212,7 @@ public class gameManager : MonoBehaviour
 
     public void ResetAlltoInitialCondition()
     {
+       questionTimerRemainder = 20;
        RightAnswerChain = 0;
        scoreMultiplier = 1;
        playerScore = 0;
@@ -249,7 +251,7 @@ public class gameManager : MonoBehaviour
             _selectCountries.inSelectionPhase = true;
             _selectCountries.SetCountryFinderLocation();
            
-            questionTimerRemainder = 10;
+            questionTimerRemainder = 20;
             _selectCountries.buttonAnswersReset();
             cameraMovement.setToQuestionPosition = false;
 
