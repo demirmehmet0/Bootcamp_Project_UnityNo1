@@ -99,13 +99,14 @@ public class selectCountries : MonoBehaviour
         // Debug.Log(middleVector);
     }
 
-    void changeSelectedCountryName()
+    public void changeSelectedCountryName()
     {
-       
+        if (gameManager.gotAnswerFromApi)
+        {
             selectedCountryName = gameManager.rightAnswer.Split('\n')[0];  // Normalde bu metod içinde baþka bir scriptten gelecek seçilmiþ ülke verisine eþlenecek;
             Debug.Log(selectedCountryName);
             countryVector1 = transform.Find((string)selectedCountryName).GetComponent<Transform>().position;
-   
+        }
     }
 
    

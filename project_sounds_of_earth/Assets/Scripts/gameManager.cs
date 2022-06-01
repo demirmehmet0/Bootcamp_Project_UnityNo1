@@ -220,11 +220,13 @@ public class gameManager : MonoBehaviour
     {
        // questionText.text = "Bu dil hangi ülkenin?";
         Debug.ClearDeveloperConsole();
-       // Button[] _Answers = buttonAnswers;
-       // int randomButtonIndex = UnityEngine.Random.Range(0, 4);
-       // Button selectedButton = buttonAnswers[randomButtonIndex];//Doðru cevap  
-       //_Answers[randomButtonIndex] = null;
+        // Button[] _Answers = buttonAnswers;
+        // int randomButtonIndex = UnityEngine.Random.Range(0, 4);
+        // Button selectedButton = buttonAnswers[randomButtonIndex];//Doðru cevap  
+        //_Answers[randomButtonIndex] = null;
+        Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
         string res = Array.Find(CountriesWLanguages, ele => ele.Contains(questionResult[2]));
+        Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
         rightAnswer = res.Split(';')[1];
         Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
         gotAnswerFromApi = true;
@@ -282,9 +284,10 @@ public class gameManager : MonoBehaviour
         yield return www;
         while (!www.isDone) { if (!string.IsNullOrEmpty(www.error)) { Debug.Log("DownloadPlayError"); break; } }
         AudioSource audio = GetComponent<AudioSource>();
-        audio.clip = www.GetAudioClip(false, false);
-      //  audio.Play();
-       
+        audio.clip = www.GetAudioClip(false, false); 
+        QuestionAudioPlayCounter = 0;
+        //  audio.Play();
+
     }
 
     IEnumerator CoroutineUpdate()
