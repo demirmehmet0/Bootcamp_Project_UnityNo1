@@ -24,6 +24,7 @@ public class gameManager : MonoBehaviour
 
 
     public TMP_Text countdownText;
+    [SerializeField] TMP_Text questionNumberDisplay;
     [SerializeField] TMP_Text ingameScoreDisplayText;
     [SerializeField] TMP_Text ingameMultiplierText;
     [SerializeField] TMP_Text ingameTimerDisplay;
@@ -163,9 +164,18 @@ public class gameManager : MonoBehaviour
 
     void timerCalculationsAndDisplay()
     {
-        questionTimerRemainder -= Time.deltaTime;
-        ingameTimerDisplay.text = "Time: " + questionTimerRemainder;
-
+        if(questionTimerRemainder >= 0)
+        {
+            questionTimerRemainder -= Time.deltaTime;
+            ingameTimerDisplay.text = "Time: " + questionTimerRemainder;
+        }
+        else
+        {
+            increasePlayerScore(0);
+            increaseOrResetChain(false);
+            calculateScoreMultiplier();
+            goToNextQuestion();
+        }
     }
 
     public void increaseOrResetChain(bool answer)
@@ -193,6 +203,7 @@ public class gameManager : MonoBehaviour
        RightAnswerChain = 0;
        scoreMultiplier = 1;
        playerScore = 0;
+       questionCounter = 1;
     }
 
     void CheckNetworkReachablility()
@@ -210,9 +221,12 @@ public class gameManager : MonoBehaviour
 
     public void goToNextQuestion()
     {
-        questionCounter++;
-        if(questionCounter <= 10)
+      
+        if (questionCounter < 10)
         {
+            questionCounter++;
+            questionNumberDisplay.text = "Q." + questionCounter;
+
             QuestionAudioPlayCounter = 4;
             gotAnswerFromApi = false;
             askPhase = true;
