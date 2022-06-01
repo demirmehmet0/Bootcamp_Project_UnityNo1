@@ -169,7 +169,7 @@ public class gameManager : MonoBehaviour
         if(questionTimerRemainder >= 0)
         {
             questionTimerRemainder -= Time.deltaTime;
-            ingameTimerDisplay.text = "Time: " + questionTimerRemainder;
+            ingameTimerDisplay.text = "Time: " + Mathf.Ceil(questionTimerRemainder);
         }
         else
         {
@@ -197,7 +197,7 @@ public class gameManager : MonoBehaviour
     public void calculateScoreMultiplier()
     {
         scoreMultiplier = Mathf.Pow(1.5f, RightAnswerChain);
-        ingameMultiplierText.text = "Chain: " + RightAnswerChain + " - Multiplier: " + scoreMultiplier + "x";
+        ingameMultiplierText.text = "Chain: " + RightAnswerChain + " - Multiplier: " + scoreMultiplier + "x"; //Buraya skor için noktadan sonra 1 veya 2 fraction gösterilecek kod yazýlacak
     }
 
     public void ResetAlltoInitialCondition()
@@ -224,21 +224,20 @@ public class gameManager : MonoBehaviour
 
     public void goToNextQuestion()
     {
-      
+        QuestionAudioPlayCounter = 4;
+        _selectCountries.disableMeshAndScriptForSelected();
+        gotAnswerFromApi = false;
+        askPhase = true;
+
         if (questionCounter < 10)
         {
             questionCounter++;
             questionNumberDisplay.text = "Q." + questionCounter;
-
-            QuestionAudioPlayCounter = 4;
-            gotAnswerFromApi = false;
-            askPhase = true;
-            _selectCountries.disableMeshAndScriptForSelected();
+            
             _selectCountries.changeSelectedCountryName();
-            _selectCountries.SetCountryFinderLocation();
             _selectCountries.inSelectionPhase = true;
-
-
+            _selectCountries.SetCountryFinderLocation();
+           
             questionTimerRemainder = 10;
             _selectCountries.buttonAnswersReset();
             cameraMovement.setToQuestionPosition = false;
@@ -246,6 +245,7 @@ public class gameManager : MonoBehaviour
         }
       
     }
+
 
     //QUestion text scriptine çekilecek. zamanlamasý ayarlanacak. 
     void CountdownBeforeQuestion()
@@ -352,7 +352,7 @@ public class gameManager : MonoBehaviour
         {
             string[] result = www.downloadHandler.text.Split(';');
             questionResult = result;
-            if (sessionQuestionNumbers.Contains(result[0]))
+            if (sessionQuestionNumbers.Contains(result[0]) || result[1] == "")
             {
                 goto getNewRandomEntry;
             }

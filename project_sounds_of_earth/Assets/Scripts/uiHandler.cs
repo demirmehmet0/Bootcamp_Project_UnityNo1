@@ -55,6 +55,7 @@ public class uiHandler : MonoBehaviour
 
         //burada yanlýþ cevap, doðru cevap animasyonlarý devreye girecek. Askphase açýldýktan sonra biraz couroutine ile süre tanýnabilir çünkü oyun donma yapýyor.
         //Bu da mp3 indirme süreci ile ilgili olsa gere. Genel oalrak düzeltilecek. 
+        //cevaba týklandýðýnda da 10 soruyu geçmiþse skor ekranýna atmalý
         gameManager.goToNextQuestion();
       
         
@@ -82,7 +83,7 @@ public class uiHandler : MonoBehaviour
     public void NextQuestion()
     {
         _selectCountries.disableMeshAndScriptForSelected();
-        cameraMovement.randomIdleNumbersSet = false;
+        cameraMovement.randomIdleNumbersSet = false; //random idle numbler'ý unutmuþtum, next question þeyine cevap vererek girince de eklenmeli.
         cameraMovement.setToQuestionPosition = false;
         _selectCountries.inSelectionPhase = true;
       
