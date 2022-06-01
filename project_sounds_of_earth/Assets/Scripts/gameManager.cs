@@ -44,6 +44,8 @@ public class gameManager : MonoBehaviour
     public bool askPhase = true;
     public bool gotAnswerFromApi = false;
 
+
+    public ArrayList sessionQuestionNumbers = new ArrayList();
     public string[] CountriesWLanguages =
    {
         //Google text to speech desteklemeyen ama oyunda bulunan ülkeler
@@ -204,6 +206,7 @@ public class gameManager : MonoBehaviour
        scoreMultiplier = 1;
        playerScore = 0;
        questionCounter = 1;
+       sessionQuestionNumbers.Clear();
     }
 
     void CheckNetworkReachablility()
@@ -340,6 +343,7 @@ public class gameManager : MonoBehaviour
 
     IEnumerator API_GetQuestion()//string entryId = result[0]; string text = result[1]; string country = result[2]; string textonly = result[3]
     {
+        getNewRandomEntry:  
         gettingQuestionFromAPI = true;
         UnityWebRequest www = UnityWebRequest.Get(API + "random");
         yield return www.Send();
@@ -348,6 +352,14 @@ public class gameManager : MonoBehaviour
         {
             string[] result = www.downloadHandler.text.Split(';');
             questionResult = result;
+            if (sessionQuestionNumbers.Contains(result[0]))
+            {
+                goto getNewRandomEntry;
+            }
+            else
+            {
+                sessionQuestionNumbers.Add(questionResult[0]);
+            }          
             StartCoroutine(DownloadAndPlay(Host + questionResult[1]));
             while (GetComponent<AudioSource>().isPlaying) { if (false/*Hata sorgusu*/) { Debug.Log("GetQuestionError"); break; } }
             if (!www.isHttpError || !www.isNetworkError) LoadQuestion(); else { Debug.Log("Hata"); }
