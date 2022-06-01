@@ -15,6 +15,7 @@ public class uiHandler : MonoBehaviour
 
     public GameObject StartScreen;
     public GameObject playModeUi;
+    [SerializeField] GameObject ScoreScreenUI;
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
@@ -38,6 +39,7 @@ public class uiHandler : MonoBehaviour
         if (button.GetComponentInChildren<TMP_Text>().text == gameManager.rightAnswer)
         { 
             Debug.Log("Doðru cevap");
+          
             gameManager.increasePlayerScore(gameManager.questionTimerRemainder); //kalan zaman filan eklenecek.
             gameManager.increaseOrResetChain(true);
             gameManager.calculateScoreMultiplier();
@@ -47,6 +49,7 @@ public class uiHandler : MonoBehaviour
         else
         {
             Debug.Log("Yanlýþ Cevap!");
+        
             gameManager.increasePlayerScore(0);
             gameManager.increaseOrResetChain(false);
             gameManager.calculateScoreMultiplier();
@@ -61,7 +64,7 @@ public class uiHandler : MonoBehaviour
         
     }
 
-    
+
     public void StartTheGame()
     {
         gameManager._isGameActive = true;
@@ -76,6 +79,7 @@ public class uiHandler : MonoBehaviour
         gameManager._isGameActive = false;
         StartScreen.SetActive(true);
         playModeUi.SetActive(false);
+        ScoreScreenUI.SetActive(false);
         gameManager.ResetAlltoInitialCondition();
         
     }

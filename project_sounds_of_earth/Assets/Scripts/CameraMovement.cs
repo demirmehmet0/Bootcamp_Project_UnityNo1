@@ -167,13 +167,13 @@ public class CameraMovement : MonoBehaviour
         
     }
 
-    void rightAnswerCameraMovement()
+    public void rightAnswerCameraMovement()
     { //idleCamera'yý repurpose ederek bunu yapmak mümkün. randomize efekt almak için 150'lerin bazýlarý - yapýlabilir, 2.1, 4.2, 0 phasorleri yer deðiþtirilebilir.
       //doðru þýk seçildikten sonraya entegre edilecek.
         idleCameraMovement(150, 150, 150, 2.1f, 4.2f, 0);
     }
 
-    void wrongAnswerCameraMovement()
+    public void wrongAnswerCameraMovement()
     { //yanlýþ cevap yaptýktan sorna bu tarz bi titreþim verilebilir.
         float AngleAmount = (Mathf.Cos(Time.time * CameraShakeSpeed) * 180) / Mathf.PI * 0.5f;
         AngleAmount = Mathf.Clamp(AngleAmount, -15, 15);

@@ -28,8 +28,13 @@ public class gameManager : MonoBehaviour
     [SerializeField] TMP_Text ingameScoreDisplayText;
     [SerializeField] TMP_Text ingameMultiplierText;
     [SerializeField] TMP_Text ingameTimerDisplay;
+    [SerializeField] TMP_Text ScoreScreenScoreText;
     public AudioClip audioclipDeneme;
     private AudioSource gameAudioSource;
+
+    [SerializeField] GameObject StartScreen;
+    [SerializeField] GameObject playModeUi;
+    [SerializeField] GameObject ScoreScreenUI;
 
     //API FUELDS 
     const string Host = "https://soundsofearth.space/";
@@ -226,12 +231,14 @@ public class gameManager : MonoBehaviour
     {
         QuestionAudioPlayCounter = 4;
         _selectCountries.disableMeshAndScriptForSelected();
-        gotAnswerFromApi = false;
-        askPhase = true;
+  
 
         if (questionCounter < 10)
         {
             questionCounter++;
+            gotAnswerFromApi = false;
+            askPhase = true;
+          
             questionNumberDisplay.text = "Q." + questionCounter;
             
             _selectCountries.changeSelectedCountryName();
@@ -243,7 +250,22 @@ public class gameManager : MonoBehaviour
             cameraMovement.setToQuestionPosition = false;
 
         }
+        else
+        {
+            GoToGameScoreScreen();
+        }
       
+    }
+
+
+    void GoToGameScoreScreen()
+    {
+        playModeUi.SetActive(false);
+        ScoreScreenUI.SetActive(true);
+        _isGameActive = false;
+        inAnswerPhase = false;
+        ScoreScreenScoreText.text = "Your Score: " + playerScore;
+
     }
 
 
@@ -272,7 +294,10 @@ public class gameManager : MonoBehaviour
         Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
         string res = Array.Find(CountriesWLanguages, ele => ele.Contains(questionResult[2]));
         Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
+
+      
         rightAnswer = res.Split(';')[1];
+      
         Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
         gotAnswerFromApi = true;
 
