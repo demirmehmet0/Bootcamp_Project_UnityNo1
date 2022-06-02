@@ -9,7 +9,7 @@ public class questionTextManager : MonoBehaviour
     gameManager gameManager;
 
     [SerializeField] Text questionOGText;
-    [SerializeField] TMP_Text questionLatinText;
+    [SerializeField] Text questionLatinText;
     [SerializeField] TMP_Text questionEnglishMeaning;
     [SerializeField] TMP_Text countdownText;
 
