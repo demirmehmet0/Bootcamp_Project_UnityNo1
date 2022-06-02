@@ -17,6 +17,7 @@ public class uiHandler : MonoBehaviour
     public GameObject playModeUi;
     [SerializeField] GameObject ScoreScreenUI;
     [SerializeField] GameObject CreditsPopup;
+    [SerializeField] GameObject useYourHeadphones;
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
@@ -66,9 +67,8 @@ public class uiHandler : MonoBehaviour
     }
 
     public void showCreditsWindow()
-    {
+    {    
         CreditsPopup.SetActive(true);
-
     }
 
     public void closeCreditsWindow()
@@ -76,6 +76,10 @@ public class uiHandler : MonoBehaviour
         CreditsPopup.SetActive(false);
     }
 
+    public void closeUseYourHeadphonesNotice()
+    {
+        useYourHeadphones.SetActive(false);
+    }
 
     public void StartTheGame()
     {
