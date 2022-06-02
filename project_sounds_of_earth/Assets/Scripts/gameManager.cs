@@ -36,7 +36,7 @@ public class gameManager : MonoBehaviour
     public AudioClip audioclipDeneme;
     private AudioSource gameAudioSource;
 
-    [SerializeField] GameObject StartScreen;
+    [SerializeField] GameObject APIserverConnectionIssueScreen;
     [SerializeField] GameObject playModeUi;
     [SerializeField] GameObject ScoreScreenUI;
     [SerializeField] GameObject YouNeedInternet;
@@ -398,7 +398,7 @@ public class gameManager : MonoBehaviour
         Debug.Log(url);
         WWW www = new WWW(url);
         yield return www;
-        while (!www.isDone) { if (!string.IsNullOrEmpty(www.error)) { Debug.Log("DownloadPlayError"); break; } }
+        while (!www.isDone) { if (!string.IsNullOrEmpty(www.error)) {APIserverConnectionIssueScreen.SetActive(true); break; } }//Debug.Log("DownloadPlayError") www.error'un yanýnda bu vardý.
         AudioSource audio = GetComponent<AudioSource>();
         audio.clip = www.GetAudioClip(false, false); 
         QuestionAudioPlayCounter = 0;
@@ -418,7 +418,7 @@ public class gameManager : MonoBehaviour
         gettingQuestionFromAPI = true;
         UnityWebRequest www = UnityWebRequest.Get(API + "random");
         yield return www.Send();
-        while (!www.isDone) { if (!www.isHttpError || !www.isNetworkError) { Debug.Log("GetQuestionError"); break; } }
+        while (!www.isDone) { if (!www.isHttpError || !www.isNetworkError) {APIserverConnectionIssueScreen.SetActive(true); break; } } //Debug.Log("GetQuestionError") silip server connection koydum.
         if (!www.isHttpError || !www.isNetworkError)
         {
             string[] result = www.downloadHandler.text.Split(';');

@@ -1741,7 +1741,7 @@ MonoBehaviour:
   ScoreScreenScoreText: {fileID: 2136422346}
   StartScreenHighestScore: {fileID: 1227702723}
   audioclipDeneme: {fileID: 8300000, guid: 4015a7fddac66194b87654eb2d180494, type: 3}
-  StartScreen: {fileID: 1027466329}
+  APIserverConnectionIssueScreen: {fileID: 313876028}
   playModeUi: {fileID: 573614370}
   ScoreScreenUI: {fileID: 1148106857}
   YouNeedInternet: {fileID: 92221100}
@@ -3958,7 +3958,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &1213894944
 CanvasRenderer:
   m_ObjectHideFlags: 0
