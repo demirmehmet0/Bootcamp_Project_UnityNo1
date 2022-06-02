@@ -16,6 +16,7 @@ public class uiHandler : MonoBehaviour
     public GameObject StartScreen;
     public GameObject playModeUi;
     [SerializeField] GameObject ScoreScreenUI;
+    [SerializeField] GameObject CreditsPopup;
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
@@ -64,6 +65,17 @@ public class uiHandler : MonoBehaviour
         
     }
 
+    public void showCreditsWindow()
+    {
+        CreditsPopup.SetActive(true);
+
+    }
+
+    public void closeCreditsWindow()
+    {
+        CreditsPopup.SetActive(false);
+    }
+
 
     public void StartTheGame()
     {
@@ -75,6 +87,7 @@ public class uiHandler : MonoBehaviour
 
     public void ExitPlayMode()
     {
+        
         _selectCountries.disableMeshAndScriptForSelected();
         gameManager._isGameActive = false;
         StartScreen.SetActive(true);

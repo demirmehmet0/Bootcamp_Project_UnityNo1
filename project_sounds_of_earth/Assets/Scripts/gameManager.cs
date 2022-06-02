@@ -272,6 +272,7 @@ public class gameManager : MonoBehaviour
         inAnswerPhase = false;
         ScoreScreenScoreText.text = "Your Score: " + playerScore;
         checkHighestScore();
+        StartScreenHighestScore.text = "Highest Score: " + MaxPlayerScore;
 
     }
 
