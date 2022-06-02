@@ -17,6 +17,7 @@ public class uiHandler : MonoBehaviour
     public GameObject playModeUi;
     [SerializeField] GameObject ScoreScreenUI;
     [SerializeField] GameObject CreditsPopup;
+    [SerializeField] GameObject OptionsPopup;
     [SerializeField] GameObject useYourHeadphones;
     [SerializeField] TMP_Text useYourheadphonesCounter;
     float startscreenTimer = 5;
@@ -78,6 +79,16 @@ public class uiHandler : MonoBehaviour
       
         
     }
+    public void showOptionsWindow()
+    {
+        OptionsPopup.SetActive(true);
+    }
+
+    public void closeOptionsWindow()
+    {
+        OptionsPopup.SetActive(false);
+    }
+
 
     public void showCreditsWindow()
     {    

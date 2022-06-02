@@ -43,3 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: CloserUI
+    uniqueID: 572937249
+    locked: 0
