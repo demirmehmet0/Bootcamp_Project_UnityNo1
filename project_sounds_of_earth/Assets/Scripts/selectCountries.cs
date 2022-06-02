@@ -26,6 +26,8 @@ public class selectCountries : MonoBehaviour
     Vector3 countryVector4 = new Vector3(0, 0, 0);
     public Vector3 middleVector = new Vector3(0, 0, 0);
 
+
+
     // Start is called before the first frame update
     void Start()
     {

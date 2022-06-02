@@ -39,6 +39,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject StartScreen;
     [SerializeField] GameObject playModeUi;
     [SerializeField] GameObject ScoreScreenUI;
+    [SerializeField] GameObject YouNeedInternet;
 
     //API FUELDS 
     const string Host = "https://soundsofearth.space/";
@@ -224,12 +225,11 @@ public class gameManager : MonoBehaviour
     {
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            Debug.Log("Error. Check internet connection!");
-            //Error fonksiyonu eklenmeli, ekrana bir textbox atýlmalý.
+            YouNeedInternet.SetActive(true);
         }
         else
         {   
-           // Debug.Log("Internet connection: No error!");
+           // Debug.Log("Internet connection: No error!"); Belki internet hýzýna göre ekranýn sað üstüne wifi iþariti konulup update edilebilir.
         }
     }
 

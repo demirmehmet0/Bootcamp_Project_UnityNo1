@@ -18,6 +18,13 @@ public class uiHandler : MonoBehaviour
     [SerializeField] GameObject ScoreScreenUI;
     [SerializeField] GameObject CreditsPopup;
     [SerializeField] GameObject useYourHeadphones;
+    [SerializeField] TMP_Text useYourheadphonesCounter;
+    float startscreenTimer = 5;
+
+    private void Awake()
+    {
+        StartCoroutine(timerforCloseHeadphonesNotice());
+    }
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
@@ -29,6 +36,12 @@ public class uiHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (useYourHeadphones.activeSelf == true)
+        {
+            startscreenTimer -= Time.deltaTime;
+            useYourheadphonesCounter.text = "" +Mathf.Ceil(startscreenTimer);
+        }
+
         if (gameManager._isGameActive)
         {
 
@@ -79,6 +92,12 @@ public class uiHandler : MonoBehaviour
     public void closeUseYourHeadphonesNotice()
     {
         useYourHeadphones.SetActive(false);
+    }
+
+    IEnumerator timerforCloseHeadphonesNotice()
+    {
+        yield return new WaitForSeconds(5f);
+        closeUseYourHeadphonesNotice();
     }
 
     public void StartTheGame()
