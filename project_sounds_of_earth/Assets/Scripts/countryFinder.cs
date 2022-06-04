@@ -19,6 +19,7 @@ public class countryFinder : MonoBehaviour
         if (selectCountries.inSelectionPhase)
         {
             gameObject.GetComponent<Collider>().enabled = true;
+            gameObject.transform.localScale += new Vector3(1, 1, 1);
         }
 
         if (!selectCountries.inSelectionPhase)
@@ -30,9 +31,10 @@ public class countryFinder : MonoBehaviour
 
     public void ListCleaner()
     {
-        countryList.Clear();
+        gameObject.transform.localScale = new Vector3(20, 20, 20);
+        countryList.Clear(); 
     }
-
+    void q(string s) { }
     private void OnCollisionEnter(Collision collision)
     {
         if (countryList.Contains(collision.gameObject.name))
@@ -41,7 +43,7 @@ public class countryFinder : MonoBehaviour
         }
         else
         {
-           // Debug.Log(collision.gameObject.name);
+           // q(collision.gameObject.name);
             countryList.Add(collision.gameObject.name);
         }
     }

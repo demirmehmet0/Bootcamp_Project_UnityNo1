@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using TMPro;
 using System.IO;
+using System;
 
 public class uiHandler : MonoBehaviour
 {
@@ -58,12 +59,13 @@ public class uiHandler : MonoBehaviour
     {
         if (button.GetComponentInChildren<TMP_Text>().text == gameManager.rightAnswer)
         {
-            Debug.Log("Do?ru cevap");
+            q("Do?ru cevap");
 
             gameManager.increasePlayerScore(gameManager.questionTimerRemainder); //kalan zaman filan eklenecek.
             gameManager.increaseOrResetChain(true);
             gameManager.calculateScoreMultiplier();
             // gameManager.nextQuestionButton.gameObject.SetActive(true); 
+            Array.Clear(gameManager.questionResult,0,gameManager.questionResult.Length);
             gameManager.goToNextQuestion();
         }
         else
@@ -77,7 +79,7 @@ public class uiHandler : MonoBehaviour
                     text.text = gameManager.rightAnswerEng + "\n" + gameManager.rightAnswer;
                 }
             }
-            Debug.Log("Yanl?? Cevap!");
+            q("Yanl?? Cevap!");
 
         }
         //burada yanl?? cevap, do?ru cevap animasyonlar? devreye girecek. Askphase a??ld?ktan sonra biraz couroutine ile s?re tan?nabilir ??nk? oyun donma yap?yor.
@@ -136,6 +138,7 @@ public class uiHandler : MonoBehaviour
 
     public void StartTheGame()
     {
+        print("TESTq");
         gameManager.GetComponent<AudioSource>().volume = 1;
         gameManager.ResetAlltoInitialCondition();
         gameManager._isGameActive = true;
@@ -177,5 +180,8 @@ public class uiHandler : MonoBehaviour
 #endif
     }
 
+
+
+    void q(string s) { }
 }
 

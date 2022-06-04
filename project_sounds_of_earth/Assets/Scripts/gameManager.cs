@@ -37,7 +37,7 @@ public class gameManager : MonoBehaviour
     private AudioSource gameAudioSource;
 
     [SerializeField] GameObject APIserverConnectionIssueScreen;
-    [SerializeField] GameObject playModeUi;
+    [SerializeField] GameObject playModeUi; 
     [SerializeField] GameObject ScoreScreenUI;
     [SerializeField] GameObject YouNeedInternet;
 
@@ -155,10 +155,11 @@ public class gameManager : MonoBehaviour
         // gameAudioSource.PlayOneShot(audioclipDeneme, 5f);
         // GetComponent<AudioSource>().PlayOneShot(audioclipDeneme, 5f);
     }
-
+    float timer = 0;
 
     private void Update()
     {
+        timer -= Time.deltaTime;
         if (_isGameActive && inAnswerPhase)
         {
 
@@ -234,7 +235,7 @@ public class gameManager : MonoBehaviour
         }
         else
         {
-            // Debug.Log("Internet connection: No error!"); Belki internet h?z?na g?re ekran?n sa? ?st?ne wifi i?ariti konulup update edilebilir.
+            // q("Internet connection: No error!"); Belki internet h?z?na g?re ekran?n sa? ?st?ne wifi i?ariti konulup update edilebilir.
         }
     }
 
@@ -333,7 +334,7 @@ public class gameManager : MonoBehaviour
     }
 
     //KADIR KOD
-
+    void q(string s) { }
     private void LoadQuestion()
     {
         // questionText.text = "Bu dil hangi ?lkenin?";
@@ -342,14 +343,13 @@ public class gameManager : MonoBehaviour
         // int randomButtonIndex = UnityEngine.Random.Range(0, 4);
         // Button selectedButton = buttonAnswers[randomButtonIndex];//Do?ru cevap  
         //_Answers[randomButtonIndex] = null;
-        Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
+        q(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
         string res = Array.Find(CountriesWLanguages, ele => ele.Contains(questionResult[2]));
-        Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
-
+        q(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]); 
         rightAnswerEng = questionResult[3]+"\n"+WWW.UnEscapeURL(questionResult[5]);
         rightAnswer = res.Split(';')[1];
 
-        Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
+        q(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
         gotAnswerFromApi = true;
 
         /*
@@ -395,16 +395,16 @@ public class gameManager : MonoBehaviour
                 GetComponent<AudioSource>().Play(50000);
             }
             QuestionAudioPlayCounter++;
-            Debug.Log("played");
+            q("played");
         }
     }
 
     IEnumerator DownloadAndPlay(string url)
     {
-        Debug.Log(url);
+        q(url);
         WWW www = new WWW(url);
         yield return www;
-        while (!www.isDone) { if (!string.IsNullOrEmpty(www.error)) { APIserverConnectionIssueScreen.SetActive(true); break; } }//Debug.Log("DownloadPlayError") www.error'un yan?nda bu vard?.
+        while (!www.isDone) { if (!string.IsNullOrEmpty(www.error)) { APIserverConnectionIssueScreen.SetActive(true); break; } }//q("DownloadPlayError") www.error'un yan?nda bu vard?.
         AudioSource audio = GetComponent<AudioSource>();
         audio.clip = www.GetAudioClip(false, false);
         QuestionAudioPlayCounter = 0;
@@ -424,7 +424,7 @@ public class gameManager : MonoBehaviour
         gettingQuestionFromAPI = true;
         UnityWebRequest www = UnityWebRequest.Get(API + "random");
         yield return www.Send();
-        while (!www.isDone) { if (!www.isHttpError || !www.isNetworkError) { APIserverConnectionIssueScreen.SetActive(true); break; } } //Debug.Log("GetQuestionError") silip server connection koydum.
+        while (!www.isDone) { if (!www.isHttpError || !www.isNetworkError) { APIserverConnectionIssueScreen.SetActive(true); break; } } //q("GetQuestionError") silip server connection koydum.
         if (!www.isHttpError || !www.isNetworkError)
         {
             string[] result = www.downloadHandler.text.Split(';');
@@ -437,10 +437,14 @@ public class gameManager : MonoBehaviour
             {
                 sessionQuestionNumbers.Add(questionResult[0]);
             }
+            foreach (string item in questionResult) print(item); 
+            while (questionResult[questionResult.Length-1] == "")
+            { 
+            }
             StartCoroutine(DownloadAndPlay(Host + questionResult[1]));
-            while (GetComponent<AudioSource>().isPlaying) { if (false/*Hata sorgusu*/) { Debug.Log("GetQuestionError"); break; } }
-            if (!www.isHttpError || !www.isNetworkError) LoadQuestion(); else { Debug.Log("Hata"); }
+            while (GetComponent<AudioSource>().isPlaying) { if (false/*Hata sorgusu*/) { q("GetQuestionError"); break; } }
+            if (!www.isHttpError || !www.isNetworkError) LoadQuestion(); else { q("Hata"); }
         }
-        else { Debug.Log("GetQuestionError"); }
+        else { q("GetQuestionError"); }
     }
 }

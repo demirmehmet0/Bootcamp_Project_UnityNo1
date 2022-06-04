@@ -64,7 +64,7 @@ public class selectCountries : MonoBehaviour
 
 
 
-    //bu iki fonksiyon birleþtirilip bir for döngüsü ve selected country arrayi ile 2-3 satýra kadar indirilebilir ama þimdilik böyle býraktým. 
+    //bu iki fonksiyon birle?tirilip bir for d?ng?s? ve selected country arrayi ile 2-3 sat?ra kadar indirilebilir ama ?imdilik b?yle b?rakt?m. 
     void enableMeshAndScriptForSelected()
     {
         transform.Find((string)selectedCountryName).GetComponent<MeshRenderer>().enabled = true;
@@ -88,25 +88,25 @@ public class selectCountries : MonoBehaviour
         transform.Find((string)wrongAnswerCountries[1]).GetComponent<countryMarkerBehaviour>().enabled = false;
         transform.Find((string)wrongAnswerCountries[2]).GetComponent<countryMarkerBehaviour>().enabled = false;
     }
-
+    void q(string s) { }
     void findMiddleVector()
     {
         countryVector2 = transform.Find((string)wrongAnswerCountries[0]).GetComponent<Transform>().position;
         countryVector3 = transform.Find((string)wrongAnswerCountries[1]).GetComponent<Transform>().position;
         countryVector4 = transform.Find((string)wrongAnswerCountries[2]).GetComponent<Transform>().position;
         magnitudeOfcombinationVector = (countryVector1 + countryVector2 + countryVector3 + countryVector4).magnitude; //for camera distance calculation
-        // Debug.Log("magnitude of combination vector: " + magnitudeOfcombinationVector);
+        // q("magnitude of combination vector: " + magnitudeOfcombinationVector);
         middleVector = (countryVector1 + countryVector2 + countryVector3 + countryVector4).normalized * radiusOfEarth;
         
-        // Debug.Log(middleVector);
+        // q(middleVector);
     }
 
     public void changeSelectedCountryName()
     {
         if (gameManager.gotAnswerFromApi)
         {
-            selectedCountryName = gameManager.rightAnswer.Split('\n')[0];  // Normalde bu metod içinde baþka bir scriptten gelecek seçilmiþ ülke verisine eþlenecek;
-            Debug.Log(selectedCountryName);
+            selectedCountryName = gameManager.rightAnswer.Split('\n')[0];  // Normalde bu metod i?inde ba?ka bir scriptten gelecek se?ilmi? ?lke verisine e?lenecek;
+            q(selectedCountryName);
             countryVector1 = transform.Find((string)selectedCountryName).GetComponent<Transform>().position;
         }
     }
@@ -127,7 +127,7 @@ public class selectCountries : MonoBehaviour
             {
                 _countryfinder.transform.position = countryVector1 + new Vector3(UnityEngine.Random.Range(-5, -2), UnityEngine.Random.Range(-10, -2), UnityEngine.Random.Range(-5, -2));
             }
-            // Debug.Log("CountryFinderLOc: " + _countryfinder.transform.position);
+            // q("CountryFinderLOc: " + _countryfinder.transform.position);
         }
     }
 
@@ -140,7 +140,7 @@ public class selectCountries : MonoBehaviour
             wrongAnswerCountries[1]= (string)_countryfinder.countryList[1];
             wrongAnswerCountries[2]= (string)_countryfinder.countryList[2];
 
-        //Debug.Log("Country1: " + country1name + " Country2: " + country2name + " Country3 : " + country3name);
+        //q("Country1: " + country1name + " Country2: " + country2name + " Country3 : " + country3name);
 
     }
 
@@ -150,7 +150,7 @@ public class selectCountries : MonoBehaviour
 
         buttonAnswersReset();
 
-        Debug.Log(wrongAnswerCountries[0]  + " " + wrongAnswerCountries[1] + " " + wrongAnswerCountries[2]);
+        q(wrongAnswerCountries[0]  + " " + wrongAnswerCountries[1] + " " + wrongAnswerCountries[2]);
         for (int i = 0; i < wrongAnswerCountries.Length; i++)
         {
             if (i != randomButtonIndexForRightAnswer && buttonAnswers[i].GetComponentInChildren<TMP_Text>().text == "")
@@ -185,12 +185,12 @@ public class selectCountries : MonoBehaviour
         }
     }
 
-    //tamamen debug amaçlarýyla yaptýðým bir fonksiyon. Diðer scriptten aldýðým veriyi doðru aldým mý kontrol etmek için yazdýrýyorum.
+    //tamamen debug ama?lar?yla yapt???m bir fonksiyon. Di?er scriptten ald???m veriyi do?ru ald?m m? kontrol etmek i?in yazd?r?yorum.
     void showCountryList()
     {
             foreach (string value in _countryfinder.countryList)
             {
-                print(value);
+                q(value);
             }
     }
 
