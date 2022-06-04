@@ -12,7 +12,7 @@ public class gameManager : MonoBehaviour
     //FIELDS - OZGEN 
 
     public bool _isGameActive = false;
-    public bool inAnswerPhase = false; 
+    public bool inAnswerPhase = false;
     public float playerScore = 0;
     public float questionTimerRemainder = 20;
     int RightAnswerChain = 0;
@@ -22,12 +22,12 @@ public class gameManager : MonoBehaviour
     float MaxPlayerScore;
 
     CameraMovement cameraMovement;
-    selectCountries _selectCountries;
-
+    selectCountries _selectCountries; 
 
 
     public TMP_Text countdownText;
     [SerializeField] TMP_Text questionNumberDisplay;
+    [SerializeField] TMP_Text wrongAnswerText;
     [SerializeField] TMP_Text ingameScoreDisplayText;
     [SerializeField] TMP_Text ingameMultiplierText;
     [SerializeField] TMP_Text ingameTimerDisplay;
@@ -47,8 +47,9 @@ public class gameManager : MonoBehaviour
 
     //BUTTONS -ANSWERS etc
     public TMP_Text questionText;
-   // public Button[] buttonAnswers;
+    // public Button[] buttonAnswers;
     public string rightAnswer = "";
+    public string rightAnswerEng = "";
     public string[] questionResult;
     bool gettingQuestionFromAPI = false;
     public bool askPhase = true;
@@ -58,7 +59,7 @@ public class gameManager : MonoBehaviour
     public ArrayList sessionQuestionNumbers = new ArrayList();
     public string[] CountriesWLanguages =
    {
-        //Google text to speech desteklemeyen ama oyunda bulunan ülkeler
+        //Google text to speech desteklemeyen ama oyunda bulunan ?lkeler
         "??;Afghanistan\nPashto",
         "??;Albania\nAlbanian",
         "??;Armenia\nArmenian",
@@ -96,7 +97,7 @@ public class gameManager : MonoBehaviour
         "??;Swaziland\nSwazi",
         "??;Tajikistan\nTajik",
         "??;Uzbekistan\nUzbek",
-        //API'de bulunan Dil kodlarý
+        //API'de bulunan Dil kodlar?
         "ca-ES;Andorra\nCatalan",
         "en-AU;Australia\nAustralian English",
         "bn-IN;Bangladesh\nBengali",
@@ -143,7 +144,7 @@ public class gameManager : MonoBehaviour
     private void Awake()
     {
         gameAudioSource = GetComponent<AudioSource>();
-        loadPlayerSettingsAndData();  
+        loadPlayerSettingsAndData();
         StartScreenHighestScore.text = "Highest Score: " + MaxPlayerScore;
     }
     private void Start()
@@ -152,20 +153,20 @@ public class gameManager : MonoBehaviour
         _selectCountries = GameObject.Find("CountryMarkers").GetComponent<selectCountries>();
         CheckNetworkReachablility();
         // gameAudioSource.PlayOneShot(audioclipDeneme, 5f);
-       // GetComponent<AudioSource>().PlayOneShot(audioclipDeneme, 5f);
+        // GetComponent<AudioSource>().PlayOneShot(audioclipDeneme, 5f);
     }
 
 
     private void Update()
     {
-       if(_isGameActive && inAnswerPhase)
+        if (_isGameActive && inAnswerPhase)
         {
-           
+
         }
 
-        if (_isGameActive  && askPhase)//isStarted eklenmeli? //cameraMovement.setToQuestionPosition bu and operatordan çýkartýldý.
+        if (_isGameActive && askPhase)//isStarted eklenmeli? //cameraMovement.setToQuestionPosition bu and operatordan ??kart?ld?.
         {
-            
+
             if (!gettingQuestionFromAPI) StartCoroutine(CoroutineUpdate());
         }
 
@@ -177,17 +178,20 @@ public class gameManager : MonoBehaviour
 
     void timerCalculationsAndDisplay()
     {
-        if(questionTimerRemainder >= 0)
+        if (questionTimerRemainder >= 0)
         {
             questionTimerRemainder -= Time.deltaTime;
             ingameTimerDisplay.text = "Time: " + Mathf.Ceil(questionTimerRemainder);
         }
         else
         {
-            increasePlayerScore(0);
-            increaseOrResetChain(false);
-            calculateScoreMultiplier();
-            goToNextQuestion();
+            if (!wrongAnswerText.IsActive())
+            {
+                increasePlayerScore(0);
+                increaseOrResetChain(false);
+                calculateScoreMultiplier();
+                goToNextQuestion();
+            } 
         }
     }
 
@@ -208,17 +212,18 @@ public class gameManager : MonoBehaviour
     public void calculateScoreMultiplier()
     {
         scoreMultiplier = Mathf.Pow(1.5f, RightAnswerChain);
-        ingameMultiplierText.text = "Chain: " + RightAnswerChain + " - Multiplier: " + scoreMultiplier + "x"; //Buraya skor için noktadan sonra 1 veya 2 fraction gösterilecek kod yazýlacak
+        ingameMultiplierText.text = "Chain: " + RightAnswerChain + " - Multiplier: " + scoreMultiplier + "x"; //Buraya skor i?in noktadan sonra 1 veya 2 fraction g?sterilecek kod yaz?lacak
     }
 
     public void ResetAlltoInitialCondition()
     {
-       questionTimerRemainder = 20;
-       RightAnswerChain = 0;
-       scoreMultiplier = 1;
-       playerScore = 0;
-       questionCounter = 1;
-       sessionQuestionNumbers.Clear();
+        questionTimerRemainder = 20;
+        RightAnswerChain = 0;
+        scoreMultiplier = 1;
+        playerScore = 0;
+        questionCounter = 1;
+        sessionQuestionNumbers.Clear();
+        questionNumberDisplay.text = "Q." + questionCounter;
     }
 
     void CheckNetworkReachablility()
@@ -228,8 +233,8 @@ public class gameManager : MonoBehaviour
             YouNeedInternet.SetActive(true);
         }
         else
-        {   
-           // Debug.Log("Internet connection: No error!"); Belki internet hýzýna göre ekranýn sað üstüne wifi iþariti konulup update edilebilir.
+        {
+            // Debug.Log("Internet connection: No error!"); Belki internet h?z?na g?re ekran?n sa? ?st?ne wifi i?ariti konulup update edilebilir.
         }
     }
 
@@ -237,20 +242,20 @@ public class gameManager : MonoBehaviour
     {
         QuestionAudioPlayCounter = 4;
         _selectCountries.disableMeshAndScriptForSelected();
-  
+
 
         if (questionCounter < 10)
         {
             questionCounter++;
             gotAnswerFromApi = false;
             askPhase = true;
-          
+
             questionNumberDisplay.text = "Q." + questionCounter;
-            
+
             _selectCountries.changeSelectedCountryName();
             _selectCountries.inSelectionPhase = true;
             _selectCountries.SetCountryFinderLocation();
-           
+
             questionTimerRemainder = 20;
             _selectCountries.buttonAnswersReset();
             cameraMovement.setToQuestionPosition = false;
@@ -260,7 +265,7 @@ public class gameManager : MonoBehaviour
         {
             GoToGameScoreScreen();
         }
-      
+
     }
 
 
@@ -277,7 +282,7 @@ public class gameManager : MonoBehaviour
     }
 
 
-    //QUestion text scriptine çekilecek. zamanlamasý ayarlanacak. 
+    //QUestion text scriptine ?ekilecek. zamanlamas? ayarlanacak. 
     void CountdownBeforeQuestion()
     {
         countdownText.text = "Get Ready!";
@@ -285,7 +290,7 @@ public class gameManager : MonoBehaviour
         {
             countdownText.text = "3 2 1 !";
         }
-           
+
     }
 
     private void checkHighestScore()
@@ -331,19 +336,19 @@ public class gameManager : MonoBehaviour
 
     private void LoadQuestion()
     {
-       // questionText.text = "Bu dil hangi ülkenin?";
+        // questionText.text = "Bu dil hangi ?lkenin?";
         Debug.ClearDeveloperConsole();
         // Button[] _Answers = buttonAnswers;
         // int randomButtonIndex = UnityEngine.Random.Range(0, 4);
-        // Button selectedButton = buttonAnswers[randomButtonIndex];//Doðru cevap  
+        // Button selectedButton = buttonAnswers[randomButtonIndex];//Do?ru cevap  
         //_Answers[randomButtonIndex] = null;
         Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
         string res = Array.Find(CountriesWLanguages, ele => ele.Contains(questionResult[2]));
         Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
 
-      
+        rightAnswerEng = questionResult[3]+"\n"+WWW.UnEscapeURL(questionResult[5]);
         rightAnswer = res.Split(';')[1];
-      
+
         Debug.Log(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
         gotAnswerFromApi = true;
 
@@ -376,14 +381,15 @@ public class gameManager : MonoBehaviour
     }
     void playAudioClip()
     {
-        if (GetComponent<AudioSource>().clip != null && !GetComponent<AudioSource>().isPlaying && QuestionAudioPlayCounter<4)
+        if (GetComponent<AudioSource>().clip != null && !GetComponent<AudioSource>().isPlaying && QuestionAudioPlayCounter < 4)
         {
-            
-            if(QuestionAudioPlayCounter %2 == 0)
+
+            if (QuestionAudioPlayCounter % 2 == 0)
             {
                 gameAudioSource.pitch = 1;
-                GetComponent<AudioSource>().Play(50000);   
-            } else
+                GetComponent<AudioSource>().Play(50000);
+            }
+            else
             {
                 gameAudioSource.pitch = 0.8f;
                 GetComponent<AudioSource>().Play(50000);
@@ -398,9 +404,9 @@ public class gameManager : MonoBehaviour
         Debug.Log(url);
         WWW www = new WWW(url);
         yield return www;
-        while (!www.isDone) { if (!string.IsNullOrEmpty(www.error)) {APIserverConnectionIssueScreen.SetActive(true); break; } }//Debug.Log("DownloadPlayError") www.error'un yanýnda bu vardý.
+        while (!www.isDone) { if (!string.IsNullOrEmpty(www.error)) { APIserverConnectionIssueScreen.SetActive(true); break; } }//Debug.Log("DownloadPlayError") www.error'un yan?nda bu vard?.
         AudioSource audio = GetComponent<AudioSource>();
-        audio.clip = www.GetAudioClip(false, false); 
+        audio.clip = www.GetAudioClip(false, false);
         QuestionAudioPlayCounter = 0;
         //  audio.Play();
 
@@ -414,11 +420,11 @@ public class gameManager : MonoBehaviour
 
     IEnumerator API_GetQuestion()//string entryId = result[0]; string text = result[1]; string country = result[2]; string textonly = result[3]
     {
-        getNewRandomEntry:  
+    getNewRandomEntry:
         gettingQuestionFromAPI = true;
         UnityWebRequest www = UnityWebRequest.Get(API + "random");
         yield return www.Send();
-        while (!www.isDone) { if (!www.isHttpError || !www.isNetworkError) {APIserverConnectionIssueScreen.SetActive(true); break; } } //Debug.Log("GetQuestionError") silip server connection koydum.
+        while (!www.isDone) { if (!www.isHttpError || !www.isNetworkError) { APIserverConnectionIssueScreen.SetActive(true); break; } } //Debug.Log("GetQuestionError") silip server connection koydum.
         if (!www.isHttpError || !www.isNetworkError)
         {
             string[] result = www.downloadHandler.text.Split(';');
@@ -430,7 +436,7 @@ public class gameManager : MonoBehaviour
             else
             {
                 sessionQuestionNumbers.Add(questionResult[0]);
-            }          
+            }
             StartCoroutine(DownloadAndPlay(Host + questionResult[1]));
             while (GetComponent<AudioSource>().isPlaying) { if (false/*Hata sorgusu*/) { Debug.Log("GetQuestionError"); break; } }
             if (!www.isHttpError || !www.isNetworkError) LoadQuestion(); else { Debug.Log("Hata"); }

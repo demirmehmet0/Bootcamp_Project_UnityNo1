@@ -18,10 +18,11 @@ public class uiHandler : MonoBehaviour
     [SerializeField] GameObject ScoreScreenUI;
     [SerializeField] GameObject CreditsPopup;
     [SerializeField] GameObject OptionsPopup;
+    [SerializeField] public GameObject WrongAnswerPopup;
     [SerializeField] GameObject useYourHeadphones;
     [SerializeField] TMP_Text useYourheadphonesCounter;
     float startscreenTimer = 5;
-
+    float wrongTimer = 5;
     private void Awake()
     {
         StartCoroutine(timerforCloseHeadphonesNotice());
@@ -31,57 +32,70 @@ public class uiHandler : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<gameManager>();
         _selectCountries = GameObject.Find("CountryMarkers").GetComponent<selectCountries>();
         cameraMovement = GameObject.Find("Main Camera").GetComponent<CameraMovement>();
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        wrongTimer -= Time.deltaTime; 
+        if (wrongTimer < 0 && WrongAnswerPopup.activeInHierarchy)
+        { closeWrongWindow(); gameManager.goToNextQuestion(); }
         if (useYourHeadphones.activeSelf == true)
         {
             startscreenTimer -= Time.deltaTime;
-            useYourheadphonesCounter.text = "" +Mathf.Ceil(startscreenTimer);
+            useYourheadphonesCounter.text = "" + Mathf.Ceil(startscreenTimer);
         }
 
         if (gameManager._isGameActive)
         {
 
         }
-        
+
     }
 
     public void AnswerButton_Click(Button button)
     {
         if (button.GetComponentInChildren<TMP_Text>().text == gameManager.rightAnswer)
-        { 
-            Debug.Log("Doðru cevap");
-          
+        {
+            Debug.Log("Do?ru cevap");
+
             gameManager.increasePlayerScore(gameManager.questionTimerRemainder); //kalan zaman filan eklenecek.
             gameManager.increaseOrResetChain(true);
             gameManager.calculateScoreMultiplier();
-            // gameManager.nextQuestionButton.gameObject.SetActive(true);
-
+            // gameManager.nextQuestionButton.gameObject.SetActive(true); 
+            gameManager.goToNextQuestion();
         }
         else
         {
-            Debug.Log("Yanlýþ Cevap!");
-        
-            gameManager.increasePlayerScore(0);
-            gameManager.increaseOrResetChain(false);
-            gameManager.calculateScoreMultiplier();
- 
-        }
+            showWorngWindow();
+            TMP_Text[] texts = WrongAnswerPopup.GetComponentsInChildren<TMP_Text>();
+            foreach (TMP_Text text in texts)
+            {
+                if (text.name == "Answer")
+                {
+                    text.text = gameManager.rightAnswerEng + "\n" + gameManager.rightAnswer;
+                }
+            }
+            Debug.Log("Yanl?? Cevap!");
 
-        //burada yanlýþ cevap, doðru cevap animasyonlarý devreye girecek. Askphase açýldýktan sonra biraz couroutine ile süre tanýnabilir çünkü oyun donma yapýyor.
-        //Bu da mp3 indirme süreci ile ilgili olsa gere. Genel oalrak düzeltilecek. 
-        //cevaba týklandýðýnda da 10 soruyu geçmiþse skor ekranýna atmalý
-        gameManager.goToNextQuestion();
-      
-        
+        }
+        //burada yanl?? cevap, do?ru cevap animasyonlar? devreye girecek. Askphase a??ld?ktan sonra biraz couroutine ile s?re tan?nabilir ??nk? oyun donma yap?yor.
+        //Bu da mp3 indirme s?reci ile ilgili olsa gere. Genel oalrak d?zeltilecek. 
+        //cevaba t?kland???nda da 10 soruyu ge?mi?se skor ekran?na atmal?
+
+
+
     }
     public void showOptionsWindow()
     {
         OptionsPopup.SetActive(true);
+        gameManager.GetComponent<AudioSource>().Stop();
+    }
+    public void showWorngWindow()
+    {
+        wrongTimer = 5;
+        WrongAnswerPopup.SetActive(true);
     }
 
     public void closeOptionsWindow()
@@ -89,9 +103,18 @@ public class uiHandler : MonoBehaviour
         OptionsPopup.SetActive(false);
     }
 
+    public void closeWrongWindow()
+    {
+        gameManager.questionTimerRemainder = 20;
+        gameManager.increasePlayerScore(0);
+        gameManager.increaseOrResetChain(false);
+        gameManager.calculateScoreMultiplier();
+        WrongAnswerPopup.SetActive(false);
+        gameManager.goToNextQuestion();
+    }
 
     public void showCreditsWindow()
-    {    
+    {
         CreditsPopup.SetActive(true);
     }
 
@@ -113,7 +136,10 @@ public class uiHandler : MonoBehaviour
 
     public void StartTheGame()
     {
+        gameManager.GetComponent<AudioSource>().volume = 1;
+        gameManager.ResetAlltoInitialCondition();
         gameManager._isGameActive = true;
+        gameManager.askPhase = true;
         _selectCountries.inSelectionPhase = true;
         StartScreen.SetActive(false);
         playModeUi.SetActive(true);
@@ -121,23 +147,24 @@ public class uiHandler : MonoBehaviour
 
     public void ExitPlayMode()
     {
-        
+        gameManager.GetComponent<AudioSource>().Stop();
+        gameManager.GetComponent<AudioSource>().volume=0;
+        gameManager.ResetAlltoInitialCondition();
         _selectCountries.disableMeshAndScriptForSelected();
         gameManager._isGameActive = false;
         StartScreen.SetActive(true);
         playModeUi.SetActive(false);
         ScoreScreenUI.SetActive(false);
         gameManager.ResetAlltoInitialCondition();
-        
-    }
 
+    }
     public void NextQuestion()
     {
         _selectCountries.disableMeshAndScriptForSelected();
-        cameraMovement.randomIdleNumbersSet = false; //random idle numbler'ý unutmuþtum, next question þeyine cevap vererek girince de eklenmeli.
+        cameraMovement.randomIdleNumbersSet = false; //random idle numbler'? unutmu?tum, next question ?eyine cevap vererek girince de eklenmeli.
         cameraMovement.setToQuestionPosition = false;
         _selectCountries.inSelectionPhase = true;
-      
+
 
     }
 
