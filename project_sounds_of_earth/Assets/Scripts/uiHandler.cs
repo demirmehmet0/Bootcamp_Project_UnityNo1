@@ -163,6 +163,10 @@ public class uiHandler : MonoBehaviour
     public void ExitPlayMode()
     {
         StartCoroutine(SFXPlay("clicksnap"));
+        GameObject music = GameObject.Find("Music");
+        music.GetComponent<AudioSource>().Stop();
+        music.GetComponent<AudioSource>().clip = music.GetComponent<SFXController>().audios[1];
+        music.GetComponent<AudioSource>().Play();
         gameManager.GetComponent<AudioSource>().Stop();
         gameManager.GetComponent<AudioSource>().volume = 0;
         gameManager.ResetAlltoInitialCondition();
@@ -176,15 +180,18 @@ public class uiHandler : MonoBehaviour
     }
 
     public void sliderChanged(Slider slider)
-    {
+    { 
         if (slider.name == "SFXSlider")
         {
             GameObject.Find("SFX").GetComponent<AudioSource>().volume=slider.value;
-            GameObject.Find("GameManager").GetComponent<AudioSource>().volume = slider.value;
         }
         else if (slider.name == "MusicSlider")
         {
             GameObject.Find("Music").GetComponent<AudioSource>().volume = slider.value;
+        }
+        else if (slider.name == "SpeechSlider")
+        {
+            GameObject.Find("GameManager").GetComponent<AudioSource>().volume = slider.value;
         }
     }
 
