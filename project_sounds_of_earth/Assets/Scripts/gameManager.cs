@@ -35,7 +35,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TMP_Text StartScreenHighestScore;
     public AudioClip audioclipDeneme;
     private AudioSource gameAudioSource;
-
+     
     [SerializeField] GameObject APIserverConnectionIssueScreen;
     [SerializeField] GameObject playModeUi; 
     [SerializeField] GameObject ScoreScreenUI;

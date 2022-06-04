@@ -16,6 +16,7 @@ public class uiHandler : MonoBehaviour
 
     public GameObject StartScreen;
     public GameObject playModeUi;
+    [SerializeField] GameObject SFX;
     [SerializeField] GameObject ScoreScreenUI;
     [SerializeField] GameObject CreditsPopup;
     [SerializeField] GameObject OptionsPopup;
@@ -39,7 +40,7 @@ public class uiHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        wrongTimer -= Time.deltaTime; 
+        wrongTimer -= Time.deltaTime;
         if (wrongTimer < 0 && WrongAnswerPopup.activeInHierarchy)
         { closeWrongWindow(); gameManager.goToNextQuestion(); }
         if (useYourHeadphones.activeSelf == true)
@@ -57,15 +58,16 @@ public class uiHandler : MonoBehaviour
 
     public void AnswerButton_Click(Button button)
     {
+        StartCoroutine(SFXPlay("clickswoosh"));
         if (button.GetComponentInChildren<TMP_Text>().text == gameManager.rightAnswer)
         {
             q("Do?ru cevap");
-
+            StartCoroutine(SFXPlay("correct-answer"));
             gameManager.increasePlayerScore(gameManager.questionTimerRemainder); //kalan zaman filan eklenecek.
             gameManager.increaseOrResetChain(true);
             gameManager.calculateScoreMultiplier();
             // gameManager.nextQuestionButton.gameObject.SetActive(true); 
-            Array.Clear(gameManager.questionResult,0,gameManager.questionResult.Length);
+            Array.Clear(gameManager.questionResult, 0, gameManager.questionResult.Length);
             gameManager.goToNextQuestion();
         }
         else
@@ -91,22 +93,26 @@ public class uiHandler : MonoBehaviour
     }
     public void showOptionsWindow()
     {
+        StartCoroutine(SFXPlay("clicksnap"));
         OptionsPopup.SetActive(true);
         gameManager.GetComponent<AudioSource>().Stop();
     }
     public void showWorngWindow()
     {
+        StartCoroutine(SFXPlay("wrong-answer"));
         wrongTimer = 5;
         WrongAnswerPopup.SetActive(true);
     }
 
     public void closeOptionsWindow()
     {
+        StartCoroutine(SFXPlay("clicksnap"));
         OptionsPopup.SetActive(false);
     }
 
     public void closeWrongWindow()
     {
+        StartCoroutine(SFXPlay("clicksnap"));
         gameManager.questionTimerRemainder = 20;
         gameManager.increasePlayerScore(0);
         gameManager.increaseOrResetChain(false);
@@ -117,11 +123,13 @@ public class uiHandler : MonoBehaviour
 
     public void showCreditsWindow()
     {
+        StartCoroutine(SFXPlay("clicksnap"));
         CreditsPopup.SetActive(true);
     }
 
     public void closeCreditsWindow()
     {
+        StartCoroutine(SFXPlay("clicksnap"));
         CreditsPopup.SetActive(false);
     }
 
@@ -138,6 +146,10 @@ public class uiHandler : MonoBehaviour
 
     public void StartTheGame()
     {
+        GameObject music = GameObject.Find("Music");
+        music.GetComponent<AudioSource>().clip = music.GetComponent<SFXController>().audios[0];
+        music.GetComponent<AudioSource>().Play();
+        StartCoroutine(SFXPlay("clicksnap"));
         print("TESTq");
         gameManager.GetComponent<AudioSource>().volume = 1;
         gameManager.ResetAlltoInitialCondition();
@@ -150,8 +162,9 @@ public class uiHandler : MonoBehaviour
 
     public void ExitPlayMode()
     {
+        StartCoroutine(SFXPlay("clicksnap"));
         gameManager.GetComponent<AudioSource>().Stop();
-        gameManager.GetComponent<AudioSource>().volume=0;
+        gameManager.GetComponent<AudioSource>().volume = 0;
         gameManager.ResetAlltoInitialCondition();
         _selectCountries.disableMeshAndScriptForSelected();
         gameManager._isGameActive = false;
@@ -161,6 +174,20 @@ public class uiHandler : MonoBehaviour
         gameManager.ResetAlltoInitialCondition();
 
     }
+
+    public void sliderChanged(Slider slider)
+    {
+        if (slider.name == "SFXSlider")
+        {
+            GameObject.Find("SFX").GetComponent<AudioSource>().volume=slider.value;
+            GameObject.Find("GameManager").GetComponent<AudioSource>().volume = slider.value;
+        }
+        else if (slider.name == "MusicSlider")
+        {
+            GameObject.Find("Music").GetComponent<AudioSource>().volume = slider.value;
+        }
+    }
+
     public void NextQuestion()
     {
         _selectCountries.disableMeshAndScriptForSelected();
@@ -179,9 +206,42 @@ public class uiHandler : MonoBehaviour
         Application.Quit();
 #endif
     }
-
-
-
+    /*
+    void SFXMenuButton()
+    {
+        AudioClip[] clips = SFX.GetComponent<SFXController>().audios;
+        foreach(AudioClip clip in clips)
+            if (clip.name.Contains("clicksnap")) { SFX.GetComponent<AudioSource>().PlayOneShot(clip); }
+    }
+    void SFXAnswerButton()
+    {
+        AudioClip[] clips = SFX.GetComponent<SFXController>().audios;
+        foreach (AudioClip clip in clips)
+            if (clip.name.Contains("clickswoosh")) { SFX.GetComponent<AudioSource>().PlayOneShot(clip); }
+    }
+    void SFXWrongAnswer()
+    {
+        AudioClip[] clips = SFX.GetComponent<SFXController>().audios;
+        foreach (AudioClip clip in clips)
+            if (clip.name.Contains("wrong-answer")) { SFX.GetComponent<AudioSource>().PlayOneShot(clip); }
+    }
+    void SFXCorrextAnswer()
+    {
+        AudioClip[] clips = SFX.GetComponent<SFXController>().audios;
+        foreach (AudioClip clip in clips)
+            if (clip.name.Contains("wrong-answer")) { SFX.GetComponent<AudioSource>().PlayOneShot(clip); }
+    }
+    */
+    IEnumerator SFXPlay(string clipName)
+    {
+        yield return null;
+        AudioClip[] clips = SFX.GetComponent<SFXController>().audios;
+        foreach (AudioClip clip in clips)
+            if (clip.name.Contains(clipName))
+            {
+                SFX.GetComponent<AudioSource>().PlayOneShot(clip);
+            }
+    }
     void q(string s) { }
 }
 
