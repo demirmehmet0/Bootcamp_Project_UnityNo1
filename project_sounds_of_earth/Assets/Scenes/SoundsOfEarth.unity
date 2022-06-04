@@ -3969,6 +3969,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1120818522}
   m_CullTransparentMesh: 1
+--- !u!1 &1124497780 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6381676424834987939, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}
+  m_PrefabInstance: {fileID: 6475448614433902105}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1148106857
 GameObject:
   m_ObjectHideFlags: 0
@@ -7476,6 +7481,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1896087411, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}
+      propertyPath: finderCollider
+      value: 
+      objectReference: {fileID: 1124497780}
     - target: {fileID: 1896087411, guid: 477cc9c1c3504884087b6bd4ad78980a, type: 3}
       propertyPath: buttonAnswers.Array.size
       value: 4
