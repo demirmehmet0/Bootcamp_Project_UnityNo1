@@ -149,17 +149,19 @@ public class gameManager : MonoBehaviour
         _selectCountries = GameObject.Find("CountryMarkers").GetComponent<selectCountries>();
         CheckNetworkReachablility();
     }
-    
+
     private void Update()
     {
-        if (playModeUi.activeInHierarchy) timer -= Time.deltaTime; else timer = 20;
-        if (_isGameActive && inAnswerPhase) { } 
+        if (playModeUi.activeInHierarchy)
+        {
+            timer -= Time.deltaTime; playAudioClip();
+            timerCalculationsAndDisplay();
+        }
+        else timer = 20; 
         if (_isGameActive && askPhase)//isStarted eklenmeli? //cameraMovement.setToQuestionPosition bu and operatordan ??kart?ld?.
         {
             if (!gettingQuestionFromAPI) StartCoroutine(CoroutineUpdate());
-        }
-        playAudioClip();
-        timerCalculationsAndDisplay();
+        } 
     }
 
     void timerCalculationsAndDisplay()
@@ -227,24 +229,24 @@ public class gameManager : MonoBehaviour
     public void goToNextQuestion()
     {
         QuestionAudioPlayCounter = 4;
-        _selectCountries.disableMeshAndScriptForSelected(); 
+        _selectCountries.disableMeshAndScriptForSelected();
         if (questionCounter < 10)
         {
             questionCounter++;
             gotAnswerFromApi = false;
-            askPhase = true; 
-            questionNumberDisplay.text = "Q." + questionCounter; 
+            askPhase = true;
+            questionNumberDisplay.text = "Q." + questionCounter;
             _selectCountries.changeSelectedCountryName();
             _selectCountries.inSelectionPhase = true;
-            _selectCountries.SetCountryFinderLocation(); 
+            _selectCountries.SetCountryFinderLocation();
             questionTimerRemainder = 20;
             _selectCountries.buttonAnswersReset();
-            cameraMovement.setToQuestionPosition = false; 
+            cameraMovement.setToQuestionPosition = false;
         }
         else
         {
             GoToGameScoreScreen();
-        } 
+        }
     }
 
     void GoToGameScoreScreen()
@@ -255,7 +257,7 @@ public class gameManager : MonoBehaviour
         inAnswerPhase = false;
         ScoreScreenScoreText.text = "Your Score: " + playerScore;
         checkHighestScore();
-        StartScreenHighestScore.text = "Highest Score: " + MaxPlayerScore; 
+        StartScreenHighestScore.text = "Highest Score: " + MaxPlayerScore;
     }
 
     void CountdownBeforeQuestion()
@@ -264,22 +266,22 @@ public class gameManager : MonoBehaviour
         if (cameraMovement.setToQuestionPosition)
         {
             countdownText.text = "3 2 1 !";
-        } 
+        }
     }
 
     private void checkHighestScore()
     {
         if (playerScore > MaxPlayerScore)
         {
-            MaxPlayerScore = playerScore; 
+            MaxPlayerScore = playerScore;
             SaveGameRank(MaxPlayerScore);
         }
     }
 
     void SaveGameRank(float bestScore)
     {
-        SaveData data = new SaveData(); 
-        data.HighiestScore = bestScore; 
+        SaveData data = new SaveData();
+        data.HighiestScore = bestScore;
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
@@ -293,26 +295,26 @@ public class gameManager : MonoBehaviour
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
             MaxPlayerScore = data.HighiestScore;
-        } 
+        }
     }
 
     private void LoadQuestion()
-    { 
-        Debug.ClearDeveloperConsole(); 
+    {
+        Debug.ClearDeveloperConsole();
         q(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
         string res = Array.Find(CountriesWLanguages, ele => ele.Contains(questionResult[2]));
         q(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
         rightAnswerEng = questionResult[3] + "\n" + WWW.UnEscapeURL(questionResult[5]);
-        rightAnswer = res.Split(';')[1]; 
+        rightAnswer = res.Split(';')[1];
         q(questionResult[0] + "=>" + questionResult[1] + "=>" + questionResult[2] + "=>" + questionResult[3]);
-        gotAnswerFromApi = true; 
+        gotAnswerFromApi = true;
         askPhase = false; gettingQuestionFromAPI = false;
     }
 
     void playAudioClip()
     {
         if (GetComponent<AudioSource>().clip != null && !GetComponent<AudioSource>().isPlaying && QuestionAudioPlayCounter < 4)
-        { 
+        {
             if (QuestionAudioPlayCounter % 2 == 0)
             {
                 gameAudioSource.pitch = 1;
@@ -336,7 +338,7 @@ public class gameManager : MonoBehaviour
         while (!www.isDone) { if (!string.IsNullOrEmpty(www.error)) { APIserverConnectionIssueScreen.SetActive(true); break; } }//q("DownloadPlayError") www.error'un yan?nda bu vard?.
         AudioSource audio = GetComponent<AudioSource>();
         audio.clip = www.GetAudioClip(false, false);
-        QuestionAudioPlayCounter = 0; 
+        QuestionAudioPlayCounter = 0;
     }
 
     IEnumerator CoroutineUpdate()
