@@ -25,6 +25,8 @@ public class uiHandler : MonoBehaviour
     [SerializeField] TMP_Text useYourheadphonesCounter;
     float startscreenTimer = 5;
     float wrongTimer = 5;
+
+    public static float sfx=0, music=0, speech=0;
     private void Awake()
     {
         StartCoroutine(timerforCloseHeadphonesNotice());
@@ -56,9 +58,17 @@ public class uiHandler : MonoBehaviour
 
     }
 
+    public static void ChangeButtonStatus(bool status)
+    {
+        Button[] buttons = new Button[] { GameObject.Find("answerButton1").GetComponent<Button>(), GameObject.Find("answerButton2").GetComponent<Button>(), GameObject.Find("answerButton3").GetComponent<Button>(), GameObject.Find("answerButton4").GetComponent<Button>() };
+        foreach (Button btn in buttons)
+            btn.enabled = status;
+    }
+
     public void AnswerButton_Click(Button button)
     {
         StartCoroutine(SFXPlay("clickswoosh"));
+        ChangeButtonStatus(false); 
         if (button.GetComponentInChildren<TMP_Text>().text == gameManager.rightAnswer)
         {
             q("Do?ru cevap");
@@ -95,6 +105,13 @@ public class uiHandler : MonoBehaviour
     {
         StartCoroutine(SFXPlay("clicksnap"));
         OptionsPopup.SetActive(true);
+        Debug.Log(sfx);
+        Debug.Log(speech);
+        Debug.Log(music);
+
+        GameObject.Find("SFXSlider").GetComponent<Slider>().value = sfx;
+        GameObject.Find("MusicSlider").GetComponent<Slider>().value = music;
+        GameObject.Find("SpeechSlider").GetComponent<Slider>().value = speech;
         gameManager.GetComponent<AudioSource>().Stop();
     }
     public void showWorngWindow()
@@ -183,16 +200,20 @@ public class uiHandler : MonoBehaviour
     { 
         if (slider.name == "SFXSlider")
         {
-            GameObject.Find("SFX").GetComponent<AudioSource>().volume=slider.value;
+            GameObject.Find("SFX").GetComponent<AudioSource>().volume=slider.value; 
+            uiHandler.sfx = GameObject.Find("SFXSlider").GetComponent<Slider>().value;
         }
         else if (slider.name == "MusicSlider")
         {
-            GameObject.Find("Music").GetComponent<AudioSource>().volume = slider.value;
+            GameObject.Find("Music").GetComponent<AudioSource>().volume = slider.value; 
+            uiHandler.music = GameObject.Find("MusicSlider").GetComponent<Slider>().value;
         }
         else if (slider.name == "SpeechSlider")
         {
-            GameObject.Find("GameManager").GetComponent<AudioSource>().volume = slider.value;
-        }
+            GameObject.Find("GameManager").GetComponent<AudioSource>().volume = slider.value; 
+            uiHandler.speech = GameObject.Find("SpeechSlider").GetComponent<Slider>().value;
+        } 
+        gameManager.SaveSettings(speech,music,sfx);
     }
 
     public void NextQuestion()
@@ -200,45 +221,9 @@ public class uiHandler : MonoBehaviour
         _selectCountries.disableMeshAndScriptForSelected();
         cameraMovement.randomIdleNumbersSet = false; //random idle numbler'? unutmu?tum, next question ?eyine cevap vererek girince de eklenmeli.
         cameraMovement.setToQuestionPosition = false;
-        _selectCountries.inSelectionPhase = true;
-
-
+        _selectCountries.inSelectionPhase = true; 
     }
 
-    public void ExitGame()
-    {
-#if UNITY_EDITOR
-        EditorApplication.ExitPlaymode();
-#else
-        Application.Quit();
-#endif
-    }
-    /*
-    void SFXMenuButton()
-    {
-        AudioClip[] clips = SFX.GetComponent<SFXController>().audios;
-        foreach(AudioClip clip in clips)
-            if (clip.name.Contains("clicksnap")) { SFX.GetComponent<AudioSource>().PlayOneShot(clip); }
-    }
-    void SFXAnswerButton()
-    {
-        AudioClip[] clips = SFX.GetComponent<SFXController>().audios;
-        foreach (AudioClip clip in clips)
-            if (clip.name.Contains("clickswoosh")) { SFX.GetComponent<AudioSource>().PlayOneShot(clip); }
-    }
-    void SFXWrongAnswer()
-    {
-        AudioClip[] clips = SFX.GetComponent<SFXController>().audios;
-        foreach (AudioClip clip in clips)
-            if (clip.name.Contains("wrong-answer")) { SFX.GetComponent<AudioSource>().PlayOneShot(clip); }
-    }
-    void SFXCorrextAnswer()
-    {
-        AudioClip[] clips = SFX.GetComponent<SFXController>().audios;
-        foreach (AudioClip clip in clips)
-            if (clip.name.Contains("wrong-answer")) { SFX.GetComponent<AudioSource>().PlayOneShot(clip); }
-    }
-    */
     IEnumerator SFXPlay(string clipName)
     {
         yield return null;
@@ -249,6 +234,16 @@ public class uiHandler : MonoBehaviour
                 SFX.GetComponent<AudioSource>().PlayOneShot(clip);
             }
     }
+
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+        Application.Quit();
+#endif
+    } 
+    
     void q(string s) { }
 }
 

@@ -50,6 +50,9 @@ public class gameManager : MonoBehaviour
     class SaveData
     {
         public float HighiestScore;
+        public float speechVol = 1;
+        public float sfxVol = 0.5f;
+        public float muiscVol = 0.05f;
     }
     public string[] CountriesWLanguages =
    {
@@ -157,11 +160,11 @@ public class gameManager : MonoBehaviour
             timer -= Time.deltaTime; playAudioClip();
             timerCalculationsAndDisplay();
         }
-        else timer = 20; 
+        else timer = 20;
         if (_isGameActive && askPhase)//isStarted eklenmeli? //cameraMovement.setToQuestionPosition bu and operatordan ??kart?ld?.
         {
             if (!gettingQuestionFromAPI) StartCoroutine(CoroutineUpdate());
-        } 
+        }
     }
 
     void timerCalculationsAndDisplay()
@@ -242,6 +245,7 @@ public class gameManager : MonoBehaviour
             questionTimerRemainder = 20;
             _selectCountries.buttonAnswersReset();
             cameraMovement.setToQuestionPosition = false;
+            uiHandler.ChangeButtonStatus(true);
         }
         else
         {
@@ -277,7 +281,16 @@ public class gameManager : MonoBehaviour
             SaveGameRank(MaxPlayerScore);
         }
     }
-
+    public static void SaveSettings(float speech, float music, float sfx)
+    {
+        SaveData data = new SaveData();
+        data.speechVol = speech;
+        data.muiscVol = music;
+        data.sfxVol = sfx;
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + "/settings.json", json);
+        Debug.Log("Kaydedildi");
+    }
     void SaveGameRank(float bestScore)
     {
         SaveData data = new SaveData();
@@ -289,13 +302,25 @@ public class gameManager : MonoBehaviour
     void loadPlayerSettingsAndData()
     {
         string path = Application.persistentDataPath + "/savefile.json";
+        string settings = Application.persistentDataPath + "/settings.json";
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
-
             MaxPlayerScore = data.HighiestScore;
         }
+        if (File.Exists(settings))
+        {
+            string json = File.ReadAllText(settings);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            GameObject.Find("SFX").GetComponent<AudioSource>().volume = data.sfxVol;
+            GameObject.Find("Music").GetComponent<AudioSource>().volume = data.muiscVol;
+            GameObject.Find("GameManager").GetComponent<AudioSource>().volume = data.speechVol;
+            uiHandler.sfx = data.sfxVol;
+            uiHandler.music = data.muiscVol;
+            uiHandler.speech = data.speechVol;
+        }
+
     }
 
     private void LoadQuestion()
