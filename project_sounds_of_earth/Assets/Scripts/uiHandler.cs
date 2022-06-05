@@ -60,9 +60,13 @@ public class uiHandler : MonoBehaviour
 
     public static void ChangeButtonStatus(bool status)
     {
-        Button[] buttons = new Button[] { GameObject.Find("answerButton1").GetComponent<Button>(), GameObject.Find("answerButton2").GetComponent<Button>(), GameObject.Find("answerButton3").GetComponent<Button>(), GameObject.Find("answerButton4").GetComponent<Button>() };
-        foreach (Button btn in buttons)
-            btn.enabled = status;
+        try
+        {
+            Button[] buttons = new Button[] { GameObject.Find("answerButton1").GetComponent<Button>(), GameObject.Find("answerButton2").GetComponent<Button>(), GameObject.Find("answerButton3").GetComponent<Button>(), GameObject.Find("answerButton4").GetComponent<Button>() };
+            foreach (Button btn in buttons)
+                btn.enabled = status;
+        } catch {  }
+        
     }
 
     public void AnswerButton_Click(Button button)
@@ -185,6 +189,7 @@ public class uiHandler : MonoBehaviour
         music.GetComponent<AudioSource>().clip = music.GetComponent<SFXController>().audios[1];
         music.GetComponent<AudioSource>().Play();
         gameManager.GetComponent<AudioSource>().Stop();
+        gameManager.GetComponent<AudioSource>().clip=null; 
         gameManager.GetComponent<AudioSource>().volume = 0;
         gameManager.ResetAlltoInitialCondition();
         _selectCountries.disableMeshAndScriptForSelected();
