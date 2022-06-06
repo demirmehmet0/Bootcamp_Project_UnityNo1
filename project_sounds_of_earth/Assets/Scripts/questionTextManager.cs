@@ -39,17 +39,7 @@ public class questionTextManager : MonoBehaviour
     {
         if(gameManager.questionResult != null && gameManager.gotAnswerFromApi == true)
         {
-           // questionOGText.text = "OG text: " + gameManager.questionResult[3];
-            questionLatinText.text = "Latin text: " + gameManager.questionResult[4];
-
-          /*  if(gameManager.questionResult[5] == "NULL")
-            {
-                questionEnglishMeaning.text = "Eng meaning: " + gameManager.questionResult[4];
-            }
-            else{
-                questionEnglishMeaning.text = "Eng meaning: " + gameManager.questionResult[5];
-            } */
-
+            questionLatinText.text = "Text: " + gameManager.questionResult[4];
         }
              
     }
