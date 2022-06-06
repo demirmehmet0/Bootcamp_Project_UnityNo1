@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SoundsOfEarth.unity
     guid: bf8d9b262d1a9374fb525da77d604cbb
+  - enabled: 1
+    path: Assets/Scenes/SoundsOfEarthFinished.unity
+    guid: c2db8cf8fc94640578917acbadb00607
   m_configObjects: {}

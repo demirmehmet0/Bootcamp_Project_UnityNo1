@@ -6,6 +6,7 @@ using UnityEditor;
 using TMPro;
 using System.IO;
 using System;
+using UnityEngine.SceneManagement;
 
 public class uiHandler : MonoBehaviour
 {
@@ -187,6 +188,7 @@ public class uiHandler : MonoBehaviour
 
     public void StartTheGame()
     {
+        ChangeButtonStatus(true);
         GameObject music = GameObject.Find("Music");
         music.GetComponent<AudioSource>().clip = music.GetComponent<SFXController>().audios[0];
         music.GetComponent<AudioSource>().Play();
@@ -211,12 +213,12 @@ public class uiHandler : MonoBehaviour
         music.GetComponent<AudioSource>().Play();
         gameManager.GetComponent<AudioSource>().Stop();
         gameManager.GetComponent<AudioSource>().clip = null;
-        gameManager.GetComponent<AudioSource>().volume = 0; 
+        gameManager.GetComponent<AudioSource>().volume = 0;
         gameManager.questionTimerRemainder = 20;
         gameManager.increasePlayerScore(0);
         gameManager.increaseOrResetChain(false);
         gameManager.calculateScoreMultiplier();
-        try { gameManager.goToNextQuestion();  } catch  {}
+        try { gameManager.goToNextQuestion(); } catch { }
         AnswerPopup.SetActive(false);
         gameManager.ResetAlltoInitialCondition();
         _selectCountries.disableMeshAndScriptForSelected();
@@ -224,7 +226,12 @@ public class uiHandler : MonoBehaviour
         StartScreen.SetActive(true);
         playModeUi.SetActive(false);
         ScoreScreenUI.SetActive(false);
-        gameManager.ResetAlltoInitialCondition(); 
+        gameManager.ResetAlltoInitialCondition();
+    }
+
+    public void FinishedGame()
+    { 
+        SceneManager.LoadScene("SoundsOfEarthFinished");
     }
 
     public void sliderChanged(Slider slider)
