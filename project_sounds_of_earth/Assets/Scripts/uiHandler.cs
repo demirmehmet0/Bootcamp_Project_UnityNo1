@@ -132,16 +132,16 @@ public class uiHandler : MonoBehaviour
     {
         StartCoroutine(SFXPlay("correct-answer"));
         wrongTimer = 5;
-        AnswerPopup.SetActive(true);
-    }
-
-    public void closeRightAnswerWindow()
-    {
         StartCoroutine(SFXPlay("clickswoosh"));
         gameManager.increasePlayerScore(gameManager.questionTimerRemainder);
         gameManager.increaseOrResetChain(true);
         gameManager.calculateScoreMultiplier();
         Array.Clear(gameManager.questionResult, 0, gameManager.questionResult.Length);
+        AnswerPopup.SetActive(true);
+    }
+
+    public void closeRightAnswerWindow()
+    { 
         gameManager.goToNextQuestion();
     }
 
@@ -216,7 +216,7 @@ public class uiHandler : MonoBehaviour
         gameManager.increasePlayerScore(0);
         gameManager.increaseOrResetChain(false);
         gameManager.calculateScoreMultiplier();
-        gameManager.goToNextQuestion();
+        try { gameManager.goToNextQuestion();  } catch  {}
         AnswerPopup.SetActive(false);
         gameManager.ResetAlltoInitialCondition();
         _selectCountries.disableMeshAndScriptForSelected();
