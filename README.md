@@ -1,4 +1,4 @@
-# Takım adı henüz net değil. Unity Team01
+# Takım adı Team01 - Unity Team01
 public repo for --Unity no1-- team @ Oyun ve uygulama akademisi bootcamp
 
 # GitRepo 
@@ -39,8 +39,8 @@ Görev yönetimi Trello üzerinden yürütülmektedir.\
   ![Backlog 4](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/1SPRNT/ProductBacklog4.png)
 
 İlk sprintte Ürün Backlog'ları için toplam 141 puan belirlenmiş olup 28 puanı tamamlanmıştı.\
-Ürün konseptinin ve kullanılacak modelin ikinci sprintte değişmesi sebebiyle backloglar güncellenmiştir. Burndown Chart, bu değişikliklere bağlı olarak yenilendi.\
-Mevcut Burndown Chart için: [Sprint2 Burnown Chart](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/Team01_BurndownChartSp2.xlsx)
+Ürün konseptinin ve kullanılacak modelin ikinci sprintte değişmesi sebebiyle backloglar güncellenmiştir. Burndown Chart, bu değişikliklere bağlı olarak yenilendi.Toplam 160 puan hedefe 3. sprint backloglarının tamamlanmasıyla birlikte ulaşıldı.\
+Mevcut Burndown Chart için: [Sprint3 Burnown Chart](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/Team01_BurndownChartSp3.xlsx)
 
 ---
 
@@ -151,11 +151,61 @@ Yağmur Kaya
 
 # Sprint 3
 
+
+- **Sprint Notları**: 3. sprint için belirlenen backlogların görev atamaları yapıldı. API geliştirmesi ve entegrasyonu sağlandı. API ile belirlediğimiz 40 cümlenin 40'ı aşkın dile çevirisi yapıldı. Oyun mekanikleri ve görsel tasarımları tamamlandı. Gerekli müzik ve ses efektleri oyuna eklendi. İlk testler sonucu görülen buglar çözülerek oyun sonuçlandırıldı. Ekibin ortak emeği ve onayı ile proje sonlandırıldı.
+
+Son sprintte hedeflenen 50 puan toplanarak Burndown Chart'ta belirlenen toplam 160 puana ulaşıldı. README'de yukarıdaki şekilde güncellendi.
+
+
+- **Sprint 2 Backlog**: 
+
+ ![Sprint Backlog 1](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/Sprint3Backlog1.png)
+ ![Sprint Backlog 2](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/Sprint3Backlog2.png)
+
+
+- **Daily Scrum**: 
+Daily Scrum toplantıları yüz yüze Zoom toplantıları ve Telegram yazışmaları şeklinde yapıldı. Daily Scrum toplantı dökümü word olarak paylaşılmaktadır:
+[Sprint 3 Daily Scrum Dökümü](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/DailyScrumMeetingNotesSprint3.docx?raw=true)
+
+- **Ürün Durumu**: Ekran görüntüleri:
+  ![Screenshot 1](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/productss_API.png)
+  ![Screenshot 2](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/productss_UI.jpeg)
+
+
 Tam çalışan oynanış döngüsü videosu (V0.6): https://youtu.be/6wDIgKPTGTM
 
 - **Version 0.9.5 - Engine içi oynanış klipleri**:
-Gameplay Clip 1: https://youtu.be/7X0QF8N8MWA
-Gameplay Clip 2: https://youtu.be/HIjEUBVgpGY
-Gameplay Clip 3: https://youtu.be/sNGC7trOyso
+
+- Gameplay Clip 1: https://youtu.be/7X0QF8N8MWA
+- Gameplay Clip 2: https://youtu.be/HIjEUBVgpGY
+- Gameplay Clip 3: https://youtu.be/sNGC7trOyso
+
+
+
+- **Sprint Review**: 
+Sprint backlogları, ürün geliştirme ve testler tamamlandı.
+
+Sprint Review katılımcıları:
+Özgen Köklü,
+Çiğdem Nur Özbay,
+Abdulkadir Can Kinsiz,
+Hüseyin Tayyip Altay,
+Yağmur Kaya
+
+
+- **Proje Kapatma Toplantısı**:
+
+Ürünün son testi tamamlandıktan sonra ekiple bir araya gelip proje kapatma toplantısı gerçekleştirildi.
+Düşünülen iyileştirme ve geliştirmeler için projenin devam etmesi kararlaştırılabilir.
+
+[Proje Kapatma Dokümanı](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/Proje%20Kapatma%20Dosyas%C4%B1.docx?raw=true)
+
+Toplantı katılımcıları:
+Özgen Köklü,
+Çiğdem Nur Özbay,
+Hüseyin Tayyip Altay,
+Abdulkadir Can Kinsiz,
+Yağmur Kaya
+
 
 ---
