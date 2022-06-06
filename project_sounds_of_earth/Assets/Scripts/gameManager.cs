@@ -143,7 +143,7 @@ public class gameManager : MonoBehaviour
     {
         gameAudioSource = GetComponent<AudioSource>();
         loadPlayerSettingsAndData();
-        StartScreenHighestScore.text = "Highest Score: " + MaxPlayerScore;
+        StartScreenHighestScore.text = "Highest Score: " + Mathf.Ceil(MaxPlayerScore).ToString();
     }
 
     private void Start()
@@ -266,9 +266,9 @@ public class gameManager : MonoBehaviour
         ScoreScreenUI.SetActive(true);
         _isGameActive = false;
         inAnswerPhase = false;
-        ScoreScreenScoreText.text = "Your Score: " + playerScore;
+        ScoreScreenScoreText.text = "Your Score: " + Mathf.Ceil(playerScore).ToString();
         checkHighestScore();
-        StartScreenHighestScore.text = "Highest Score: " + MaxPlayerScore;
+        StartScreenHighestScore.text = "Highest Score: " + Mathf.Ceil(MaxPlayerScore).ToString();
     }
 
     void CountdownBeforeQuestion()
