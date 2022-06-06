@@ -39,7 +39,6 @@ public class uiHandler : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         wrongTimer -= Time.deltaTime;
@@ -77,10 +76,9 @@ public class uiHandler : MonoBehaviour
         {
             q("Do?ru cevap");
             StartCoroutine(SFXPlay("correct-answer"));
-            gameManager.increasePlayerScore(gameManager.questionTimerRemainder); //kalan zaman filan eklenecek.
+            gameManager.increasePlayerScore(gameManager.questionTimerRemainder);
             gameManager.increaseOrResetChain(true);
             gameManager.calculateScoreMultiplier();
-            // gameManager.nextQuestionButton.gameObject.SetActive(true); 
             Array.Clear(gameManager.questionResult, 0, gameManager.questionResult.Length);
             gameManager.goToNextQuestion();
         }
@@ -98,11 +96,6 @@ public class uiHandler : MonoBehaviour
             q("Yanl?? Cevap!");
 
         }
-        //burada yanl?? cevap, do?ru cevap animasyonlar? devreye girecek. Askphase a??ld?ktan sonra biraz couroutine ile s?re tan?nabilir ??nk? oyun donma yap?yor.
-        //Bu da mp3 indirme s?reci ile ilgili olsa gere. Genel oalrak d?zeltilecek. 
-        //cevaba t?kland???nda da 10 soruyu ge?mi?se skor ekran?na atmal?
-
-
 
     }
     public void showOptionsWindow()
@@ -224,7 +217,7 @@ public class uiHandler : MonoBehaviour
     public void NextQuestion()
     {
         _selectCountries.disableMeshAndScriptForSelected();
-        cameraMovement.randomIdleNumbersSet = false; //random idle numbler'? unutmu?tum, next question ?eyine cevap vererek girince de eklenmeli.
+        cameraMovement.randomIdleNumbersSet = false; 
         cameraMovement.setToQuestionPosition = false;
         _selectCountries.inSelectionPhase = true; 
     }
@@ -240,6 +233,7 @@ public class uiHandler : MonoBehaviour
             }
     }
 
+    
     public void ExitGame()
     {
 #if UNITY_EDITOR

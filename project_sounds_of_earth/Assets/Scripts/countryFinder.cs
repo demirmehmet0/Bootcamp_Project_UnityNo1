@@ -7,13 +7,11 @@ public class countryFinder : MonoBehaviour
     public ArrayList countryList = new ArrayList();
     selectCountries selectCountries;
    
-    // Start is called before the first frame update
     void Start()
     {
         selectCountries = GameObject.Find("CountryMarkers").GetComponent<selectCountries>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (selectCountries.inSelectionPhase)
@@ -43,7 +41,7 @@ public class countryFinder : MonoBehaviour
         }
         else
         {
-           // q(collision.gameObject.name);
+ 
             countryList.Add(collision.gameObject.name);
         }
     }

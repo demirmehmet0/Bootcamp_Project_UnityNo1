@@ -7,8 +7,6 @@ public class CameraMovement : MonoBehaviour
     Vector3 endPosition = new Vector3(0, 0, 0);
     Vector3 focalPoint = new Vector3(0, 0, 0);
     Vector3 earthFocalPoint = new Vector3(0, 6, 0);
-
-    //oyunun ba?lang?? ekran?ndaki pozisyonlar i?in
     Vector3 startScreenInitialPos = new Vector3(80, 6, 0);
 
     float cameraDistanceMultiplier = 4;
@@ -27,7 +25,6 @@ public class CameraMovement : MonoBehaviour
     float randPhasorY = 0;
     float randPhasorZ = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         _selectCountries = GameObject.Find("CountryMarkers").GetComponent<selectCountries>();
@@ -43,7 +40,6 @@ public class CameraMovement : MonoBehaviour
             this.gameObject.GetComponent<Camera>().fieldOfView = (float)(-74.62f*(w/h) + 101.9);
     }
 
-    // Update is called once per frame
 
 
     private void FixedUpdate()
@@ -78,7 +74,6 @@ public class CameraMovement : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, startScreenInitialPos, cameraSpeed * Time.deltaTime);
             transform.LookAt(earthFocalPoint);
-            // SmoothLookAt(earthFocalPoint);
         }
 
     }
@@ -96,8 +91,6 @@ public class CameraMovement : MonoBehaviour
 
         if (transform.position != endPosition && !setToQuestionPosition)
         {
-
-            //transform.LookAt(focalPoint);
             transform.position = Vector3.Lerp(transform.position, endPosition, cameraSpeed * Time.deltaTime);
             q(setToQuestionPosition);
         }
@@ -105,8 +98,7 @@ public class CameraMovement : MonoBehaviour
         {
             setToQuestionPosition = true;
             q(setToQuestionPosition);
-        }
-        // transform.LookAt(focalPoint);   
+        } 
 
     }
 
@@ -115,7 +107,6 @@ public class CameraMovement : MonoBehaviour
     void idleCameraMovement(float ampX, float ampY, float ampZ, float phasorX, float phasorY, float phasorZ)
     {
         focalPoint = _selectCountries.middleVector;
-        // endPosition = focalPoint * cameraDistanceMultiplier;
         transform.LookAt(focalPoint);
 
         float sinValueX = ampX * Mathf.Sin(Time.time + phasorX);
@@ -125,7 +116,6 @@ public class CameraMovement : MonoBehaviour
         float sinValueZ = ampZ * Mathf.Sin(Time.time + phasorZ);
 
         Vector3 velocity = Vector3.zero;
-        //movetowards yerine smooth damp ekleyece?im.
         Vector3 followPosition = new Vector3(endPosition.x + sinValueX, endPosition.y + sinValueY, endPosition.z + sinValueZ);
         transform.position = Vector3.Lerp(transform.position, followPosition, (cameraSpeed * Time.deltaTime));
 
@@ -142,7 +132,6 @@ public class CameraMovement : MonoBehaviour
             randPhasorY = GetRandomPhasor();
             randPhasorZ = GetRandomPhasor();
             randomIdleNumbersSet = true;
-            //randomAmp'leri 125 ile ?arp?nca ?ok g?zel bi d?n?? animasyonu olu?uyor.
             q("X amp:" + randAmpX + " Y amp: " + randAmpY + " Z amp: " + randAmpZ);
         }
 
@@ -159,7 +148,6 @@ public class CameraMovement : MonoBehaviour
     }
 
 
-    //16.9 ekranlar i?in uygun. 20.9 ekranlar i?in farkl? bir versiyon yaz?lacak. 
     void calculateCameraDistanceMultiplier()
     {
         if (_selectCountries.magnitudeOfcombinationVector > 78)
@@ -176,6 +164,10 @@ public class CameraMovement : MonoBehaviour
         }
 
     }
+
+    /// <summary>
+    /// RightAnswer ve WrongAnswer camera movement oyuna eklenmedi. kodda duruyorlar.
+    /// </summary>
 
     public void rightAnswerCameraMovement()
     { //idleCamera'y? repurpose ederek bunu yapmak m?mk?n. randomize efekt almak i?in 150'lerin baz?lar? - yap?labilir, 2.1, 4.2, 0 phasorleri yer de?i?tirilebilir.

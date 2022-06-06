@@ -13,9 +13,6 @@ public class selectCountries : MonoBehaviour
     public Button[] buttonAnswers;
     public bool inSelectionPhase = true;
     string selectedCountryName = null;
-    string country1name = null;
-    string country2name = null;
-    string country3name = null;
     string[] wrongAnswerCountries = { "", "", ""};
     public float magnitudeOfcombinationVector = 0;
     private string tempCountry;
