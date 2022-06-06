@@ -151,6 +151,11 @@ Yağmur Kaya
 
 # Sprint 3
 
-Tam çalışan oynanış döngüsü videosu: https://youtu.be/6wDIgKPTGTM
+Tam çalışan oynanış döngüsü videosu (V0.6): https://youtu.be/6wDIgKPTGTM
+
+- **Version 0.9.5 - Engine içi oynanış klipleri**:
+Gameplay Clip 1: https://youtu.be/7X0QF8N8MWA
+Gameplay Clip 2: https://youtu.be/HIjEUBVgpGY
+Gameplay Clip 3: https://youtu.be/sNGC7trOyso
 
 ---
