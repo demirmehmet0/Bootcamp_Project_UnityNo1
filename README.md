@@ -157,7 +157,7 @@ Yağmur Kaya
 Son sprintte hedeflenen 50 puan toplanarak Burndown Chart'ta belirlenen toplam 160 puana ulaşıldı. README'de yukarıdaki şekilde güncellendi.
 
 
-- **Sprint 2 Backlog**: 
+- **Sprint 3 Backlog**: 
 
  ![Sprint Backlog 1](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/Sprint3Backlog1.png)
  ![Sprint Backlog 2](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/Sprint3Backlog2.png)
@@ -168,8 +168,13 @@ Daily Scrum toplantıları yüz yüze Zoom toplantıları ve Telegram yazışmal
 [Sprint 3 Daily Scrum Dökümü](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/DailyScrumMeetingNotesSprint3.docx?raw=true)
 
 - **Ürün Durumu**: Ekran görüntüleri:
-  ![Screenshot 1](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/productss_API.png)
-  ![Screenshot 2](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/2SPRNT/productss_UI.jpeg)
+ 
+  ![Screenshot 1](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/main.jpeg)
+  ![Screenshot 2](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/menu.jpeg)
+  ![Screenshot 3](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/gameplay.jpeg)
+  ![Screenshot 4](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/Correct.jpeg)
+  ![Screenshot 5](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/failed.jpeg)
+  ![Screenshot 6](https://github.com/OzgenKoklu/Bootcamp_Project_UnityNo1/blob/main/project_management/Dokumantasyon/3SPRNT/credits.jpeg)
 
 
 Tam çalışan oynanış döngüsü videosu (V0.6): https://youtu.be/6wDIgKPTGTM
@@ -186,10 +191,15 @@ Tam çalışan oynanış döngüsü videosu (V0.6): https://youtu.be/6wDIgKPTGTM
 Sprint backlogları, ürün geliştirme ve testler tamamlandı.
 
 Sprint Review katılımcıları:
+
 Özgen Köklü,
+
 Çiğdem Nur Özbay,
+
 Abdulkadir Can Kinsiz,
+
 Hüseyin Tayyip Altay,
+
 Yağmur Kaya
 
 
@@ -202,9 +212,13 @@ Düşünülen iyileştirme ve geliştirmeler için projenin devam etmesi kararla
 
 Toplantı katılımcıları:
 Özgen Köklü,
+
 Çiğdem Nur Özbay,
+
 Hüseyin Tayyip Altay,
+
 Abdulkadir Can Kinsiz,
+
 Yağmur Kaya
 
 
