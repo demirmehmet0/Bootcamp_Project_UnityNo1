@@ -96,6 +96,10 @@ public class uiHandler : MonoBehaviour
         }
         else
         {
+            gameManager.questionTimerRemainder = 20;
+            gameManager.increasePlayerScore(0);
+            gameManager.increaseOrResetChain(false);
+            gameManager.calculateScoreMultiplier();
             showWorngWindow();
             Text[] texts = AnswerPopup.GetComponentsInChildren<Text>();
             foreach (Text text in texts)
@@ -155,10 +159,6 @@ public class uiHandler : MonoBehaviour
     public void closeWrongWindow()
     {
         StartCoroutine(SFXPlay("clickswoosh"));
-        gameManager.questionTimerRemainder = 20;
-        gameManager.increasePlayerScore(0);
-        gameManager.increaseOrResetChain(false);
-        gameManager.calculateScoreMultiplier();
         AnswerPopup.SetActive(false);
         gameManager.goToNextQuestion();
     }
