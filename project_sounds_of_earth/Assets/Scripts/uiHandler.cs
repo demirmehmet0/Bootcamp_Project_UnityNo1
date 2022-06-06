@@ -198,11 +198,12 @@ public class uiHandler : MonoBehaviour
         gameManager.askPhase = true;
         _selectCountries.inSelectionPhase = true;
         StartScreen.SetActive(false);
-        playModeUi.SetActive(true);
+        playModeUi.SetActive(true); 
     }
 
     public void ExitPlayMode()
     {
+        Array.Clear(gameManager.questionResult, 0, gameManager.questionResult.Length);
         StartCoroutine(SFXPlay("clicksnap"));
         GameObject music = GameObject.Find("Music");
         music.GetComponent<AudioSource>().Stop();
@@ -210,15 +211,20 @@ public class uiHandler : MonoBehaviour
         music.GetComponent<AudioSource>().Play();
         gameManager.GetComponent<AudioSource>().Stop();
         gameManager.GetComponent<AudioSource>().clip = null;
-        gameManager.GetComponent<AudioSource>().volume = 0;
+        gameManager.GetComponent<AudioSource>().volume = 0; 
+        gameManager.questionTimerRemainder = 20;
+        gameManager.increasePlayerScore(0);
+        gameManager.increaseOrResetChain(false);
+        gameManager.calculateScoreMultiplier();
+        gameManager.goToNextQuestion();
+        AnswerPopup.SetActive(false);
         gameManager.ResetAlltoInitialCondition();
         _selectCountries.disableMeshAndScriptForSelected();
         gameManager._isGameActive = false;
         StartScreen.SetActive(true);
         playModeUi.SetActive(false);
         ScoreScreenUI.SetActive(false);
-        gameManager.ResetAlltoInitialCondition();
-
+        gameManager.ResetAlltoInitialCondition(); 
     }
 
     public void sliderChanged(Slider slider)
