@@ -35,7 +35,7 @@ public class gameManager : MonoBehaviour
     int questionCounter = 1;
     bool gettingQuestionFromAPI = false;
     [SerializeField] TMP_Text questionNumberDisplay;
-    [SerializeField] TMP_Text wrongAnswerText;
+    [SerializeField] Text wrongAnswerText;
     [SerializeField] TMP_Text ingameScoreDisplayText;
     [SerializeField] TMP_Text ingameMultiplierText;
     [SerializeField] TMP_Text ingameTimerDisplay;
@@ -87,7 +87,7 @@ public class gameManager : MonoBehaviour
         "??;Montenegro\nMontenegrin",
         "??;Myanmar\nBurmese",
         "??;Nepal\nNepali",
-        "??;New Zealand\nM?ori",
+        "??;New Zealand\nMaori",
         "??;Pakistan\nUrdu",
         "??;Slovenia\nSlovene",
         "??;Somalia\nSomali",

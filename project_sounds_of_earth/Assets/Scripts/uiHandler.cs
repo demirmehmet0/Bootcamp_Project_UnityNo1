@@ -80,8 +80,8 @@ public class uiHandler : MonoBehaviour
             colors.normalColor = Color.green;
             button.colors = colors;
             showRightAnswerWindow();
-            TMP_Text[] texts = AnswerPopup.GetComponentsInChildren<TMP_Text>();
-            foreach (TMP_Text text in texts)
+            Text[] texts = AnswerPopup.GetComponentsInChildren<Text>();
+            foreach (Text text in texts)
             {
                 if (text.name == "Answer")
                 {
@@ -93,8 +93,8 @@ public class uiHandler : MonoBehaviour
         else
         {
             showWorngWindow();
-            TMP_Text[] texts = AnswerPopup.GetComponentsInChildren<TMP_Text>();
-            foreach (TMP_Text text in texts)
+            Text[] texts = AnswerPopup.GetComponentsInChildren<Text>();
+            foreach (Text text in texts)
             {
                 if (text.name == "Answer")
                 {
