@@ -192,6 +192,7 @@ public class uiHandler : MonoBehaviour
         GameObject music = GameObject.Find("Music");
         music.GetComponent<AudioSource>().clip = music.GetComponent<SFXController>().audios[0];
         music.GetComponent<AudioSource>().Play();
+        
         StartCoroutine(SFXPlay("clicksnap"));
         print("TESTq");
         gameManager.GetComponent<AudioSource>().volume = 1;

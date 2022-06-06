@@ -215,6 +215,7 @@ public class gameManager : MonoBehaviour
         questionCounter = 1;
         sessionQuestionNumbers.Clear();
         questionNumberDisplay.text = "Q." + questionCounter;
+        ingameScoreDisplayText.text = "Score: " + 0;
     }
 
     void CheckNetworkReachablility()
