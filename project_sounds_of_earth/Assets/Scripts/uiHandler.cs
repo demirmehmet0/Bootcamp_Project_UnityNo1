@@ -20,13 +20,13 @@ public class uiHandler : MonoBehaviour
     [SerializeField] GameObject ScoreScreenUI;
     [SerializeField] GameObject CreditsPopup;
     [SerializeField] GameObject OptionsPopup;
-    [SerializeField] public GameObject WrongAnswerPopup;
+    [SerializeField] public GameObject AnswerPopup;
     [SerializeField] GameObject useYourHeadphones;
     [SerializeField] TMP_Text useYourheadphonesCounter;
     float startscreenTimer = 5;
     float wrongTimer = 5;
 
-    public static float sfx=0, music=0, speech=0;
+    public static float sfx = 0, music = 0, speech = 0;
     private void Awake()
     {
         StartCoroutine(timerforCloseHeadphonesNotice());
@@ -42,8 +42,9 @@ public class uiHandler : MonoBehaviour
     void Update()
     {
         wrongTimer -= Time.deltaTime;
-        if (wrongTimer < 0 && WrongAnswerPopup.activeInHierarchy)
+        if (wrongTimer < 0 && AnswerPopup.activeInHierarchy)
         { closeWrongWindow(); gameManager.goToNextQuestion(); }
+
         if (useYourHeadphones.activeSelf == true)
         {
             startscreenTimer -= Time.deltaTime;
@@ -64,37 +65,46 @@ public class uiHandler : MonoBehaviour
             Button[] buttons = new Button[] { GameObject.Find("answerButton1").GetComponent<Button>(), GameObject.Find("answerButton2").GetComponent<Button>(), GameObject.Find("answerButton3").GetComponent<Button>(), GameObject.Find("answerButton4").GetComponent<Button>() };
             foreach (Button btn in buttons)
                 btn.enabled = status;
-        } catch {  }
-        
+        }
+        catch { }
+
     }
 
     public void AnswerButton_Click(Button button)
     {
+        ChangeButtonStatus(false);
         StartCoroutine(SFXPlay("clickswoosh"));
-        ChangeButtonStatus(false); 
         if (button.GetComponentInChildren<TMP_Text>().text == gameManager.rightAnswer)
         {
-            q("Do?ru cevap");
-            StartCoroutine(SFXPlay("correct-answer"));
-            gameManager.increasePlayerScore(gameManager.questionTimerRemainder);
-            gameManager.increaseOrResetChain(true);
-            gameManager.calculateScoreMultiplier();
-            Array.Clear(gameManager.questionResult, 0, gameManager.questionResult.Length);
-            gameManager.goToNextQuestion();
-        }
-        else
-        {
-            showWorngWindow();
-            TMP_Text[] texts = WrongAnswerPopup.GetComponentsInChildren<TMP_Text>();
+            var colors = button.colors;
+            colors.normalColor = Color.green;
+            button.colors = colors;
+            showRightAnswerWindow();
+            TMP_Text[] texts = AnswerPopup.GetComponentsInChildren<TMP_Text>();
             foreach (TMP_Text text in texts)
             {
                 if (text.name == "Answer")
                 {
-                    text.text = gameManager.rightAnswerEng + "\n" + gameManager.rightAnswer;
+                    text.text = gameManager.rightAnswerEng.Replace("NULL","") + "\n" + gameManager.rightAnswer;
+                }
+            }
+            q("Do?ru cevap");
+        }
+        else
+        {
+            showWorngWindow();
+            TMP_Text[] texts = AnswerPopup.GetComponentsInChildren<TMP_Text>();
+            foreach (TMP_Text text in texts)
+            {
+                if (text.name == "Answer")
+                {
+                    text.text = gameManager.rightAnswerEng.Replace("NULL", "") + "\n" + gameManager.rightAnswer;
                 }
             }
             q("Yanl?? Cevap!");
-
+            var colors = button.colors;
+            colors.normalColor = Color.red;
+            button.colors = colors;
         }
 
     }
@@ -115,7 +125,24 @@ public class uiHandler : MonoBehaviour
     {
         StartCoroutine(SFXPlay("wrong-answer"));
         wrongTimer = 5;
-        WrongAnswerPopup.SetActive(true);
+        AnswerPopup.SetActive(true);
+    }
+
+    public void showRightAnswerWindow()
+    {
+        StartCoroutine(SFXPlay("correct-answer"));
+        wrongTimer = 5;
+        AnswerPopup.SetActive(true);
+    }
+
+    public void closeRightAnswerWindow()
+    {
+        StartCoroutine(SFXPlay("clickswoosh"));
+        gameManager.increasePlayerScore(gameManager.questionTimerRemainder);
+        gameManager.increaseOrResetChain(true);
+        gameManager.calculateScoreMultiplier();
+        Array.Clear(gameManager.questionResult, 0, gameManager.questionResult.Length);
+        gameManager.goToNextQuestion();
     }
 
     public void closeOptionsWindow()
@@ -126,12 +153,12 @@ public class uiHandler : MonoBehaviour
 
     public void closeWrongWindow()
     {
-        StartCoroutine(SFXPlay("clicksnap"));
+        StartCoroutine(SFXPlay("clickswoosh"));
         gameManager.questionTimerRemainder = 20;
         gameManager.increasePlayerScore(0);
         gameManager.increaseOrResetChain(false);
         gameManager.calculateScoreMultiplier();
-        WrongAnswerPopup.SetActive(false);
+        AnswerPopup.SetActive(false);
         gameManager.goToNextQuestion();
     }
 
@@ -182,7 +209,7 @@ public class uiHandler : MonoBehaviour
         music.GetComponent<AudioSource>().clip = music.GetComponent<SFXController>().audios[1];
         music.GetComponent<AudioSource>().Play();
         gameManager.GetComponent<AudioSource>().Stop();
-        gameManager.GetComponent<AudioSource>().clip=null; 
+        gameManager.GetComponent<AudioSource>().clip = null;
         gameManager.GetComponent<AudioSource>().volume = 0;
         gameManager.ResetAlltoInitialCondition();
         _selectCountries.disableMeshAndScriptForSelected();
@@ -195,31 +222,31 @@ public class uiHandler : MonoBehaviour
     }
 
     public void sliderChanged(Slider slider)
-    { 
+    {
         if (slider.name == "SFXSlider")
         {
-            GameObject.Find("SFX").GetComponent<AudioSource>().volume=slider.value; 
+            GameObject.Find("SFX").GetComponent<AudioSource>().volume = slider.value;
             uiHandler.sfx = GameObject.Find("SFXSlider").GetComponent<Slider>().value;
         }
         else if (slider.name == "MusicSlider")
         {
-            GameObject.Find("Music").GetComponent<AudioSource>().volume = slider.value; 
+            GameObject.Find("Music").GetComponent<AudioSource>().volume = slider.value;
             uiHandler.music = GameObject.Find("MusicSlider").GetComponent<Slider>().value;
         }
         else if (slider.name == "SpeechSlider")
         {
-            GameObject.Find("GameManager").GetComponent<AudioSource>().volume = slider.value; 
+            GameObject.Find("GameManager").GetComponent<AudioSource>().volume = slider.value;
             uiHandler.speech = GameObject.Find("SpeechSlider").GetComponent<Slider>().value;
-        } 
-        gameManager.SaveSettings(speech,music,sfx);
+        }
+        gameManager.SaveSettings(speech, music, sfx);
     }
 
     public void NextQuestion()
     {
         _selectCountries.disableMeshAndScriptForSelected();
-        cameraMovement.randomIdleNumbersSet = false; 
+        cameraMovement.randomIdleNumbersSet = false;
         cameraMovement.setToQuestionPosition = false;
-        _selectCountries.inSelectionPhase = true; 
+        _selectCountries.inSelectionPhase = true;
     }
 
     IEnumerator SFXPlay(string clipName)
@@ -233,7 +260,7 @@ public class uiHandler : MonoBehaviour
             }
     }
 
-    
+
     public void ExitGame()
     {
 #if UNITY_EDITOR
@@ -241,8 +268,7 @@ public class uiHandler : MonoBehaviour
 #else
         Application.Quit();
 #endif
-    } 
-    
+    }
+
     void q(string s) { }
 }
-

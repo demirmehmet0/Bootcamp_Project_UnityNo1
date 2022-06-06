@@ -231,6 +231,13 @@ public class gameManager : MonoBehaviour
 
     public void goToNextQuestion()
     {
+        for (int i = 1; i <= 4; i++)
+        {
+            Button btn = GameObject.Find("answerButton" + i.ToString()).GetComponent<Button>();
+            var colors = btn.colors;
+            colors.normalColor = Color.white;
+            btn.colors = colors;
+        }
         QuestionAudioPlayCounter = 4;
         _selectCountries.disableMeshAndScriptForSelected();
         if (questionCounter < 10)
