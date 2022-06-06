@@ -81,6 +81,9 @@ public class uiHandler : MonoBehaviour
             colors.normalColor = Color.green;
             button.colors = colors;
             showRightAnswerWindow();
+            gameManager.increaseOrResetChain(true);
+            gameManager.calculateScoreMultiplier();
+            gameManager.increasePlayerScore(gameManager.questionTimerRemainder);
             Text[] texts = AnswerPopup.GetComponentsInChildren<Text>();
             foreach (Text text in texts)
             {
@@ -134,9 +137,6 @@ public class uiHandler : MonoBehaviour
         StartCoroutine(SFXPlay("correct-answer"));
         wrongTimer = 5;
         StartCoroutine(SFXPlay("clickswoosh"));
-        gameManager.increasePlayerScore(gameManager.questionTimerRemainder);
-        gameManager.increaseOrResetChain(true);
-        gameManager.calculateScoreMultiplier();
         Array.Clear(gameManager.questionResult, 0, gameManager.questionResult.Length);
         AnswerPopup.SetActive(true);
     }
